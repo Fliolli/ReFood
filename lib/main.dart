@@ -10,14 +10,29 @@ class ReFoodApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: _title,
-      theme: ThemeData(
-          primaryColor: Colors.deepOrange[400],
-          accentColor: Colors.green[400],
-          textSelectionHandleColor: Colors.green[700]),
-      home:Base()
-    );
+        debugShowCheckedModeBanner: false,
+        title: _title,
+        theme: ThemeData(
+          brightness: Brightness.light,
+          primaryColor: Colors.pink[300],
+          accentColor: Colors.pink[200],
+          textSelectionHandleColor: Colors.green[700],
+          textTheme: TextTheme(
+            caption: TextStyle(fontSize: 4.0, fontWeight: FontWeight.bold),
+            headline5: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
+            headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
+            subtitle1: TextStyle(
+                fontSize: 20,
+                fontFamily: 'Montserrat',
+                fontWeight: FontWeight.w300,
+                fontStyle: FontStyle.normal),
+            bodyText2: TextStyle(
+                fontSize: 15.5,
+                fontFamily: 'Nunito',
+                fontWeight: FontWeight.w600,
+                fontStyle: FontStyle.normal),
+          ),
+        ),
+        home: Base());
   }
 }
-

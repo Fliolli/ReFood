@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'resources/ColorsLibrary.dart';
 
 class BottomNavCustom extends StatefulWidget {
   @override
@@ -7,25 +8,26 @@ class BottomNavCustom extends StatefulWidget {
 
 class _BottomNavCustomState extends State<BottomNavCustom> {
   int selectedIndex = 0;
-  Color backgroundColorNav = Colors.white;
 
   List<NavigationItem> items = [
-    NavigationItem(Icon(Icons.home), Text('Home'), Colors.deepPurpleAccent),
-    NavigationItem(Icon(Icons.favorite_border), Text('Favorite'), Colors.pinkAccent),
-    NavigationItem(Icon(Icons.search), Text('Search'), Colors.amberAccent),
-    NavigationItem(Icon(Icons.person_outline), Text('Profile'), Colors.cyanAccent)
+    NavigationItem(
+        Icon(Icons.home), Text('Главная'), ColorsLibrary.primaryColor),
+    NavigationItem(
+        Icon(Icons.search_sharp), Text('Поиск'), ColorsLibrary.primaryColor),
+    NavigationItem(
+        Icon(Icons.favorite), Text('Фавориты'), ColorsLibrary.primaryColor)
   ];
 
   Widget _buildItem(NavigationItem item, bool isSelected) {
     return AnimatedContainer(
       duration: Duration(milliseconds: 250),
-      height: 50,
-      width: isSelected ? 120 : 50,
-      padding: isSelected ? EdgeInsets.only(left: 16, right: 16) : null,
+      height: 60,
+      width: isSelected ? 140 : 60,
+      padding: EdgeInsets.only(left: 12, right: 12),
       decoration: isSelected
           ? BoxDecoration(
-          color: item.color,
-          borderRadius: BorderRadius.all(Radius.circular(50)))
+              color: item.color,
+              borderRadius: BorderRadius.all(Radius.circular(50)))
           : null,
       child: ListView(
         scrollDirection: Axis.horizontal,
@@ -35,8 +37,10 @@ class _BottomNavCustomState extends State<BottomNavCustom> {
             children: <Widget>[
               IconTheme(
                 data: IconThemeData(
-                  size: 24,
-                  color: isSelected ? backgroundColorNav : Colors.black,
+                  size: 28,
+                  color: isSelected
+                      ? ColorsLibrary.whiteColor
+                      : ColorsLibrary.neutralGray,
                 ),
                 child: item.icon,
               ),
@@ -44,8 +48,8 @@ class _BottomNavCustomState extends State<BottomNavCustom> {
                 padding: const EdgeInsets.only(left: 8),
                 child: isSelected
                     ? DefaultTextStyle.merge(
-                    style: TextStyle(color: backgroundColorNav),
-                    child: item.title)
+                        style: TextStyle(color: ColorsLibrary.whiteColor),
+                        child: item.title)
                     : Container(),
               )
             ],
@@ -58,11 +62,11 @@ class _BottomNavCustomState extends State<BottomNavCustom> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 56,
+      height: 58,
       padding: EdgeInsets.only(left: 8, top: 4, bottom: 4, right: 8),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4)]),
+      decoration: BoxDecoration(color: Colors.white, boxShadow: [
+        BoxShadow(color: ColorsLibrary.lightGray, blurRadius: 6)
+      ]),
       width: MediaQuery.of(context).size.width,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
