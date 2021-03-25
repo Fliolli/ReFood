@@ -29,19 +29,16 @@ class _BaseState extends State<Base> {
         Container(
             alignment: Alignment.topLeft,
             margin: EdgeInsets.symmetric(vertical: 100, horizontal: 15),
-            child: RawMaterialButton(
-                onPressed: () {},
-                elevation: 2.0,
-                fillColor: Colors.white,
-                child: Icon(
-                  Icons.pause,
-                  size: 35.0,
-                ),
-                padding: EdgeInsets.all(10.0),
-                shape: CircleBorder(
-                  side: BorderSide(
-                      width: 1, color: Colors.red, style: BorderStyle.solid),
-                ))),
+            child: FloatingActionButton(
+              onPressed: () {},
+              child: const Icon(
+                Icons.navigation,
+                color: ColorsLibrary.primaryColor,
+              ),
+              mini: true,
+              backgroundColor: ColorsLibrary.whiteColor,
+              heroTag: "navigation",
+            )),
         DraggableScrollableSheet(
             initialChildSize: 0.78,
             maxChildSize: 1,
@@ -72,18 +69,17 @@ class _BaseState extends State<Base> {
               },
               child: const Icon(Icons.menu, color: ColorsLibrary.middleBlack),
               backgroundColor: ColorsLibrary.whiteColor,
+              heroTag: "menu",
             )),
         Container(
           alignment: Alignment.topRight,
           margin: EdgeInsets.symmetric(vertical: 35, horizontal: 10),
-          child: RawMaterialButton(
+          child: FloatingActionButton(
             onPressed: () {},
-            elevation: 2.0,
-            fillColor: Colors.white,
-            child: Icon(
-              Icons.pause,
-              size: 35.0,
-            ),
+            child: const Icon(Icons.shopping_cart_outlined,
+                color: ColorsLibrary.middleBlack),
+            backgroundColor: ColorsLibrary.whiteColor,
+            heroTag: "cart",
           ),
         )
       ])
