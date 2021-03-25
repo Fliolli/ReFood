@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test_app/profile.dart';
+import 'package:flutter_test_app/resources/ColorsLibrary.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 import 'BottomNav.dart';
 
@@ -12,22 +13,6 @@ class Base extends StatefulWidget {
 
 class _BaseState extends State<Base> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
-  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -41,8 +26,20 @@ class _BaseState extends State<Base> {
       body: Center(
           child: Stack(children: <Widget>[
         SizedBox.expand(child: YandexMap()),
+        Container(
+            alignment: Alignment.topLeft,
+            margin: EdgeInsets.symmetric(vertical: 100, horizontal: 15),
+            child: FloatingActionButton(
+              onPressed: () {},
+              child: const Icon(
+                Icons.navigation,
+                color: ColorsLibrary.primaryColor,
+              ),
+              mini: true,
+              backgroundColor: ColorsLibrary.whiteColor,
+            )),
         DraggableScrollableSheet(
-            initialChildSize: 0.8,
+            initialChildSize: 0.78,
             maxChildSize: 1,
             minChildSize: 0.1,
             builder: (BuildContext context, ScrollController scrollController) {
@@ -61,7 +58,7 @@ class _BaseState extends State<Base> {
             }),
         Container(
             alignment: Alignment.topLeft,
-            margin: EdgeInsets.symmetric(vertical: 35, horizontal: 4),
+            margin: EdgeInsets.symmetric(vertical: 35, horizontal: 10),
             child: RawMaterialButton(
               onPressed: () {
                 Navigator.push(
@@ -82,22 +79,18 @@ class _BaseState extends State<Base> {
               ),
             )),
         Container(
-            alignment: Alignment.topRight,
-            margin: EdgeInsets.symmetric(vertical: 35, horizontal: 4),
-            child: RawMaterialButton(
-              onPressed: () {},
-              elevation: 2.0,
-              fillColor: Colors.white,
-              child: Icon(
-                Icons.pause,
-                size: 35.0,
-              ),
-              padding: EdgeInsets.all(10.0),
-              shape: CircleBorder(
-                side: BorderSide(
-                    width: 1, color: Colors.red, style: BorderStyle.solid),
-              ),
-            )),
+          alignment: Alignment.topRight,
+          margin: EdgeInsets.symmetric(vertical: 35, horizontal: 10),
+          child: RawMaterialButton(
+            onPressed: () {},
+            elevation: 2.0,
+            fillColor: Colors.white,
+            child: Icon(
+              Icons.pause,
+              size: 35.0,
+            ),
+          ),
+        )
       ])
           //_widgetOptions.elementAt(_selectedIndex),
           ),
