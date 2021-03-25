@@ -14,6 +14,7 @@ class ReFoodApp extends StatelessWidget {
         title: _title,
         theme: ThemeData(
           brightness: Brightness.light,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
           primaryColor: Colors.pink[300],
           accentColor: Colors.pink[200],
           textSelectionHandleColor: Colors.green[700],

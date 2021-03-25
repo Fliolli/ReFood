@@ -13,7 +13,7 @@ class _BottomNavCustomState extends State<BottomNavCustom> {
     NavigationItem(
         Icon(Icons.home), Text('Главная'), ColorsLibrary.primaryColor),
     NavigationItem(
-        Icon(Icons.search_sharp), Text('Поиск'), ColorsLibrary.primaryColor),
+        Icon(Icons.search), Text('Поиск'), ColorsLibrary.primaryColor),
     NavigationItem(
         Icon(Icons.favorite), Text('Фавориты'), ColorsLibrary.primaryColor)
   ];
@@ -26,8 +26,8 @@ class _BottomNavCustomState extends State<BottomNavCustom> {
       padding: EdgeInsets.only(left: 12, right: 12),
       decoration: isSelected
           ? BoxDecoration(
-              color: item.color,
-              borderRadius: BorderRadius.all(Radius.circular(50)))
+          color: item.color,
+          borderRadius: BorderRadius.all(Radius.circular(50)))
           : null,
       child: ListView(
         scrollDirection: Axis.horizontal,
@@ -48,8 +48,8 @@ class _BottomNavCustomState extends State<BottomNavCustom> {
                 padding: const EdgeInsets.only(left: 8),
                 child: isSelected
                     ? DefaultTextStyle.merge(
-                        style: TextStyle(color: ColorsLibrary.whiteColor),
-                        child: item.title)
+                    style: TextStyle(color: ColorsLibrary.whiteColor),
+                    child: item.title)
                     : Container(),
               )
             ],
