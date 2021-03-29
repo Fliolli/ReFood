@@ -47,6 +47,14 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  assets:
+    - images/1.jpg
+    - images/2.jpg
+    - images/3.jpg
+    - images/4.jpg
+    - images/5.jpg
+    - images/6.jpg
+
   fonts:
     - family: Cormorant
       fonts:
@@ -126,3 +134,4 @@ flutter:
         - asset: fonts/Montserrat/Montserrat-SemiBoldItalic.ttf
         - asset: fonts/Montserrat/Montserrat-Thin.ttf
         - asset: fonts/Montserrat/Montserrat-ThinItalic.ttf
+
