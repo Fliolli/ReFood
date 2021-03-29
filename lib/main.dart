@@ -17,7 +17,7 @@ class ReFoodApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
           primaryColor: Colors.pink[300],
           accentColor: Colors.pink[200],
-          textSelectionHandleColor: Colors.green[700],
+          splashColor: Colors.pink[200],
           textTheme: TextTheme(
             caption: TextStyle(fontSize: 4.0, fontWeight: FontWeight.bold),
             headline5: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
