@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test_app/profile.dart';
 import 'package:flutter_test_app/resources/ColorsLibrary.dart';
@@ -44,18 +45,30 @@ class _BaseState extends State<Base> {
             maxChildSize: 1,
             minChildSize: 0.1,
             builder: (BuildContext context, ScrollController scrollController) {
-              return Stack(children: <Widget>[
-                Container(
-                  color: Colors.white,
-                  child: ListView.builder(
-                    controller: scrollController,
-                    itemCount: 25,
-                    itemBuilder: (BuildContext context, int index) {
-                      return ListTile(title: Text('Item $index'));
-                    },
+              return Container(
+                decoration: BoxDecoration(
+                  color: ColorsLibrary.whiteColor,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(35),
+                    topRight: Radius.circular(35),
                   ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      spreadRadius: 4,
+                      blurRadius: 6,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
                 ),
-              ]);
+                child: ListView.builder(
+                  controller: scrollController,
+                  itemCount: 25,
+                  itemBuilder: (BuildContext context, int index) {
+                    return ListTile(title: Text('Item $index'));
+                  },
+                ),
+              );
             }),
         Container(
             alignment: Alignment.topLeft,
