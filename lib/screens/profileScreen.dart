@@ -54,12 +54,12 @@ class _ProfileState extends State<Profile> {
   ];
 
   final List<BadgeItem> badgeItems = [
-    BadgeItem(("images/1.jpg"), "Климат кадет", "Чтобы получить"),
-    BadgeItem(("images/2.jpg"), "Климат кадет", "Чтобы получить"),
-    BadgeItem(("images/3.jpg"), "Климат кадет", "Чтобы получить"),
-    BadgeItem(("images/4.jpg"), "Климат кадет", "Чтобы получить"),
-    BadgeItem(("images/5.jpg"), "Климат кадет", "Чтобы получить"),
-    BadgeItem(("images/6.jpg"), "Климат кадет", "Чтобы получить"),
+    BadgeItem(("assets/images/1.jpg"), "Климат кадет", "Чтобы получить"),
+    BadgeItem(("assets/images/2.jpg"), "Климат кадет", "Чтобы получить"),
+    BadgeItem(("assets/images/3.jpg"), "Климат кадет", "Чтобы получить"),
+    BadgeItem(("assets/images/4.jpg"), "Климат кадет", "Чтобы получить"),
+    BadgeItem(("assets/images/5.jpg"), "Климат кадет", "Чтобы получить"),
+    BadgeItem(("assets/images/6.jpg"), "Климат кадет", "Чтобы получить"),
   ];
 
   Widget _buildMenuItem(MenuItem menuItem) {

@@ -48,90 +48,85 @@ flutter:
   uses-material-design: true
 
   assets:
-    - images/1.jpg
-    - images/2.jpg
-    - images/3.jpg
-    - images/4.jpg
-    - images/5.jpg
-    - images/6.jpg
+    - assets/images/
 
   fonts:
     - family: Cormorant
       fonts:
-        - asset: fonts/Cormorant/Cormorant-Bold.ttf
-        - asset: fonts/Cormorant/Cormorant-BoldItalic.ttf
-        - asset: fonts/Cormorant/Cormorant-Italic.ttf
-        - asset: fonts/Cormorant/Cormorant-Light.ttf
-        - asset: fonts/Cormorant/Cormorant-LightItalic.ttf
-        - asset: fonts/Cormorant/Cormorant-Medium.ttf
-        - asset: fonts/Cormorant/Cormorant-MediumItalic.ttf
-        - asset: fonts/Cormorant/Cormorant-Regular.ttf
-        - asset: fonts/Cormorant/Cormorant-SemiBold.ttf
-        - asset: fonts/Cormorant/Cormorant-SemiBoldItalic.ttf
+        - asset: assets/fonts/Cormorant/Cormorant-Bold.ttf
+        - asset: assets/fonts/Cormorant/Cormorant-BoldItalic.ttf
+        - asset: assets/fonts/Cormorant/Cormorant-Italic.ttf
+        - asset: assets/fonts/Cormorant/Cormorant-Light.ttf
+        - asset: assets/fonts/Cormorant/Cormorant-LightItalic.ttf
+        - asset: assets/fonts/Cormorant/Cormorant-Medium.ttf
+        - asset: assets/fonts/Cormorant/Cormorant-MediumItalic.ttf
+        - asset: assets/fonts/Cormorant/Cormorant-Regular.ttf
+        - asset: assets/fonts/Cormorant/Cormorant-SemiBold.ttf
+        - asset: assets/fonts/Cormorant/Cormorant-SemiBoldItalic.ttf
 
     - family: Cormorant_Garamond
       fonts:
-        - asset: fonts/Cormorant_Garamond/CormorantGaramond-Bold.ttf
-        - asset: fonts/Cormorant_Garamond/CormorantGaramond-BoldItalic.ttf
-        - asset: fonts/Cormorant_Garamond/CormorantGaramond-Italic.ttf
-        - asset: fonts/Cormorant_Garamond/CormorantGaramond-Light.ttf
-        - asset: fonts/Cormorant_Garamond/CormorantGaramond-LightItalic.ttf
-        - asset: fonts/Cormorant_Garamond/CormorantGaramond-Medium.ttf
-        - asset: fonts/Cormorant_Garamond/CormorantGaramond-MediumItalic.ttf
-        - asset: fonts/Cormorant_Garamond/CormorantGaramond-Regular.ttf
-        - asset: fonts/Cormorant_Garamond/CormorantGaramond-SemiBold.ttf
-        - asset: fonts/Cormorant_Garamond/CormorantGaramond-SemiBoldItalic.ttf
+        - asset: assets/fonts/Cormorant_Garamond/CormorantGaramond-Bold.ttf
+        - asset: assets/fonts/Cormorant_Garamond/CormorantGaramond-BoldItalic.ttf
+        - asset: assets/fonts/Cormorant_Garamond/CormorantGaramond-Italic.ttf
+        - asset: assets/fonts/Cormorant_Garamond/CormorantGaramond-Light.ttf
+        - asset: assets/fonts/Cormorant_Garamond/CormorantGaramond-LightItalic.ttf
+        - asset: assets/fonts/Cormorant_Garamond/CormorantGaramond-Medium.ttf
+        - asset: assets/fonts/Cormorant_Garamond/CormorantGaramond-MediumItalic.ttf
+        - asset: assets/fonts/Cormorant_Garamond/CormorantGaramond-Regular.ttf
+        - asset: assets/fonts/Cormorant_Garamond/CormorantGaramond-SemiBold.ttf
+        - asset: assets/fonts/Cormorant_Garamond/CormorantGaramond-SemiBoldItalic.ttf
 
     - family: Roboto_Mono
       fonts:
-        - asset: fonts/Roboto_Mono/RobotoMono-Bold.ttf
-        - asset: fonts/Roboto_Mono/RobotoMono-BoldItalic.ttf
-        - asset: fonts/Roboto_Mono/RobotoMono-Italic.ttf
-        - asset: fonts/Roboto_Mono/RobotoMono-Light.ttf
-        - asset: fonts/Roboto_Mono/RobotoMono-ExtraLight.ttf
-        - asset: fonts/Roboto_Mono/RobotoMono-ExtraLightItalic.ttf
-        - asset: fonts/Roboto_Mono/RobotoMono-LightItalic.ttf
-        - asset: fonts/Roboto_Mono/RobotoMono-Medium.ttf
-        - asset: fonts/Roboto_Mono/RobotoMono-MediumItalic.ttf
-        - asset: fonts/Roboto_Mono/RobotoMono-Regular.ttf
-        - asset: fonts/Roboto_Mono/RobotoMono-SemiBold.ttf
-        - asset: fonts/Roboto_Mono/RobotoMono-SemiBoldItalic.ttf
-        - asset: fonts/Roboto_Mono/RobotoMono-Thin.ttf
-        - asset: fonts/Roboto_Mono/RobotoMono-ThinItalic.ttf
+        - asset: assets/fonts/Roboto_Mono/RobotoMono-Bold.ttf
+        - asset: assets/fonts/Roboto_Mono/RobotoMono-BoldItalic.ttf
+        - asset: assets/fonts/Roboto_Mono/RobotoMono-Italic.ttf
+        - asset: assets/fonts/Roboto_Mono/RobotoMono-Light.ttf
+        - asset: assets/fonts/Roboto_Mono/RobotoMono-ExtraLight.ttf
+        - asset: assets/fonts/Roboto_Mono/RobotoMono-ExtraLightItalic.ttf
+        - asset: assets/fonts/Roboto_Mono/RobotoMono-LightItalic.ttf
+        - asset: assets/fonts/Roboto_Mono/RobotoMono-Medium.ttf
+        - asset: assets/fonts/Roboto_Mono/RobotoMono-MediumItalic.ttf
+        - asset: assets/fonts/Roboto_Mono/RobotoMono-Regular.ttf
+        - asset: assets/fonts/Roboto_Mono/RobotoMono-SemiBold.ttf
+        - asset: assets/fonts/Roboto_Mono/RobotoMono-SemiBoldItalic.ttf
+        - asset: assets/fonts/Roboto_Mono/RobotoMono-Thin.ttf
+        - asset: assets/fonts/Roboto_Mono/RobotoMono-ThinItalic.ttf
 
     - family: Prosto_One
       fonts:
-        - asset: fonts/Prosto_One/ProstoOne-Regular.ttf
+        - asset: assets/fonts/Prosto_One/ProstoOne-Regular.ttf
 
     - family: Nunito
       fonts:
-        - asset: fonts/Nunito/Nunito-Bold.ttf
-        - asset: fonts/Nunito/Nunito-ExtraBold.ttf
-        - asset: fonts/Nunito/Nunito-BoldItalic.ttf
-        - asset: fonts/Nunito/Nunito-Italic.ttf
-        - asset: fonts/Nunito/Nunito-Light.ttf
-        - asset: fonts/Nunito/Nunito-ExtraLight.ttf
-        - asset: fonts/Nunito/Nunito-ExtraLightItalic.ttf
-        - asset: fonts/Nunito/Nunito-LightItalic.ttf
-        - asset: fonts/Nunito/Nunito-Regular.ttf
-        - asset: fonts/Nunito/Nunito-SemiBold.ttf
-        - asset: fonts/Nunito/Nunito-SemiBoldItalic.ttf
+        - asset: assets/fonts/Nunito/Nunito-Bold.ttf
+        - asset: assets/fonts/Nunito/Nunito-ExtraBold.ttf
+        - asset: assets/fonts/Nunito/Nunito-BoldItalic.ttf
+        - asset: assets/fonts/Nunito/Nunito-Italic.ttf
+        - asset: assets/fonts/Nunito/Nunito-Light.ttf
+        - asset: assets/fonts/Nunito/Nunito-ExtraLight.ttf
+        - asset: assets/fonts/Nunito/Nunito-ExtraLightItalic.ttf
+        - asset: assets/fonts/Nunito/Nunito-LightItalic.ttf
+        - asset: assets/fonts/Nunito/Nunito-Regular.ttf
+        - asset: assets/fonts/Nunito/Nunito-SemiBold.ttf
+        - asset: assets/fonts/Nunito/Nunito-SemiBoldItalic.ttf
 
     - family: Montserrat
       fonts:
-        - asset: fonts/Montserrat/Montserrat-Bold.ttf
-        - asset: fonts/Montserrat/Montserrat-BoldItalic.ttf
-        - asset: fonts/Montserrat/Montserrat-ExtraBold.ttf
-        - asset: fonts/Montserrat/Montserrat-Italic.ttf
-        - asset: fonts/Montserrat/Montserrat-Light.ttf
-        - asset: fonts/Montserrat/Montserrat-ExtraLight.ttf
-        - asset: fonts/Montserrat/Montserrat-ExtraLightItalic.ttf
-        - asset: fonts/Montserrat/Montserrat-LightItalic.ttf
-        - asset: fonts/Montserrat/Montserrat-Medium.ttf
-        - asset: fonts/Montserrat/Montserrat-MediumItalic.ttf
-        - asset: fonts/Montserrat/Montserrat-Regular.ttf
-        - asset: fonts/Montserrat/Montserrat-SemiBold.ttf
-        - asset: fonts/Montserrat/Montserrat-SemiBoldItalic.ttf
-        - asset: fonts/Montserrat/Montserrat-Thin.ttf
-        - asset: fonts/Montserrat/Montserrat-ThinItalic.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-Bold.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-BoldItalic.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-ExtraBold.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-Italic.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-Light.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-ExtraLight.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-ExtraLightItalic.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-LightItalic.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-Medium.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-MediumItalic.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-Regular.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-SemiBold.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-SemiBoldItalic.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-Thin.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-ThinItalic.ttf
 

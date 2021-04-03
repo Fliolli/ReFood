@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_test_app/profile.dart';
+import 'file:///C:/Projects/Flutter/flutter_test_app/lib/screens/profileScreen.dart';
 import 'package:flutter_test_app/resources/ColorsLibrary.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
-import 'BottomNav.dart';
+import '../widgets/BottomNav.dart';
 
 class Base extends StatefulWidget {
   Base({Key key}) : super(key: key);

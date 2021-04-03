@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'resources/ColorsLibrary.dart';
+import '../resources/ColorsLibrary.dart';
 
 class BottomNavCustom extends StatefulWidget {
   @override
