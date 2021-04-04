@@ -1,18 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'file:///C:/Projects/Flutter/flutter_test_app/lib/screens/profileScreen.dart';
+import '../screens/profileScreen.dart';
 import 'package:flutter_test_app/resources/ColorsLibrary.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 import '../widgets/BottomNav.dart';
+import '../utils/PlatformUtils.dart';
 
-class Base extends StatefulWidget {
-  Base({Key key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  HomeScreen({Key key}) : super(key: key);
 
   @override
-  _BaseState createState() => _BaseState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _BaseState extends State<Base> {
+class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
@@ -26,16 +27,21 @@ class _BaseState extends State<Base> {
     return Scaffold(
       body: Center(
           child: Stack(children: <Widget>[
-        SizedBox.expand(child: YandexMap()),
+        const SizedBox.expand(child: const YandexMap()),
         Container(
             alignment: Alignment.topLeft,
-            margin: EdgeInsets.symmetric(vertical: 100, horizontal: 15),
+            margin: const EdgeInsets.symmetric(vertical: 100, horizontal: 15),
             child: FloatingActionButton(
               onPressed: () {},
-              child: const Icon(
-                Icons.navigation,
-                color: ColorsLibrary.primaryColor,
-              ),
+              child: selectByPlatform(
+                  const Icon(
+                    CupertinoIcons.location_north,
+                    color: ColorsLibrary.primaryColor,
+                  ),
+                  const Icon(
+                    Icons.navigation,
+                    color: ColorsLibrary.primaryColor,
+                  )),
               mini: true,
               backgroundColor: ColorsLibrary.whiteColor,
               heroTag: "navigation",
@@ -72,7 +78,7 @@ class _BaseState extends State<Base> {
             }),
         Container(
             alignment: Alignment.topLeft,
-            margin: EdgeInsets.symmetric(vertical: 35, horizontal: 10),
+            margin: const EdgeInsets.symmetric(vertical: 35, horizontal: 10),
             child: FloatingActionButton(
               onPressed: () {
                 Navigator.push(
@@ -80,17 +86,32 @@ class _BaseState extends State<Base> {
                   MaterialPageRoute(builder: (context) => Profile()),
                 );
               },
-              child: const Icon(Icons.menu, color: ColorsLibrary.middleBlack),
+              child: selectByPlatform(
+                  const Icon(
+                    CupertinoIcons.line_horizontal_3,
+                    color: ColorsLibrary.middleBlack,
+                  ),
+                  const Icon(
+                    Icons.menu,
+                    color: ColorsLibrary.middleBlack,
+                  )),
               backgroundColor: ColorsLibrary.whiteColor,
               heroTag: "menu",
             )),
         Container(
           alignment: Alignment.topRight,
-          margin: EdgeInsets.symmetric(vertical: 35, horizontal: 10),
+          margin: const EdgeInsets.symmetric(vertical: 35, horizontal: 10),
           child: FloatingActionButton(
             onPressed: () {},
-            child: const Icon(Icons.shopping_cart_outlined,
-                color: ColorsLibrary.middleBlack),
+            child: selectByPlatform(
+                const Icon(
+                  CupertinoIcons.cart,
+                  color: ColorsLibrary.middleBlack,
+                ),
+                const Icon(
+                  Icons.shopping_cart_outlined,
+                  color: ColorsLibrary.middleBlack,
+                )),
             backgroundColor: ColorsLibrary.whiteColor,
             heroTag: "cart",
           ),
@@ -98,7 +119,7 @@ class _BaseState extends State<Base> {
       ])
           //_widgetOptions.elementAt(_selectedIndex),
           ),
-      bottomNavigationBar: BottomNavCustom(),
+      bottomNavigationBar: const BottomNavCustom(),
     );
   }
 }

@@ -13,27 +13,15 @@ class ReFoodApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: _title,
         theme: ThemeData(
-          brightness: Brightness.light,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          primaryColor: Colors.pink[300],
-          accentColor: Colors.pink[200],
-          splashColor: Colors.pink[200],
-          textTheme: TextTheme(
-            caption: TextStyle(fontSize: 4.0, fontWeight: FontWeight.bold),
-            headline5: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
-            headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
-            subtitle1: TextStyle(
-                fontSize: 20,
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.w300,
-                fontStyle: FontStyle.normal),
-            bodyText2: TextStyle(
-                fontSize: 15.5,
-                fontFamily: 'Nunito',
-                fontWeight: FontWeight.w600,
-                fontStyle: FontStyle.normal),
-          ),
-        ),
-        home: Base());
+            brightness: Brightness.light,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+            primaryColor: Colors.pink[300],
+            accentColor: Colors.pink[200],
+            splashColor: Colors.pink[200],
+            pageTransitionsTheme: PageTransitionsTheme(builders: {
+              TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+              TargetPlatform.android: ZoomPageTransitionsBuilder(),
+            })),
+        home: HomeScreen());
   }
 }

@@ -24,9 +24,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flutter_placeholder_textlines:
-
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
@@ -51,32 +48,6 @@ flutter:
     - assets/images/
 
   fonts:
-    - family: Cormorant
-      fonts:
-        - asset: assets/fonts/Cormorant/Cormorant-Bold.ttf
-        - asset: assets/fonts/Cormorant/Cormorant-BoldItalic.ttf
-        - asset: assets/fonts/Cormorant/Cormorant-Italic.ttf
-        - asset: assets/fonts/Cormorant/Cormorant-Light.ttf
-        - asset: assets/fonts/Cormorant/Cormorant-LightItalic.ttf
-        - asset: assets/fonts/Cormorant/Cormorant-Medium.ttf
-        - asset: assets/fonts/Cormorant/Cormorant-MediumItalic.ttf
-        - asset: assets/fonts/Cormorant/Cormorant-Regular.ttf
-        - asset: assets/fonts/Cormorant/Cormorant-SemiBold.ttf
-        - asset: assets/fonts/Cormorant/Cormorant-SemiBoldItalic.ttf
-
-    - family: Cormorant_Garamond
-      fonts:
-        - asset: assets/fonts/Cormorant_Garamond/CormorantGaramond-Bold.ttf
-        - asset: assets/fonts/Cormorant_Garamond/CormorantGaramond-BoldItalic.ttf
-        - asset: assets/fonts/Cormorant_Garamond/CormorantGaramond-Italic.ttf
-        - asset: assets/fonts/Cormorant_Garamond/CormorantGaramond-Light.ttf
-        - asset: assets/fonts/Cormorant_Garamond/CormorantGaramond-LightItalic.ttf
-        - asset: assets/fonts/Cormorant_Garamond/CormorantGaramond-Medium.ttf
-        - asset: assets/fonts/Cormorant_Garamond/CormorantGaramond-MediumItalic.ttf
-        - asset: assets/fonts/Cormorant_Garamond/CormorantGaramond-Regular.ttf
-        - asset: assets/fonts/Cormorant_Garamond/CormorantGaramond-SemiBold.ttf
-        - asset: assets/fonts/Cormorant_Garamond/CormorantGaramond-SemiBoldItalic.ttf
-
     - family: Roboto_Mono
       fonts:
         - asset: assets/fonts/Roboto_Mono/RobotoMono-Bold.ttf
@@ -129,4 +100,15 @@ flutter:
         - asset: assets/fonts/Montserrat/Montserrat-SemiBoldItalic.ttf
         - asset: assets/fonts/Montserrat/Montserrat-Thin.ttf
         - asset: assets/fonts/Montserrat/Montserrat-ThinItalic.ttf
+
+    - family: SFMono
+      fonts:
+        - asset: assets/fonts/SFMono/SFMono-Bold.ttf
+        - asset: assets/fonts/SFMono/SFMono-Heavy.ttf
+        - asset: assets/fonts/SFMono/SFMono-Light.ttf
+        - asset: assets/fonts/SFMono/SFMono-Medium.ttf
+        - asset: assets/fonts/SFMono/SFMono-Regular.ttf
+        - asset: assets/fonts/SFMono/SFMono-RegularItalic.ttf
+        - asset: assets/fonts/SFMono/SFMono-SemiBold.ttf
+        - asset: assets/fonts/SFMono/SFMono-SemiBoldItalic.ttf
 
