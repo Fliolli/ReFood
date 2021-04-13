@@ -106,99 +106,99 @@ class _ProfileState extends State<Profile> {
             )
           ],
         ),
-        body: Column(children: <Widget>[
-          Container(
-              height: 400,
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                  gradient: const LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  ColorsLibrary.primaryColor,
-                  ColorsLibrary.lightOrange,
-                ],
-              )),
-              child: Column(children: <Widget>[
-                Container(
-                  margin: const EdgeInsets.symmetric(vertical: 36),
-                  child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: badgeItems.map((badgeItem) {
-                          return buildBadgeItem(badgeItem);
-                        }).toList(),
-                      )),
-                ),
-                Container(
-                  margin: const EdgeInsets.symmetric(vertical: 18),
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 22),
-                        child: Column(children: <Widget>[
-                          Text(
-                            '${2} шт.',
-                            style: StylesLibrary.strongWhiteTextStyle,
-                            textAlign: TextAlign.center,
-                          ),
-                          Container(
-                              margin: const EdgeInsets.only(top: 6),
-                              child: Text(
-                                'Позиций \nспасено',
-                                style: StylesLibrary.optionalWhiteTextStyle,
-                                textAlign: TextAlign.center,
-                              ))
-                        ]),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 22),
-                        child: Column(children: <Widget>[
-                          Text(
-                            'На ${5} куб.м',
-                            style: StylesLibrary.strongWhiteTextStyle,
-                            textAlign: TextAlign.center,
-                          ),
-                          Container(
-                              margin: EdgeInsets.only(top: 6),
-                              child: Text(
-                                'Меньше \nвыброс CO2',
-                                style: StylesLibrary.optionalWhiteTextStyle,
-                                textAlign: TextAlign.center,
-                              ))
-                        ]),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 22),
-                        child: Column(children: <Widget>[
-                          Text(
-                            '${2} кг.',
-                            style: StylesLibrary.strongWhiteTextStyle,
-                            textAlign: TextAlign.center,
-                          ),
-                          Container(
-                              margin: const EdgeInsets.only(top: 6),
-                              child: Text(
-                                'Еды \nспасено',
-                                style: StylesLibrary.optionalWhiteTextStyle,
-                                textAlign: TextAlign.center,
-                              ))
-                        ]),
-                      )
-                    ]),
-                  ),
-                )
-              ])),
-          Container(
+        body: ListView(children: [Column(children: <Widget>[
+        Container(
+            height: 400,
             width: double.infinity,
-            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-            child: Column(
-              children: menuItems.map((menuItem) {
-                return buildMenuItem(menuItem);
-              }).toList(),
-            ),
-          )
+            decoration: const BoxDecoration(
+                gradient: const LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    ColorsLibrary.primaryColor,
+                    ColorsLibrary.lightOrange,
+                  ],
+                )),
+            child: Column(children: <Widget>[
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 36),
+                child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: badgeItems.map((badgeItem) {
+                        return buildBadgeItem(badgeItem);
+                      }).toList(),
+                    )),
+              ),
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 18),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(children: <Widget>[
+                    Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 22),
+                      child: Column(children: <Widget>[
+                        Text(
+                          '${2} шт.',
+                          style: StylesLibrary.strongWhiteTextStyle,
+                          textAlign: TextAlign.center,
+                        ),
+                        Container(
+                            margin: const EdgeInsets.only(top: 6),
+                            child: Text(
+                              'Позиций \nспасено',
+                              style: StylesLibrary.optionalWhiteTextStyle,
+                              textAlign: TextAlign.center,
+                            ))
+                      ]),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 22),
+                      child: Column(children: <Widget>[
+                        Text(
+                          'На ${5} куб.м',
+                          style: StylesLibrary.strongWhiteTextStyle,
+                          textAlign: TextAlign.center,
+                        ),
+                        Container(
+                            margin: EdgeInsets.only(top: 6),
+                            child: Text(
+                              'Меньше \nвыброс CO2',
+                              style: StylesLibrary.optionalWhiteTextStyle,
+                              textAlign: TextAlign.center,
+                            ))
+                      ]),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 22),
+                      child: Column(children: <Widget>[
+                        Text(
+                          '${2} кг.',
+                          style: StylesLibrary.strongWhiteTextStyle,
+                          textAlign: TextAlign.center,
+                        ),
+                        Container(
+                            margin: const EdgeInsets.only(top: 6),
+                            child: Text(
+                              'Еды \nспасено',
+                              style: StylesLibrary.optionalWhiteTextStyle,
+                              textAlign: TextAlign.center,
+                            ))
+                      ]),
+                    )
+                  ]),
+                ),
+              )
+            ])),
+        Container(
+          width: double.infinity,
+          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+          child: Column(
+            children: menuItems.map((menuItem) {
+              return buildMenuItem(menuItem);
+            }).toList(),
+          ))
+          ])
         ]));
   }
 }
