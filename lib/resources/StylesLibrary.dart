@@ -15,11 +15,17 @@ class StylesLibrary {
       fontStyle: FontStyle.normal,
       color: ColorsLibrary.whiteColor);
   static const TextStyle strongWhiteTextStyle = TextStyle(
-      fontSize: 15,
+      fontSize: 14,
       fontFamily: 'Prosto_One',
       fontWeight: FontWeight.bold,
       fontStyle: FontStyle.normal,
       color: ColorsLibrary.whiteColor);
+  static const TextStyle strongBlackTextStyle = TextStyle(
+      fontSize: 14,
+      fontFamily: 'Prosto_One',
+      fontWeight: FontWeight.bold,
+      fontStyle: FontStyle.normal,
+      color: ColorsLibrary.middleBlack);
   static const TextStyle IOSPrimaryBlackTextStyle = TextStyle(
       fontSize: 15.5,
       fontFamily: 'SFMono',
@@ -38,4 +44,10 @@ class StylesLibrary {
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
       color: ColorsLibrary.whiteColor);
+  static const TextStyle optionalBlackTextStyle = TextStyle(
+      fontSize: 13,
+      fontFamily: 'Roboto_Mono',
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+      color: ColorsLibrary.middleBlack);
 }

@@ -8,12 +8,12 @@ class BadgeItem {
   final String _title;
   final String _description;
 
-  BadgeItem(this._image, this._title, this._description);
+  const BadgeItem(this._image, this._title, this._description);
 }
 
 Widget buildBadgeItem(BadgeItem badgeItem) {
   return Container(
-    margin: const EdgeInsets.all(12),
+    margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 12),
     child: Column(children: <Widget>[
       Stack(
         children: <Widget>[
@@ -34,14 +34,16 @@ Widget buildBadgeItem(BadgeItem badgeItem) {
               )),
         ],
       ),
-      Center(
-          child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 8),
-              child: Text(
-                '${badgeItem._title}',
-                style: StylesLibrary.optionalWhiteTextStyle.merge(TextStyle(
-                    color: ColorsLibrary.whiteTransparentColor, fontSize: 15.5)),
-              )))
+      Container(
+        margin: const EdgeInsets.symmetric(vertical: 8),
+        width: 120,
+        child: Text(
+          '${badgeItem._title}',
+          textAlign: TextAlign.center,
+          style: StylesLibrary.optionalWhiteTextStyle.merge(TextStyle(
+              color: ColorsLibrary.whiteTransparentColor, fontSize: 15.5)),
+        ),
+      )
     ]),
   );
 }

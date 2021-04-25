@@ -11,6 +11,6 @@ class ColorsLibrary {
   static const Color purpleColor = Color(0xFF9C27B0);
   static const Color cyanColor = Color(0xFF0097A7);
   static const Color lightYellow = Color(0xFFFBB01D);
-  static const Color whiteTransparentColor = Color(0x80FFFFFF);
+  static const Color whiteTransparentColor = Color(0x90FFFFFF);
   static const Color blackColor = Color(0xFF000000);
 }

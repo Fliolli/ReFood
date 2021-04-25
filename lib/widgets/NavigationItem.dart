@@ -9,7 +9,7 @@ class NavigationItem {
   final Text title;
   final Color color;
 
-  NavigationItem(this.icon, this.title, this.color);
+  const NavigationItem(this.icon, this.title, this.color);
 }
 
 Widget buildNavigationItem(NavigationItem item, bool isSelected) {

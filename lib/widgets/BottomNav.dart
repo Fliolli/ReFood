@@ -14,7 +14,7 @@ class BottomNavCustom extends StatefulWidget {
 }
 
 class _BottomNavCustomState extends State<BottomNavCustom> {
-  int selectedIndex = 0;
+  int selectedNavigationItemIndex = 0;
 
   final List<NavigationItem> items = [
     NavigationItem(
@@ -44,7 +44,7 @@ class _BottomNavCustomState extends State<BottomNavCustom> {
   Widget build(BuildContext context) {
     return Container(
       height: 58,
-      padding: const EdgeInsets.only(left: 8, top: 4, bottom: 4, right: 8),
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
       decoration: const BoxDecoration(color: Colors.white, boxShadow: [
         const BoxShadow(color: ColorsLibrary.lightGray, blurRadius: 6)
       ]),
@@ -56,10 +56,10 @@ class _BottomNavCustomState extends State<BottomNavCustom> {
           return GestureDetector(
             onTap: () {
               setState(() {
-                selectedIndex = itemIndex;
+                selectedNavigationItemIndex = itemIndex;
               });
             },
-            child: buildNavigationItem(item, selectedIndex == itemIndex),
+            child: buildNavigationItem(item, selectedNavigationItemIndex == itemIndex),
           );
         }).toList(),
       ),
