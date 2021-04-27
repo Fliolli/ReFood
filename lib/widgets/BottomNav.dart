@@ -22,21 +22,21 @@ class _BottomNavCustomState extends State<BottomNavCustom> {
           CupertinoIcons.home,
           Icons.home_rounded,
         ),
-        Text('Главная'),
+        'Главная',
         ColorsLibrary.primaryColor),
     NavigationItem(
         selectByPlatform(
           CupertinoIcons.search,
           Icons.search_rounded,
         ),
-        Text('Поиск'),
+        'Поиск',
         ColorsLibrary.primaryColor),
     NavigationItem(
         selectByPlatform(
           CupertinoIcons.suit_heart,
           Icons.favorite_rounded,
         ),
-        Text('Фавориты'),
+        'Фавориты',
         ColorsLibrary.primaryColor)
   ];
 

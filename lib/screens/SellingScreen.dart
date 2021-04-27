@@ -6,32 +6,32 @@ import 'package:flutter_test_app/widgets/InterractiveLabelItem.dart';
 import '../utils/PlatformUtils.dart';
 import 'package:flutter_test_app/widgets/OrderCardItem.dart';
 
-class OrdersScreen extends StatefulWidget {
+class SellingScreen extends StatefulWidget {
   @override
-  _OrdersScreenState createState() => _OrdersScreenState();
+  _SellingScreenState createState() => _SellingScreenState();
 }
 
-class _OrdersScreenState extends State<OrdersScreen> {
+class _SellingScreenState extends State<SellingScreen> {
   int selectedInteractiveLabelIndex = 0;
-  String title = "Заказы";
-  final List<String> labelsName = ['Закладки', 'Бронь', 'Оплачено', 'Архив'];
+  String title = "Витрина";
+  final List<String> labelsName = ['Активные', 'Бронь', 'Оплачены', 'Архив'];
 
-  final List<InteractiveLabelItem> orderTypeLabelItems = [
+  final List<InteractiveLabelItem> goodsTypeLabelItems = [
     const InteractiveLabelItem(
-      'Закладки',
+      'Активные',
     ),
     const InteractiveLabelItem(
       'Бронь',
     ),
     const InteractiveLabelItem(
-      'Оплачено',
+      'Оплачены',
     ),
     const InteractiveLabelItem(
       'Архив',
     ),
   ];
 
-  List<OrderCardItem> bookmarkOrderItems = [
+  List<OrderCardItem> activeGoodItems = [
     OrderCardItem(
         000,
         'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
@@ -42,21 +42,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         "Марта",
         4.7,
         'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        true),
-  ];
-
-  List<OrderCardItem> bookingOrderItems = [
-    OrderCardItem(
-        000,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        "Шоколадные круассаны",
-        30,
-        "штуку",
-        0.6,
-        "Марта",
-        4.7,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        true),
+        false),
     OrderCardItem(
         001,
         'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
@@ -70,7 +56,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         false),
   ];
 
-  List<OrderCardItem> paidOrderItems = [
+  List<OrderCardItem> bookingGoodItems = [
     OrderCardItem(
         002,
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
@@ -150,7 +136,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         false),
   ];
 
-  List<OrderCardItem> archiveOrderItems = [
+  List<OrderCardItem> archiveGoodItems = [
     OrderCardItem(
         000,
         'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
@@ -182,7 +168,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         ),
         body: Column(children: <Widget>[
           Container(
-            margin: EdgeInsets.only(bottom: 12),
+              margin: EdgeInsets.only(bottom: 12),
               height: 60,
               padding: const EdgeInsets.only(left: 18),
               decoration: const BoxDecoration(color: Colors.white, boxShadow: [
@@ -193,16 +179,16 @@ class _OrdersScreenState extends State<OrdersScreen> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: orderTypeLabelItems.map((orderTypeLabelItem) {
+                  children: goodsTypeLabelItems.map((goodsTypeLabelItem) {
                     var itemIndex =
-                        orderTypeLabelItems.indexOf(orderTypeLabelItem);
+                    goodsTypeLabelItems.indexOf(goodsTypeLabelItem);
                     return InkWell(
                       onTap: () {
                         setState(() {
                           selectedInteractiveLabelIndex = itemIndex;
                         });
                       },
-                      child: buildInteractiveLabelItem(orderTypeLabelItem,
+                      child: buildInteractiveLabelItem(goodsTypeLabelItem,
                           selectedInteractiveLabelIndex == itemIndex),
                     );
                   }).toList(),
@@ -213,16 +199,13 @@ class _OrdersScreenState extends State<OrdersScreen> {
               child: ListView(
                 shrinkWrap: true,
                 children: selectedInteractiveLabelIndex == 0
-                    ? bookmarkOrderItems.map((orderCardItem) {
-                        return OrderCard().createState().buildOrderCardItem(orderCardItem, context);
-                      }).toList()
-                    : selectedInteractiveLabelIndex == 1 ? bookingOrderItems.map((orderCardItem) {
-                        return  OrderCard().createState().buildOrderCardItem(orderCardItem, context);
-                      }).toList()
-                : selectedInteractiveLabelIndex == 2 ? paidOrderItems.map((orderCardItem) {
+                    ? activeGoodItems.map((orderCardItem) {
                   return  OrderCard().createState().buildOrderCardItem(orderCardItem, context);
                 }).toList()
-                : archiveOrderItems.map((orderCardItem) {
+                    : selectedInteractiveLabelIndex == 1 ? bookingGoodItems.map((orderCardItem) {
+                  return  OrderCard().createState().buildOrderCardItem(orderCardItem, context);
+                }).toList()
+                    : activeGoodItems.map((orderCardItem) {
                   return  OrderCard().createState().buildOrderCardItem(orderCardItem, context);
                 }).toList(),
               ),

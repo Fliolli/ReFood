@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test_app/resources/ColorsLibrary.dart';
 import 'package:flutter_test_app/resources/StylesLibrary.dart';
 import 'package:flutter_test_app/screens/OrdersScreen.dart';
+import 'package:flutter_test_app/screens/SellingScreen.dart';
 import '../utils/PlatformUtils.dart';
 import '../widgets/MenuItem.dart';
 import '../widgets/BadgeItem.dart';
@@ -25,6 +26,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => OrdersScreen()))
             }),
+    MenuItem(
+        selectByPlatform(
+          CupertinoIcons.square_grid_2x2,
+          Icons.apps_rounded,
+        ),
+        ColorsLibrary.cyanColor,
+        "Витрина",
+            (BuildContext context) => {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => SellingScreen()))
+        }),
     MenuItem(
         selectByPlatform(
           CupertinoIcons.line_horizontal_3_decrease,
@@ -113,7 +125,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         body: ListView(children: [
           Column(children: <Widget>[
             Container(
-                height: 350,
+                height: 335,
                 width: double.infinity,
                 decoration: const BoxDecoration(
                     gradient: const LinearGradient(
@@ -126,7 +138,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 )),
                 child: Column(children: <Widget>[
                   Container(
-                    margin: const EdgeInsets.symmetric(vertical: 36),
+                    margin: const EdgeInsets.symmetric(vertical: 32),
                     child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Row(

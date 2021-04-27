@@ -4,18 +4,18 @@ import '../resources/ColorsLibrary.dart';
 import '../resources/StylesLibrary.dart';
 import '../utils/PlatformUtils.dart';
 
-class OrderTypeLabelItem {
+class InteractiveLabelItem {
   final String title;
 
-  const OrderTypeLabelItem(this.title);
+  const InteractiveLabelItem(this.title);
 }
 
-Widget buildOrderTypeLabelItem(OrderTypeLabelItem item, bool isSelected) {
+Widget buildInteractiveLabelItem(InteractiveLabelItem item, bool isSelected) {
   return AnimatedContainer(
-    margin: const EdgeInsets.only(right: 12),
+    margin: const EdgeInsets.only(right: 10),
     duration: const Duration(milliseconds: 250),
     height: 38,
-    width: 100,
+    padding: const EdgeInsets.all(8),
     decoration: BoxDecoration(
         color: isSelected
             ? ColorsLibrary.primaryColor
@@ -24,10 +24,10 @@ Widget buildOrderTypeLabelItem(OrderTypeLabelItem item, bool isSelected) {
         border: Border.symmetric(
           horizontal: isSelected
               ? BorderSide.none
-              : const BorderSide(width: 1.0, color: ColorsLibrary.middleBlack),
+              : const BorderSide(width: 1.0, color: ColorsLibrary.neutralGray),
           vertical: isSelected
               ? BorderSide.none
-              : const BorderSide(width: 1.0, color: ColorsLibrary.middleBlack),
+              : const BorderSide(width: 1.0, color: ColorsLibrary.neutralGray),
         )),
     child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -36,7 +36,7 @@ Widget buildOrderTypeLabelItem(OrderTypeLabelItem item, bool isSelected) {
             '${item.title}',
             style: isSelected
                 ? selectByPlatform(StylesLibrary.IOSPrimaryWhiteTextStyle, StylesLibrary.AndroidPrimaryWhiteTextStyle)
-                : selectByPlatform(StylesLibrary.IOSPrimaryBlackTextStyle, StylesLibrary.AndroidPrimaryBlackTextStyle),
+                : selectByPlatform(StylesLibrary.IOSPrimaryBlackTextStyle, StylesLibrary.AndroidPrimaryBlackTextStyle).merge(TextStyle(color: ColorsLibrary.middleBlack)),
           ),
         )),
   );

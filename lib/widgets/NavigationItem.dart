@@ -6,7 +6,7 @@ import '../resources/StylesLibrary.dart';
 
 class NavigationItem {
   final IconData icon;
-  final Text title;
+  final String title;
   final Color color;
 
   const NavigationItem(this.icon, this.title, this.color);
@@ -47,7 +47,7 @@ Widget buildNavigationItem(NavigationItem item, bool isSelected) {
                       style: selectByPlatform(
                           StylesLibrary.IOSPrimaryWhiteTextStyle,
                           StylesLibrary.AndroidPrimaryWhiteTextStyle),
-                      child: item.title)
+                      child: Text('${item.title}'))
                   : Container(),
             )
           ],
