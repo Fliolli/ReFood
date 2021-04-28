@@ -59,7 +59,8 @@ class _BottomNavCustomState extends State<BottomNavCustom> {
                 selectedNavigationItemIndex = itemIndex;
               });
             },
-            child: buildNavigationItem(item, selectedNavigationItemIndex == itemIndex),
+            child: buildNavigationItem(
+                item, selectedNavigationItemIndex == itemIndex),
           );
         }).toList(),
       ),

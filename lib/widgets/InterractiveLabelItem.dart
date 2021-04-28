@@ -35,8 +35,11 @@ Widget buildInteractiveLabelItem(InteractiveLabelItem item, bool isSelected) {
           child: Text(
             '${item.title}',
             style: isSelected
-                ? selectByPlatform(StylesLibrary.IOSPrimaryWhiteTextStyle, StylesLibrary.AndroidPrimaryWhiteTextStyle)
-                : selectByPlatform(StylesLibrary.IOSPrimaryBlackTextStyle, StylesLibrary.AndroidPrimaryBlackTextStyle).merge(TextStyle(color: ColorsLibrary.middleBlack)),
+                ? selectByPlatform(StylesLibrary.IOSPrimaryWhiteTextStyle,
+                    StylesLibrary.AndroidPrimaryWhiteTextStyle)
+                : selectByPlatform(StylesLibrary.IOSPrimaryBlackTextStyle,
+                        StylesLibrary.AndroidPrimaryBlackTextStyle)
+                    .merge(TextStyle(color: ColorsLibrary.middleBlack)),
           ),
         )),
   );

@@ -16,12 +16,12 @@ Widget buildGoodCardItem(GoodCardItem goodCardItem, BuildContext context) {
       onTap: () {},
       splashColor: ColorsLibrary.lightOrange,
       child: Container(
-          padding: EdgeInsets.all(4),
+          padding: const EdgeInsets.all(4),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
-                margin: EdgeInsets.all(8),
+                margin: const EdgeInsets.all(8),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(60),
                   child: Image.network(goodCardItem._image.toString(),
@@ -40,7 +40,7 @@ Widget buildGoodCardItem(GoodCardItem goodCardItem, BuildContext context) {
                         style: selectByPlatform(
                                 StylesLibrary.IOSPrimaryBlackTextStyle,
                                 StylesLibrary.AndroidPrimaryBlackTextStyle)
-                            .merge(TextStyle(fontSize: 17)),
+                            .merge(const TextStyle(fontSize: 17)),
                         softWrap: true,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -67,7 +67,7 @@ Widget buildGoodCardItem(GoodCardItem goodCardItem, BuildContext context) {
                             style: selectByPlatform(
                                     StylesLibrary.optionalBlackTextStyle,
                                     StylesLibrary.optionalBlackTextStyle)
-                                .merge(TextStyle(fontSize: 13)),
+                                .merge(const TextStyle(fontSize: 13)),
                             softWrap: true,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -76,7 +76,7 @@ Widget buildGoodCardItem(GoodCardItem goodCardItem, BuildContext context) {
                       ]),
                     ),
                     Container(
-                      margin: EdgeInsets.symmetric(vertical: 6),
+                      margin: const EdgeInsets.symmetric(vertical: 6),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: <Widget>[
@@ -89,7 +89,7 @@ Widget buildGoodCardItem(GoodCardItem goodCardItem, BuildContext context) {
                                 style: selectByPlatform(
                                         StylesLibrary.optionalBlackTextStyle,
                                         StylesLibrary.optionalBlackTextStyle)
-                                    .merge(TextStyle(
+                                    .merge(const TextStyle(
                                         fontSize: 12,
                                         wordSpacing: -4,
                                         letterSpacing: -0.5)),
@@ -110,7 +110,7 @@ Widget buildGoodCardItem(GoodCardItem goodCardItem, BuildContext context) {
                               style: selectByPlatform(
                                       StylesLibrary.optionalBlackTextStyle,
                                       StylesLibrary.optionalBlackTextStyle)
-                                  .merge(TextStyle(fontSize: 15)),
+                                  .merge(const TextStyle(fontSize: 15)),
                             ),
                           ),
                         ],

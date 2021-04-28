@@ -13,12 +13,12 @@ Widget buildOrderCardItem(OrderCardItem orderCardItem, BuildContext context) {
     elevation: 3,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     child: Container(
-        padding: EdgeInsets.all(4),
+        padding: const EdgeInsets.all(4),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
-              margin: EdgeInsets.all(8),
+              margin: const EdgeInsets.all(8),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(60),
                 child: Image.network(orderCardItem._image.toString(),
@@ -37,7 +37,7 @@ Widget buildOrderCardItem(OrderCardItem orderCardItem, BuildContext context) {
                       style: selectByPlatform(
                               StylesLibrary.IOSPrimaryBlackTextStyle,
                               StylesLibrary.AndroidPrimaryBlackTextStyle)
-                          .merge(TextStyle(fontSize: 17)),
+                          .merge(const TextStyle(fontSize: 17)),
                       softWrap: true,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -59,7 +59,7 @@ Widget buildOrderCardItem(OrderCardItem orderCardItem, BuildContext context) {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.symmetric(vertical: 4),
+                          margin: const EdgeInsets.symmetric(vertical: 4),
                           child: Row(mainAxisSize: MainAxisSize.max, children: <
                               Widget>[
                             Padding(
@@ -71,7 +71,7 @@ Widget buildOrderCardItem(OrderCardItem orderCardItem, BuildContext context) {
                                   style: selectByPlatform(
                                           StylesLibrary.optionalBlackTextStyle,
                                           StylesLibrary.optionalBlackTextStyle)
-                                      .merge(TextStyle(fontSize: 13)),
+                                      .merge(const TextStyle(fontSize: 13)),
                                   softWrap: true,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
@@ -89,7 +89,7 @@ Widget buildOrderCardItem(OrderCardItem orderCardItem, BuildContext context) {
                                 style: selectByPlatform(
                                         StylesLibrary.optionalBlackTextStyle,
                                         StylesLibrary.optionalBlackTextStyle)
-                                    .merge(TextStyle(fontSize: 14)),
+                                    .merge(const TextStyle(fontSize: 14)),
                               ),
                             ),
                           ]),
@@ -107,14 +107,14 @@ Widget buildOrderCardItem(OrderCardItem orderCardItem, BuildContext context) {
                             color: ColorsLibrary.neutralGray,
                           ),
                           Container(
-                            margin: EdgeInsets.only(right: 12),
+                            margin: const EdgeInsets.only(right: 12),
                             width: 55,
                             child: Text(
                               '${orderCardItem._distance.toString()} км.',
                               style: selectByPlatform(
                                       StylesLibrary.optionalBlackTextStyle,
                                       StylesLibrary.optionalBlackTextStyle)
-                                  .merge(TextStyle(
+                                  .merge(const TextStyle(
                                       fontSize: 12,
                                       wordSpacing: -2,
                                       letterSpacing: -0.5)),
@@ -127,7 +127,7 @@ Widget buildOrderCardItem(OrderCardItem orderCardItem, BuildContext context) {
                               style: selectByPlatform(
                                       StylesLibrary.optionalBlackTextStyle,
                                       StylesLibrary.optionalBlackTextStyle)
-                                  .merge(TextStyle(
+                                  .merge(const TextStyle(
                                       fontSize: 12,
                                       wordSpacing: -4,
                                       letterSpacing: -0.5)),

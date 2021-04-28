@@ -33,10 +33,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         ColorsLibrary.cyanColor,
         "Витрина",
-            (BuildContext context) => {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => SellingScreen()))
-        }),
+        (BuildContext context) => {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SellingScreen()))
+            }),
     MenuItem(
         selectByPlatform(
           CupertinoIcons.line_horizontal_3_decrease,

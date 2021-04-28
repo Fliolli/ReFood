@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../screens/profileScreen.dart';
+import '../screens/ProfileScreen.dart';
 import 'package:flutter_test_app/resources/ColorsLibrary.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 import '../widgets/BottomNav.dart';

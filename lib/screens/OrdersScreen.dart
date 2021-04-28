@@ -182,7 +182,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         ),
         body: Column(children: <Widget>[
           Container(
-            margin: EdgeInsets.only(bottom: 12),
+              margin: EdgeInsets.only(bottom: 12),
               height: 60,
               padding: const EdgeInsets.only(left: 18),
               decoration: const BoxDecoration(color: Colors.white, boxShadow: [
@@ -214,17 +214,22 @@ class _OrdersScreenState extends State<OrdersScreen> {
                 shrinkWrap: true,
                 children: selectedInteractiveLabelIndex == 0
                     ? bookmarkOrderItems.map((orderCardItem) {
-                        return buildOrderCardBookmarkItem(orderCardItem, context);
+                        return buildOrderCardBookmarkItem(
+                            orderCardItem, context);
                       }).toList()
-                    : selectedInteractiveLabelIndex == 1 ? bookingOrderItems.map((orderCardItem) {
-                        return  buildOrderCardItem(orderCardItem, context);
-                      }).toList()
-                : selectedInteractiveLabelIndex == 2 ? paidOrderItems.map((orderCardItem) {
-                  return  buildOrderCardItem(orderCardItem, context);
-                }).toList()
-                : archiveOrderItems.map((orderCardItem) {
-                  return buildOrderCardItemTrimmed(orderCardItem, context);
-                }).toList(),
+                    : selectedInteractiveLabelIndex == 1
+                        ? bookingOrderItems.map((orderCardItem) {
+                            return buildOrderCardItem(orderCardItem, context);
+                          }).toList()
+                        : selectedInteractiveLabelIndex == 2
+                            ? paidOrderItems.map((orderCardItem) {
+                                return buildOrderCardItem(
+                                    orderCardItem, context);
+                              }).toList()
+                            : archiveOrderItems.map((orderCardItem) {
+                                return buildOrderCardItemTrimmed(
+                                    orderCardItem, context);
+                              }).toList(),
               ),
             ),
           )

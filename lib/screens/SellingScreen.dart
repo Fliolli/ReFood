@@ -41,7 +41,8 @@ class _SellingScreenState extends State<SellingScreen> {
         30,
         "штуку",
         "Марта",
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200', 6986),
+        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
+        6986),
     GoodCardItem(
         101,
         'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
@@ -49,7 +50,8 @@ class _SellingScreenState extends State<SellingScreen> {
         30,
         "штуку",
         "Марта",
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200', 2),
+        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
+        2),
   ];
 
   List<GoodCardItem> bookingGoodItems = [
@@ -60,7 +62,8 @@ class _SellingScreenState extends State<SellingScreen> {
         50,
         "штуку",
         "Марк6666666666666666666666666666666666666666",
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg', 1),
+        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
+        1),
     GoodCardItem(
         201,
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
@@ -68,7 +71,8 @@ class _SellingScreenState extends State<SellingScreen> {
         50,
         "штуку",
         "Марк6666666666666666666666666666666666666666",
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',6),
+        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
+        6),
     GoodCardItem(
         202,
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
@@ -76,7 +80,8 @@ class _SellingScreenState extends State<SellingScreen> {
         50,
         "штуку",
         "Марк6666666666666666666666666666666666666666",
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg', 3),
+        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
+        3),
     GoodCardItem(
         203,
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
@@ -84,7 +89,8 @@ class _SellingScreenState extends State<SellingScreen> {
         50,
         "штуку",
         "Марк6666666666666666666666666666666666666666",
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg', 4),
+        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
+        4),
     GoodCardItem(
         204,
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
@@ -92,7 +98,8 @@ class _SellingScreenState extends State<SellingScreen> {
         50,
         "штуку",
         "Марк6666666666666666666666666666666666666666",
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg', 8),
+        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
+        8),
     GoodCardItem(
         205,
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
@@ -100,7 +107,8 @@ class _SellingScreenState extends State<SellingScreen> {
         50,
         "штуку",
         "Марк6666666666666666666666666666666666666666",
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg', 8),
+        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
+        8),
     GoodCardItem(
         206,
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
@@ -108,7 +116,8 @@ class _SellingScreenState extends State<SellingScreen> {
         50,
         "штуку",
         "Марк6666666666666666666666666666666666666666",
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg', 8),
+        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
+        8),
   ];
 
   List<GoodCardItemTrimmed> paidGoodItems = [
@@ -164,7 +173,7 @@ class _SellingScreenState extends State<SellingScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: goodsTypeLabelItems.map((goodsTypeLabelItem) {
                     var itemIndex =
-                    goodsTypeLabelItems.indexOf(goodsTypeLabelItem);
+                        goodsTypeLabelItems.indexOf(goodsTypeLabelItem);
                     return InkWell(
                       onTap: () {
                         setState(() {
@@ -183,16 +192,21 @@ class _SellingScreenState extends State<SellingScreen> {
                 shrinkWrap: true,
                 children: selectedInteractiveLabelIndex == 0
                     ? activeGoodItems.map((goodCardItem) {
-                  return  buildGoodCardItem(goodCardItem, context);
-                }).toList()
-                    : selectedInteractiveLabelIndex == 1 ? bookingGoodItems.map((goodCardItem) {
-                  return  buildGoodCardItem(goodCardItem, context);
-                }).toList()
-                    : selectedInteractiveLabelIndex == 2 ? paidGoodItems.map((goodCardItem) {
-                  return  buildGoodCardItemTrimmed(goodCardItem, context);
-                }).toList() : archiveGoodItems.map((goodCardItem) {
-                  return  buildGoodCardItemTrimmed(goodCardItem, context);
-                }).toList(),
+                        return buildGoodCardItem(goodCardItem, context);
+                      }).toList()
+                    : selectedInteractiveLabelIndex == 1
+                        ? bookingGoodItems.map((goodCardItem) {
+                            return buildGoodCardItem(goodCardItem, context);
+                          }).toList()
+                        : selectedInteractiveLabelIndex == 2
+                            ? paidGoodItems.map((goodCardItem) {
+                                return buildGoodCardItemTrimmed(
+                                    goodCardItem, context);
+                              }).toList()
+                            : archiveGoodItems.map((goodCardItem) {
+                                return buildGoodCardItemTrimmed(
+                                    goodCardItem, context);
+                              }).toList(),
               ),
             ),
           )

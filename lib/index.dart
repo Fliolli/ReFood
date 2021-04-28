@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'screens/homeScreen.dart';
+import 'screens/HomeScreen.dart';
 import 'package:sizer/sizer.dart';
 
 void main() => runApp(ReFoodApp());
