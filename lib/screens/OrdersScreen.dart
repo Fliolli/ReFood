@@ -214,7 +214,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                 shrinkWrap: true,
                 children: selectedInteractiveLabelIndex == 0
                     ? bookmarkOrderItems.map((orderCardItem) {
-                        return OrderCardBookmark().createState().buildOrderCardBookmarkItem(orderCardItem, context);
+                        return buildOrderCardBookmarkItem(orderCardItem, context);
                       }).toList()
                     : selectedInteractiveLabelIndex == 1 ? bookingOrderItems.map((orderCardItem) {
                         return  buildOrderCardItem(orderCardItem, context);

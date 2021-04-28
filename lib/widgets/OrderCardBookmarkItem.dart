@@ -5,19 +5,6 @@ import '../resources/ColorsLibrary.dart';
 import '../utils/PlatformUtils.dart';
 import '../resources/StylesLibrary.dart';
 
-class OrderCardBookmark extends StatefulWidget {
-  @override
-  _OrderCardBookmarkState createState() => _OrderCardBookmarkState();
-}
-
-class _OrderCardBookmarkState extends State<OrderCardBookmark> {
-  OrderCardBookmarkItem orderCardBookmarkItem;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(child: buildOrderCardBookmarkItem(orderCardBookmarkItem, context));
-  }
-
   Widget buildOrderCardBookmarkItem(OrderCardBookmarkItem orderCardBookmarkItem, BuildContext context) {
     return Card(
       margin: const EdgeInsets.only(left: 12, right: 12, bottom: 12),
@@ -40,12 +27,9 @@ class _OrderCardBookmarkState extends State<OrderCardBookmark> {
                           height: 90, width: 90, fit: BoxFit.cover),
                     ),
                   ),
-                  AnimatedContainer(
+                  Container(
                       width: 33,
                       height: 33,
-                      margin: const EdgeInsets.all(0),
-                      duration: const Duration(milliseconds: 250),
-                      padding: const EdgeInsets.all(0),
                       decoration: BoxDecoration(color: ColorsLibrary.whiteColor, shape: BoxShape.circle,
                           boxShadow: [
                             BoxShadow(
@@ -55,8 +39,6 @@ class _OrderCardBookmarkState extends State<OrderCardBookmark> {
                               offset: Offset(0, 3),
                             ),
                           ],),
-                      child: InkWell(
-                        splashColor: ColorsLibrary.whiteTransparentColor,
                         child: Icon(
                           orderCardBookmarkItem._isInBookmarks
                               ? CupertinoIcons.heart_solid
@@ -65,13 +47,7 @@ class _OrderCardBookmarkState extends State<OrderCardBookmark> {
                               ? ColorsLibrary.lightOrange
                               : ColorsLibrary.neutralGray,
                         ),
-                        onTap: () {
-                          setState(() {
-                            orderCardBookmarkItem._isInBookmarks =
-                                !orderCardBookmarkItem._isInBookmarks;
-                          });
-                        },
-                      )),
+                  ),
                 ],
               ),
               Padding(
@@ -196,7 +172,6 @@ class _OrderCardBookmarkState extends State<OrderCardBookmark> {
           )),
     );
   }
-}
 
 class OrderCardBookmarkItem {
   int _id;
