@@ -4,6 +4,8 @@ import 'package:flutter_test_app/resources/ColorsLibrary.dart';
 import 'package:flutter_test_app/resources/StylesLibrary.dart';
 import 'package:flutter_test_app/widgets/InterractiveLabelItem.dart';
 import '../utils/PlatformUtils.dart';
+import 'package:flutter_test_app/widgets/OrderCardBookmarkItem.dart';
+import 'package:flutter_test_app/widgets/OrderCardItemTrimmed.dart';
 import 'package:flutter_test_app/widgets/OrderCardItem.dart';
 
 class OrdersScreen extends StatefulWidget {
@@ -31,8 +33,8 @@ class _OrdersScreenState extends State<OrdersScreen> {
     ),
   ];
 
-  List<OrderCardItem> bookmarkOrderItems = [
-    OrderCardItem(
+  List<OrderCardBookmarkItem> bookmarkOrderItems = [
+    OrderCardBookmarkItem(
         000,
         'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
         "Шоколадные круассаны",
@@ -150,18 +152,16 @@ class _OrdersScreenState extends State<OrdersScreen> {
         false),
   ];
 
-  List<OrderCardItem> archiveOrderItems = [
-    OrderCardItem(
+  List<OrderCardItemTrimmed> archiveOrderItems = [
+    OrderCardItemTrimmed(
         000,
         'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
         "Шоколадные круассаны",
         30,
         "штуку",
-        0.6,
         "Марта",
         4.7,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        false),
+        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200'),
   ];
 
   @override
@@ -214,16 +214,16 @@ class _OrdersScreenState extends State<OrdersScreen> {
                 shrinkWrap: true,
                 children: selectedInteractiveLabelIndex == 0
                     ? bookmarkOrderItems.map((orderCardItem) {
-                        return OrderCard().createState().buildOrderCardItem(orderCardItem, context);
+                        return OrderCardBookmark().createState().buildOrderCardBookmarkItem(orderCardItem, context);
                       }).toList()
                     : selectedInteractiveLabelIndex == 1 ? bookingOrderItems.map((orderCardItem) {
-                        return  OrderCard().createState().buildOrderCardItem(orderCardItem, context);
+                        return  buildOrderCardItem(orderCardItem, context);
                       }).toList()
                 : selectedInteractiveLabelIndex == 2 ? paidOrderItems.map((orderCardItem) {
-                  return  OrderCard().createState().buildOrderCardItem(orderCardItem, context);
+                  return  buildOrderCardItem(orderCardItem, context);
                 }).toList()
                 : archiveOrderItems.map((orderCardItem) {
-                  return  OrderCard().createState().buildOrderCardItem(orderCardItem, context);
+                  return buildOrderCardItemTrimmed(orderCardItem, context);
                 }).toList(),
               ),
             ),

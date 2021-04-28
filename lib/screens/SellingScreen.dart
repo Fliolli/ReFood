@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test_app/resources/ColorsLibrary.dart';
 import 'package:flutter_test_app/resources/StylesLibrary.dart';
+import 'package:flutter_test_app/widgets/GoodCardItem.dart';
 import 'package:flutter_test_app/widgets/InterractiveLabelItem.dart';
 import '../utils/PlatformUtils.dart';
-import 'package:flutter_test_app/widgets/OrderCardItem.dart';
+import 'package:flutter_test_app/widgets/OrderCardBookmarkItem.dart';
+import 'package:flutter_test_app/widgets/GoodCardItemTrimmed.dart';
 
 class SellingScreen extends StatefulWidget {
   @override
@@ -31,123 +33,104 @@ class _SellingScreenState extends State<SellingScreen> {
     ),
   ];
 
-  List<OrderCardItem> activeGoodItems = [
-    OrderCardItem(
-        000,
+  List<GoodCardItem> activeGoodItems = [
+    GoodCardItem(
+        100,
         'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
         "Шоколадные круассаны",
         30,
         "штуку",
-        0.6,
         "Марта",
-        4.7,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        false),
-    OrderCardItem(
-        001,
+        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200', 6986),
+    GoodCardItem(
+        101,
         'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
         "Шоколадные круассаны",
         30,
         "штуку",
-        0.6,
         "Марта",
-        4.7,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        false),
+        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200', 2),
   ];
 
-  List<OrderCardItem> bookingGoodItems = [
-    OrderCardItem(
-        002,
+  List<GoodCardItem> bookingGoodItems = [
+    GoodCardItem(
+        200,
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
         "Домашнее мороже00000000000000000000000ное",
         50,
         "штуку",
-        0.9,
         "Марк6666666666666666666666666666666666666666",
-        4.7,
+        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg', 1),
+    GoodCardItem(
+        201,
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        false),
-    OrderCardItem(
-        003,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        "Домашнее мороженое",
+        "Домашнее мороже00000000000000000000000ное",
         50,
         "штуку",
-        0.9,
-        "Марк",
-        4.7,
+        "Марк6666666666666666666666666666666666666666",
+        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',6),
+    GoodCardItem(
+        202,
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        false),
-    OrderCardItem(
-        003,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        "Домашнее мороженое",
+        "Домашнее мороже00000000000000000000000ное",
         50,
         "штуку",
-        0.9,
-        "Марк",
-        4.7,
+        "Марк6666666666666666666666666666666666666666",
+        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg', 3),
+    GoodCardItem(
+        203,
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        false),
-    OrderCardItem(
-        003,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        "Домашнее мороженое",
+        "Домашнее мороже00000000000000000000000ное",
         50,
         "штуку",
-        0.9,
-        "Марк",
-        4.7,
+        "Марк6666666666666666666666666666666666666666",
+        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg', 4),
+    GoodCardItem(
+        204,
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        false),
-    OrderCardItem(
-        003,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        "Домашнее мороженое",
+        "Домашнее мороже00000000000000000000000ное",
         50,
         "штуку",
-        0.9,
-        "Марк",
-        4.7,
+        "Марк6666666666666666666666666666666666666666",
+        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg', 8),
+    GoodCardItem(
+        205,
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        false),
-    OrderCardItem(
-        003,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        "Домашнее мороженое",
+        "Домашнее мороже00000000000000000000000ное",
         50,
         "штуку",
-        0.9,
-        "Марк",
-        4.7,
+        "Марк6666666666666666666666666666666666666666",
+        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg', 8),
+    GoodCardItem(
+        206,
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        false),
-    OrderCardItem(
-        003,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        "Домашнее мороженое",
+        "Домашнее мороже00000000000000000000000ное",
         50,
         "штуку",
-        0.9,
-        "Марк",
-        4.7,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        false),
+        "Марк6666666666666666666666666666666666666666",
+        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg', 8),
   ];
 
-  List<OrderCardItem> archiveGoodItems = [
-    OrderCardItem(
-        000,
+  List<GoodCardItemTrimmed> paidGoodItems = [
+    GoodCardItemTrimmed(
+        300,
+        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
+        "Шоколад",
+        30,
+        "штуку",
+        "Марта",
+        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200'),
+  ];
+
+  List<GoodCardItemTrimmed> archiveGoodItems = [
+    GoodCardItemTrimmed(
+        300,
         'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
         "Шоколадные круассаны",
         30,
         "штуку",
-        0.6,
         "Марта",
-        4.7,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        false),
+        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200'),
   ];
 
   @override
@@ -199,14 +182,16 @@ class _SellingScreenState extends State<SellingScreen> {
               child: ListView(
                 shrinkWrap: true,
                 children: selectedInteractiveLabelIndex == 0
-                    ? activeGoodItems.map((orderCardItem) {
-                  return  OrderCard().createState().buildOrderCardItem(orderCardItem, context);
+                    ? activeGoodItems.map((goodCardItem) {
+                  return  buildGoodCardItem(goodCardItem, context);
                 }).toList()
-                    : selectedInteractiveLabelIndex == 1 ? bookingGoodItems.map((orderCardItem) {
-                  return  OrderCard().createState().buildOrderCardItem(orderCardItem, context);
+                    : selectedInteractiveLabelIndex == 1 ? bookingGoodItems.map((goodCardItem) {
+                  return  buildGoodCardItem(goodCardItem, context);
                 }).toList()
-                    : activeGoodItems.map((orderCardItem) {
-                  return  OrderCard().createState().buildOrderCardItem(orderCardItem, context);
+                    : selectedInteractiveLabelIndex == 2 ? paidGoodItems.map((goodCardItem) {
+                  return  buildGoodCardItemTrimmed(goodCardItem, context);
+                }).toList() : archiveGoodItems.map((goodCardItem) {
+                  return  buildGoodCardItemTrimmed(goodCardItem, context);
                 }).toList(),
               ),
             ),
