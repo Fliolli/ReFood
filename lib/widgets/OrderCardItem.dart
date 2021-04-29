@@ -12,134 +12,138 @@ Widget buildOrderCardItem(OrderCardItem orderCardItem, BuildContext context) {
     color: ColorsLibrary.whiteColor,
     elevation: 3,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-    child: Container(
-        padding: const EdgeInsets.all(4),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              margin: const EdgeInsets.all(8),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(60),
-                child: Image.network(orderCardItem._image.toString(),
-                    height: 90, width: 90, fit: BoxFit.cover),
+    child: InkWell(
+      onTap: () {},
+      splashColor: ColorsLibrary.lightOrange,
+      child: Container(
+          padding: const EdgeInsets.all(4),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                margin: const EdgeInsets.all(8),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(60),
+                  child: Image.network(orderCardItem._image.toString(),
+                      height: 90, width: 90, fit: BoxFit.cover),
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(4),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.59,
-                    child: Text(
-                      orderCardItem._name,
-                      style: selectByPlatform(
-                              StylesLibrary.IOSPrimaryBlackTextStyle,
-                              StylesLibrary.AndroidPrimaryBlackTextStyle)
-                          .merge(const TextStyle(fontSize: 17)),
-                      softWrap: true,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+              Padding(
+                padding: const EdgeInsets.all(4),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.59,
+                      child: Text(
+                        orderCardItem._name,
+                        style: selectByPlatform(
+                                StylesLibrary.IOSPrimaryBlackTextStyle,
+                                StylesLibrary.AndroidPrimaryBlackTextStyle)
+                            .merge(const TextStyle(fontSize: 17)),
+                        softWrap: true,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 4),
-                    child: Row(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(right: 3),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(60),
-                            child: Image.network(
-                                orderCardItem._ownerProfileImage.toString(),
-                                height: 25,
-                                width: 25,
-                                fit: BoxFit.cover),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: Row(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(right: 3),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(60),
+                              child: Image.network(
+                                  orderCardItem._ownerProfileImage.toString(),
+                                  height: 25,
+                                  width: 25,
+                                  fit: BoxFit.cover),
+                            ),
                           ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.symmetric(vertical: 4),
-                          child: Row(mainAxisSize: MainAxisSize.max, children: <
-                              Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: SizedBox(
-                                width: 100,
+                          Container(
+                            margin: const EdgeInsets.symmetric(vertical: 4),
+                            child: Row(mainAxisSize: MainAxisSize.max, children: <
+                                Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: SizedBox(
+                                  width: 100,
+                                  child: Text(
+                                    orderCardItem._ownerName,
+                                    style: selectByPlatform(
+                                            StylesLibrary.optionalBlackTextStyle,
+                                            StylesLibrary.optionalBlackTextStyle)
+                                        .merge(const TextStyle(fontSize: 13)),
+                                    softWrap: true,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ),
+                              Icon(
+                                Icons.star_border_rounded,
+                                color: ColorsLibrary.lightOrange,
+                              ),
+                              SizedBox(
+                                width: 50,
                                 child: Text(
-                                  orderCardItem._ownerName,
+                                  orderCardItem._ownerRating.toString(),
                                   style: selectByPlatform(
                                           StylesLibrary.optionalBlackTextStyle,
                                           StylesLibrary.optionalBlackTextStyle)
-                                      .merge(const TextStyle(fontSize: 13)),
-                                  softWrap: true,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
+                                      .merge(const TextStyle(fontSize: 14)),
                                 ),
                               ),
-                            ),
+                            ]),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: Row(
+                          children: <Widget>[
                             Icon(
-                              Icons.star_border_rounded,
-                              color: ColorsLibrary.lightOrange,
+                              selectByPlatform(
+                                  CupertinoIcons.location, Icons.location_pin),
+                              color: ColorsLibrary.neutralGray,
                             ),
-                            SizedBox(
-                              width: 50,
+                            Container(
+                              margin: const EdgeInsets.only(right: 12),
+                              width: 55,
                               child: Text(
-                                orderCardItem._ownerRating.toString(),
+                                '${orderCardItem._distance.toString()} км.',
                                 style: selectByPlatform(
                                         StylesLibrary.optionalBlackTextStyle,
                                         StylesLibrary.optionalBlackTextStyle)
-                                    .merge(const TextStyle(fontSize: 14)),
+                                    .merge(const TextStyle(
+                                        fontSize: 12,
+                                        wordSpacing: -2,
+                                        letterSpacing: -0.5)),
                               ),
                             ),
-                          ]),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: Row(
-                        children: <Widget>[
-                          Icon(
-                            selectByPlatform(
-                                CupertinoIcons.location, Icons.location_pin),
-                            color: ColorsLibrary.neutralGray,
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(right: 12),
-                            width: 55,
-                            child: Text(
-                              '${orderCardItem._distance.toString()} км.',
-                              style: selectByPlatform(
-                                      StylesLibrary.optionalBlackTextStyle,
-                                      StylesLibrary.optionalBlackTextStyle)
-                                  .merge(const TextStyle(
-                                      fontSize: 12,
-                                      wordSpacing: -2,
-                                      letterSpacing: -0.5)),
+                            SizedBox(
+                              width: 120,
+                              child: Text(
+                                '${orderCardItem._price.toString()} р. за ${orderCardItem._unit}',
+                                style: selectByPlatform(
+                                        StylesLibrary.optionalBlackTextStyle,
+                                        StylesLibrary.optionalBlackTextStyle)
+                                    .merge(const TextStyle(
+                                        fontSize: 12,
+                                        wordSpacing: -4,
+                                        letterSpacing: -0.5)),
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            width: 120,
-                            child: Text(
-                              '${orderCardItem._price.toString()} р. за ${orderCardItem._unit}',
-                              style: selectByPlatform(
-                                      StylesLibrary.optionalBlackTextStyle,
-                                      StylesLibrary.optionalBlackTextStyle)
-                                  .merge(const TextStyle(
-                                      fontSize: 12,
-                                      wordSpacing: -4,
-                                      letterSpacing: -0.5)),
-                            ),
-                          ),
-                        ],
-                      ))
-                ],
-              ),
-            )
-          ],
-        )),
+                          ],
+                        ))
+                  ],
+                ),
+              )
+            ],
+          )),
+    ),
   );
 }
 
