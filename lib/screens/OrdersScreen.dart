@@ -43,8 +43,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         0.6,
         "Марта",
         4.7,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        true),
+        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200'),
   ];
 
   List<OrderCardItem> bookingOrderItems = [
@@ -57,8 +56,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         0.6,
         "Марта",
         4.7,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        true),
+        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200'),
     OrderCardItem(
         001,
         'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
@@ -68,8 +66,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         0.6,
         "Марта",
         4.7,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        false),
+        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200'),
   ];
 
   List<OrderCardItem> paidOrderItems = [
@@ -82,8 +79,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         0.9,
         "Марк6666666666666666666666666666666666666666",
         4.7,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        false),
+        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg'),
     OrderCardItem(
         003,
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
@@ -93,8 +89,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         0.9,
         "Марк",
         4.7,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        false),
+        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg'),
     OrderCardItem(
         003,
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
@@ -104,8 +99,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         0.9,
         "Марк",
         4.7,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        false),
+        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg'),
     OrderCardItem(
         003,
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
@@ -115,8 +109,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         0.9,
         "Марк",
         4.7,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        false),
+        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg'),
     OrderCardItem(
         003,
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
@@ -126,8 +119,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         0.9,
         "Марк",
         4.7,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        false),
+        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg'),
     OrderCardItem(
         003,
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
@@ -137,8 +129,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         0.9,
         "Марк",
         4.7,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        false),
+        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg'),
     OrderCardItem(
         003,
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
@@ -148,8 +139,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         0.9,
         "Марк",
         4.7,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        false),
+        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg'),
   ];
 
   List<OrderCardItemTrimmed> archiveOrderItems = [

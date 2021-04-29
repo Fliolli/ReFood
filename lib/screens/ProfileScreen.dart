@@ -31,7 +31,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           CupertinoIcons.square_grid_2x2,
           Icons.apps_rounded,
         ),
-        ColorsLibrary.cyanColor,
+        ColorsLibrary.lightYellow,
         "Витрина",
         (BuildContext context) => {
               Navigator.push(context,
@@ -39,22 +39,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
             }),
     MenuItem(
         selectByPlatform(
-          CupertinoIcons.line_horizontal_3_decrease,
-          Icons.filter_list,
-        ),
-        ColorsLibrary.lightYellow,
-        "Фильтр",
-        (BuildContext context) => {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ProfileScreen()))
-            }),
-    MenuItem(
-        selectByPlatform(
           CupertinoIcons.briefcase,
           Icons.add_business_rounded,
         ),
         ColorsLibrary.purpleColor,
-        "Подключите свой бизнес",
+        "Подключить свой бизнес",
         (BuildContext context) => {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => ProfileScreen()))

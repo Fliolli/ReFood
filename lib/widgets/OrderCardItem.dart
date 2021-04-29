@@ -153,7 +153,6 @@ class OrderCardItem {
   String _ownerName;
   double _ownerRating;
   String _ownerProfileImage;
-  bool _isInBookmarks;
 
   OrderCardItem(
       this._id,
@@ -164,6 +163,5 @@ class OrderCardItem {
       this._distance,
       this._ownerName,
       this._ownerRating,
-      this._ownerProfileImage,
-      this._isInBookmarks);
+      this._ownerProfileImage,);
 }

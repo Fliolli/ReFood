@@ -47,12 +47,8 @@ Widget buildOrderCardBookmarkItem(
                     ],
                   ),
                   child: Icon(
-                    orderCardBookmarkItem._isInBookmarks
-                        ? CupertinoIcons.heart_solid
-                        : CupertinoIcons.heart,
-                    color: orderCardBookmarkItem._isInBookmarks
-                        ? ColorsLibrary.lightOrange
-                        : ColorsLibrary.neutralGray,
+                    CupertinoIcons.heart_solid,
+                    color: ColorsLibrary.lightOrange,
                   ),
                 ),
               ],
@@ -186,7 +182,6 @@ class OrderCardBookmarkItem {
   String _ownerName;
   double _ownerRating;
   String _ownerProfileImage;
-  bool _isInBookmarks;
 
   OrderCardBookmarkItem(
       this._id,
@@ -197,6 +192,5 @@ class OrderCardBookmarkItem {
       this._distance,
       this._ownerName,
       this._ownerRating,
-      this._ownerProfileImage,
-      this._isInBookmarks);
+      this._ownerProfileImage,);
 }
