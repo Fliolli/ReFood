@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../resources/ColorsLibrary.dart';
 import '../utils/PlatformUtils.dart';
 import 'NavigationItem.dart';
+import 'package:flutter_test_app/resources/StringsLibrary.dart';
 
 class BottomNavCustom extends StatefulWidget {
   const BottomNavCustom({

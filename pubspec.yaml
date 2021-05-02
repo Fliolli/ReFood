@@ -29,6 +29,7 @@ dependencies:
   cupertino_icons: ^1.0.0
   yandex_mapkit: ^0.5.1
   sizer: ^1.1.6
+  intl: ^0.15.8
 
 dev_dependencies:
   flutter_test:

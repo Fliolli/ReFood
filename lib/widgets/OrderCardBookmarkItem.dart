@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_test_app/screens/FoodItemInfoScreen.dart';
 import '../resources/ColorsLibrary.dart';
 import '../utils/PlatformUtils.dart';
 import '../resources/StylesLibrary.dart';
+import 'package:flutter_test_app/screens/FoodItemInfoScreen.dart';
 
 Widget buildOrderCardBookmarkItem(
     OrderCardBookmarkItem orderCardBookmarkItem, BuildContext context) {
@@ -14,7 +16,22 @@ Widget buildOrderCardBookmarkItem(
     elevation: 3,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     child: InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => FoodItemInfoScreen(
+                id: orderCardBookmarkItem._id,
+                image: orderCardBookmarkItem._image,
+                name: orderCardBookmarkItem._name,
+                price: orderCardBookmarkItem._price,
+                unit: orderCardBookmarkItem._unit,
+                ownerName: orderCardBookmarkItem._ownerName,
+                ownerProfileImage: orderCardBookmarkItem._ownerProfileImage,
+                isFree: orderCardBookmarkItem._isFree,
+              ),
+            ));
+      },
       splashColor: ColorsLibrary.lightOrange,
       child: Container(
           padding: const EdgeInsets.all(4),
@@ -92,8 +109,9 @@ Widget buildOrderCardBookmarkItem(
                           ),
                           Container(
                             margin: const EdgeInsets.symmetric(vertical: 4),
-                            child: Row(mainAxisSize: MainAxisSize.max, children: <
-                                Widget>[
+                            child:
+                                Row(mainAxisSize: MainAxisSize.max, children: <
+                                    Widget>[
                               Padding(
                                 padding: const EdgeInsets.only(right: 10),
                                 child: SizedBox(
@@ -101,8 +119,10 @@ Widget buildOrderCardBookmarkItem(
                                   child: Text(
                                     orderCardBookmarkItem._ownerName,
                                     style: selectByPlatform(
-                                            StylesLibrary.optionalBlackTextStyle,
-                                            StylesLibrary.optionalBlackTextStyle)
+                                            StylesLibrary
+                                                .optionalBlackTextStyle,
+                                            StylesLibrary
+                                                .optionalBlackTextStyle)
                                         .merge(const TextStyle(fontSize: 13)),
                                     softWrap: true,
                                     maxLines: 1,
@@ -115,7 +135,7 @@ Widget buildOrderCardBookmarkItem(
                                 color: ColorsLibrary.lightOrange,
                               ),
                               SizedBox(
-                                width: 50,
+                                width: 30,
                                 child: Text(
                                   orderCardBookmarkItem._ownerRating.toString(),
                                   style: selectByPlatform(
@@ -155,7 +175,9 @@ Widget buildOrderCardBookmarkItem(
                             SizedBox(
                               width: 120,
                               child: Text(
-                                '${orderCardBookmarkItem._price.toString()} р. за ${orderCardBookmarkItem._unit}',
+                                orderCardBookmarkItem._isFree
+                                    ? 'бесплатно'
+                                    : '${orderCardBookmarkItem._price.toString()} р. за ${orderCardBookmarkItem._unit}',
                                 style: selectByPlatform(
                                         StylesLibrary.optionalBlackTextStyle,
                                         StylesLibrary.optionalBlackTextStyle)
@@ -186,6 +208,7 @@ class OrderCardBookmarkItem {
   String _ownerName;
   double _ownerRating;
   String _ownerProfileImage;
+  bool _isFree;
 
   OrderCardBookmarkItem(
       this._id,
@@ -196,5 +219,6 @@ class OrderCardBookmarkItem {
       this._distance,
       this._ownerName,
       this._ownerRating,
-      this._ownerProfileImage,);
+      this._ownerProfileImage,
+      this._isFree);
 }

@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import '../resources/ColorsLibrary.dart';
 import '../utils/PlatformUtils.dart';
 import '../resources/StylesLibrary.dart';
+import 'package:flutter_test_app/screens/FoodItemInfoScreen.dart';
 
 Widget buildGoodCardItem(GoodCardItem goodCardItem, BuildContext context) {
   return Card(
@@ -13,7 +14,22 @@ Widget buildGoodCardItem(GoodCardItem goodCardItem, BuildContext context) {
     elevation: 3,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     child: InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => FoodItemInfoScreen(
+                id: goodCardItem._id,
+                image: goodCardItem._image,
+                name: goodCardItem._name,
+                price: goodCardItem._price,
+                unit: goodCardItem._unit,
+                ownerName: goodCardItem._ownerName,
+                ownerProfileImage: goodCardItem._ownerProfileImage,
+                isFree: goodCardItem._isFree,
+              ),
+            ));
+      },
       splashColor: ColorsLibrary.lightOrange,
       child: Container(
           padding: const EdgeInsets.all(4),
@@ -85,7 +101,9 @@ Widget buildGoodCardItem(GoodCardItem goodCardItem, BuildContext context) {
                             child: SizedBox(
                               width: 140,
                               child: Text(
-                                '${goodCardItem._price.toString()} р. за ${goodCardItem._unit}',
+                                goodCardItem._isFree
+                                    ? 'бесплатно'
+                                    : '${goodCardItem._price.toString()} р. за ${goodCardItem._unit}',
                                 style: selectByPlatform(
                                         StylesLibrary.optionalBlackTextStyle,
                                         StylesLibrary.optionalBlackTextStyle)
@@ -134,7 +152,16 @@ class GoodCardItem {
   String _ownerName;
   String _ownerProfileImage;
   int _bookmarksCount;
+  bool _isFree;
 
-  GoodCardItem(this._id, this._image, this._name, this._price, this._unit,
-      this._ownerName, this._ownerProfileImage, this._bookmarksCount);
+  GoodCardItem(
+      this._id,
+      this._image,
+      this._name,
+      this._price,
+      this._unit,
+      this._ownerName,
+      this._ownerProfileImage,
+      this._bookmarksCount,
+      this._isFree);
 }

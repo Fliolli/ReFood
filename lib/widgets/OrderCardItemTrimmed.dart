@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import '../resources/ColorsLibrary.dart';
 import '../utils/PlatformUtils.dart';
 import '../resources/StylesLibrary.dart';
+import 'package:flutter_test_app/screens/FoodItemInfoScreen.dart';
 
 Widget buildOrderCardItemTrimmed(
     OrderCardItemTrimmed orderCardItemTrimmed, BuildContext context) {
@@ -14,7 +15,22 @@ Widget buildOrderCardItemTrimmed(
       elevation: 3,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => FoodItemInfoScreen(
+                  id: orderCardItemTrimmed._id,
+                  image: orderCardItemTrimmed._image,
+                  name: orderCardItemTrimmed._name,
+                  price: orderCardItemTrimmed._price,
+                  unit: orderCardItemTrimmed._unit,
+                  ownerName: orderCardItemTrimmed._ownerName,
+                  ownerProfileImage: orderCardItemTrimmed._ownerProfileImage,
+                  isFree: orderCardItemTrimmed._isFree,
+                ),
+              ));
+        },
         splashColor: ColorsLibrary.lightOrange,
         child: Container(
           padding: const EdgeInsets.all(4),
@@ -65,42 +81,47 @@ Widget buildOrderCardItemTrimmed(
                             ),
                             Container(
                               margin: const EdgeInsets.symmetric(vertical: 4),
-                              child:
-                                  Row(mainAxisSize: MainAxisSize.max, children: <
-                                      Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 10),
-                                  child: SizedBox(
-                                    width: 100,
-                                    child: Text(
-                                      orderCardItemTrimmed._ownerName,
-                                      style: selectByPlatform(
-                                              StylesLibrary
-                                                  .optionalBlackTextStyle,
-                                              StylesLibrary
-                                                  .optionalBlackTextStyle)
-                                          .merge(const TextStyle(fontSize: 13)),
-                                      softWrap: true,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
+                              child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 10),
+                                      child: SizedBox(
+                                        width: 100,
+                                        child: Text(
+                                          orderCardItemTrimmed._ownerName,
+                                          style: selectByPlatform(
+                                                  StylesLibrary
+                                                      .optionalBlackTextStyle,
+                                                  StylesLibrary
+                                                      .optionalBlackTextStyle)
+                                              .merge(const TextStyle(
+                                                  fontSize: 13)),
+                                          softWrap: true,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                                Icon(
-                                  Icons.star_border_rounded,
-                                  color: ColorsLibrary.lightOrange,
-                                ),
-                                SizedBox(
-                                  width: 50,
-                                  child: Text(
-                                    orderCardItemTrimmed._ownerRating.toString(),
-                                    style: selectByPlatform(
-                                            StylesLibrary.optionalBlackTextStyle,
-                                            StylesLibrary.optionalBlackTextStyle)
-                                        .merge(const TextStyle(fontSize: 14)),
-                                  ),
-                                ),
-                              ]),
+                                    Icon(
+                                      Icons.star_border_rounded,
+                                      color: ColorsLibrary.lightOrange,
+                                    ),
+                                    SizedBox(
+                                      width: 30,
+                                      child: Text(
+                                        orderCardItemTrimmed._ownerRating
+                                            .toString(),
+                                        style: selectByPlatform(
+                                                StylesLibrary
+                                                    .optionalBlackTextStyle,
+                                                StylesLibrary
+                                                    .optionalBlackTextStyle)
+                                            .merge(
+                                                const TextStyle(fontSize: 14)),
+                                      ),
+                                    ),
+                                  ]),
                             ),
                           ],
                         ),
@@ -110,7 +131,9 @@ Widget buildOrderCardItemTrimmed(
                         child: SizedBox(
                           width: 120,
                           child: Text(
-                            '${orderCardItemTrimmed._price.toString()} р. за ${orderCardItemTrimmed._unit}',
+                            orderCardItemTrimmed._isFree
+                                ? 'бесплатно'
+                                : '${orderCardItemTrimmed._price.toString()} р. за ${orderCardItemTrimmed._unit}',
                             style: selectByPlatform(
                                     StylesLibrary.optionalBlackTextStyle,
                                     StylesLibrary.optionalBlackTextStyle)
@@ -138,7 +161,16 @@ class OrderCardItemTrimmed {
   String _ownerName;
   double _ownerRating;
   String _ownerProfileImage;
+  bool _isFree;
 
-  OrderCardItemTrimmed(this._id, this._image, this._name, this._price,
-      this._unit, this._ownerName, this._ownerRating, this._ownerProfileImage);
+  OrderCardItemTrimmed(
+      this._id,
+      this._image,
+      this._name,
+      this._price,
+      this._unit,
+      this._ownerName,
+      this._ownerRating,
+      this._ownerProfileImage,
+      this._isFree);
 }

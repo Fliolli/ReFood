@@ -2,11 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test_app/resources/ColorsLibrary.dart';
 import 'package:flutter_test_app/resources/StylesLibrary.dart';
-import 'package:flutter_test_app/widgets/InterractiveLabelItem.dart';
+import 'package:flutter_test_app/widgets/InteractiveLabelItem.dart';
 import '../utils/PlatformUtils.dart';
 import 'package:flutter_test_app/widgets/OrderCardBookmarkItem.dart';
 import 'package:flutter_test_app/widgets/OrderCardItemTrimmed.dart';
 import 'package:flutter_test_app/widgets/OrderCardItem.dart';
+import 'package:flutter_test_app/resources/StringsLibrary.dart';
 
 class OrdersScreen extends StatefulWidget {
   @override
@@ -15,7 +16,6 @@ class OrdersScreen extends StatefulWidget {
 
 class _OrdersScreenState extends State<OrdersScreen> {
   int selectedInteractiveLabelIndex = 0;
-  String title = "Заказы";
   final List<String> labelsName = ['Закладки', 'Бронь', 'Оплачено', 'Архив'];
 
   final List<InteractiveLabelItem> orderTypeLabelItems = [
@@ -38,12 +38,12 @@ class _OrdersScreenState extends State<OrdersScreen> {
         000,
         'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
         "Шоколадные круассаны",
-        30,
+        0,
         "штуку",
         0.6,
-        "Марта",
+        "Марта Мартовна Мартович",
         4.7,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200'),
+        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200', false),
   ];
 
   List<OrderCardItem> bookingOrderItems = [
@@ -56,7 +56,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         0.6,
         "Марта",
         4.7,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200'),
+        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200', false),
     OrderCardItem(
         001,
         'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
@@ -66,7 +66,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         0.6,
         "Марта",
         4.7,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200'),
+        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200', false),
   ];
 
   List<OrderCardItem> paidOrderItems = [
@@ -79,7 +79,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         0.9,
         "Марк6666666666666666666666666666666666666666",
         4.7,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg'),
+        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg', false),
     OrderCardItem(
         003,
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
@@ -89,7 +89,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         0.9,
         "Марк",
         4.7,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg'),
+        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg', false),
     OrderCardItem(
         003,
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
@@ -99,7 +99,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         0.9,
         "Марк",
         4.7,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg'),
+        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg', false),
     OrderCardItem(
         003,
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
@@ -109,7 +109,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         0.9,
         "Марк",
         4.7,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg'),
+        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg', false),
     OrderCardItem(
         003,
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
@@ -119,7 +119,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         0.9,
         "Марк",
         4.7,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg'),
+        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg', false),
     OrderCardItem(
         003,
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
@@ -129,7 +129,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         0.9,
         "Марк",
         4.7,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg'),
+        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg', false),
     OrderCardItem(
         003,
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
@@ -139,7 +139,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         0.9,
         "Марк",
         4.7,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg'),
+        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg', false),
   ];
 
   List<OrderCardItemTrimmed> archiveOrderItems = [
@@ -151,7 +151,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         "штуку",
         "Марта",
         4.7,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200'),
+        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200', false),
   ];
 
   @override

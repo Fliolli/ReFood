@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import '../resources/ColorsLibrary.dart';
 import '../utils/PlatformUtils.dart';
 import '../resources/StylesLibrary.dart';
+import 'package:flutter_test_app/screens/FoodItemInfoScreen.dart';
 
 Widget buildGoodCardItemTrimmed(
     GoodCardItemTrimmed goodCardItemTrimmed, BuildContext context) {
@@ -14,7 +15,22 @@ Widget buildGoodCardItemTrimmed(
     elevation: 3,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     child: InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => FoodItemInfoScreen(
+                id: goodCardItemTrimmed._id,
+                image: goodCardItemTrimmed._image,
+                name: goodCardItemTrimmed._name,
+                price: goodCardItemTrimmed._price,
+                unit: goodCardItemTrimmed._unit,
+                ownerName: goodCardItemTrimmed._ownerName,
+                ownerProfileImage: goodCardItemTrimmed._ownerProfileImage,
+                isFree: goodCardItemTrimmed._isFree,
+              ),
+            ));
+      },
       splashColor: ColorsLibrary.lightOrange,
       child: Container(
           padding: const EdgeInsets.all(4),
@@ -98,7 +114,9 @@ Widget buildGoodCardItemTrimmed(
                       child: SizedBox(
                         width: 120,
                         child: Text(
-                          '${goodCardItemTrimmed._price.toString()} р. за ${goodCardItemTrimmed._unit}',
+                          goodCardItemTrimmed._isFree
+                              ? 'бесплатно'
+                              : '${goodCardItemTrimmed._price.toString()} р. за ${goodCardItemTrimmed._unit}',
                           style: selectByPlatform(
                                   StylesLibrary.optionalBlackTextStyle,
                                   StylesLibrary.optionalBlackTextStyle)
@@ -126,7 +144,8 @@ class GoodCardItemTrimmed {
   String _unit;
   String _ownerName;
   String _ownerProfileImage;
+  bool _isFree;
 
   GoodCardItemTrimmed(this._id, this._image, this._name, this._price,
-      this._unit, this._ownerName, this._ownerProfileImage);
+      this._unit, this._ownerName, this._ownerProfileImage, this._isFree);
 }

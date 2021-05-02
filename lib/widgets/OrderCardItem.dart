@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import '../resources/ColorsLibrary.dart';
 import '../utils/PlatformUtils.dart';
 import '../resources/StylesLibrary.dart';
+import 'package:flutter_test_app/screens/FoodItemInfoScreen.dart';
 
 Widget buildOrderCardItem(OrderCardItem orderCardItem, BuildContext context) {
   return Card(
@@ -13,7 +14,22 @@ Widget buildOrderCardItem(OrderCardItem orderCardItem, BuildContext context) {
     elevation: 3,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     child: InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => FoodItemInfoScreen(
+                id: orderCardItem._id,
+                image: orderCardItem._image,
+                name: orderCardItem._name,
+                price: orderCardItem._price,
+                unit: orderCardItem._unit,
+                ownerName: orderCardItem._ownerName,
+                ownerProfileImage: orderCardItem._ownerProfileImage,
+                isFree: orderCardItem._isFree,
+              ),
+            ));
+      },
       splashColor: ColorsLibrary.lightOrange,
       child: Container(
           padding: const EdgeInsets.all(4),
@@ -63,8 +79,9 @@ Widget buildOrderCardItem(OrderCardItem orderCardItem, BuildContext context) {
                           ),
                           Container(
                             margin: const EdgeInsets.symmetric(vertical: 4),
-                            child: Row(mainAxisSize: MainAxisSize.max, children: <
-                                Widget>[
+                            child:
+                                Row(mainAxisSize: MainAxisSize.max, children: <
+                                    Widget>[
                               Padding(
                                 padding: const EdgeInsets.only(right: 10),
                                 child: SizedBox(
@@ -72,8 +89,10 @@ Widget buildOrderCardItem(OrderCardItem orderCardItem, BuildContext context) {
                                   child: Text(
                                     orderCardItem._ownerName,
                                     style: selectByPlatform(
-                                            StylesLibrary.optionalBlackTextStyle,
-                                            StylesLibrary.optionalBlackTextStyle)
+                                            StylesLibrary
+                                                .optionalBlackTextStyle,
+                                            StylesLibrary
+                                                .optionalBlackTextStyle)
                                         .merge(const TextStyle(fontSize: 13)),
                                     softWrap: true,
                                     maxLines: 1,
@@ -86,7 +105,7 @@ Widget buildOrderCardItem(OrderCardItem orderCardItem, BuildContext context) {
                                 color: ColorsLibrary.lightOrange,
                               ),
                               SizedBox(
-                                width: 50,
+                                width: 30,
                                 child: Text(
                                   orderCardItem._ownerRating.toString(),
                                   style: selectByPlatform(
@@ -126,7 +145,9 @@ Widget buildOrderCardItem(OrderCardItem orderCardItem, BuildContext context) {
                             SizedBox(
                               width: 120,
                               child: Text(
-                                '${orderCardItem._price.toString()} р. за ${orderCardItem._unit}',
+                                orderCardItem._isFree
+                                    ? 'бесплатно'
+                                    : '${orderCardItem._price.toString()} р. за ${orderCardItem._unit}',
                                 style: selectByPlatform(
                                         StylesLibrary.optionalBlackTextStyle,
                                         StylesLibrary.optionalBlackTextStyle)
@@ -148,7 +169,7 @@ Widget buildOrderCardItem(OrderCardItem orderCardItem, BuildContext context) {
 }
 
 class OrderCardItem {
-  final int _id;
+  int _id;
   String _image;
   String _name;
   int _price;
@@ -157,6 +178,7 @@ class OrderCardItem {
   String _ownerName;
   double _ownerRating;
   String _ownerProfileImage;
+  bool _isFree;
 
   OrderCardItem(
       this._id,
@@ -167,5 +189,6 @@ class OrderCardItem {
       this._distance,
       this._ownerName,
       this._ownerRating,
-      this._ownerProfileImage,);
+      this._ownerProfileImage,
+      this._isFree);
 }

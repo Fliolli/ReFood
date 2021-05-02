@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test_app/resources/ColorsLibrary.dart';
 import 'package:flutter_test_app/resources/StylesLibrary.dart';
 import 'package:flutter_test_app/widgets/GoodCardItem.dart';
-import 'package:flutter_test_app/widgets/InterractiveLabelItem.dart';
+import 'package:flutter_test_app/widgets/InteractiveLabelItem.dart';
 import '../utils/PlatformUtils.dart';
 import 'package:flutter_test_app/widgets/OrderCardBookmarkItem.dart';
 import 'package:flutter_test_app/widgets/GoodCardItemTrimmed.dart';
+import 'package:flutter_test_app/resources/StringsLibrary.dart';
 
 class SellingScreen extends StatefulWidget {
   @override
@@ -15,7 +16,7 @@ class SellingScreen extends StatefulWidget {
 
 class _SellingScreenState extends State<SellingScreen> {
   int selectedInteractiveLabelIndex = 0;
-  String title = "Витрина";
+  static const String title = "Витрина";
   final List<String> labelsName = ['Активные', 'Бронь', 'Оплачены', 'Архив'];
 
   final List<InteractiveLabelItem> goodsTypeLabelItems = [
@@ -42,7 +43,8 @@ class _SellingScreenState extends State<SellingScreen> {
         "штуку",
         "Марта",
         'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        6986),
+        6986,
+        false),
     GoodCardItem(
         101,
         'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
@@ -51,7 +53,8 @@ class _SellingScreenState extends State<SellingScreen> {
         "штуку",
         "Марта",
         'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        2),
+        2,
+        false),
   ];
 
   List<GoodCardItem> bookingGoodItems = [
@@ -63,7 +66,8 @@ class _SellingScreenState extends State<SellingScreen> {
         "штуку",
         "Марк6666666666666666666666666666666666666666",
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        1),
+        1,
+        false),
     GoodCardItem(
         201,
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
@@ -72,7 +76,8 @@ class _SellingScreenState extends State<SellingScreen> {
         "штуку",
         "Марк6666666666666666666666666666666666666666",
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        6),
+        6,
+        false),
     GoodCardItem(
         202,
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
@@ -81,7 +86,8 @@ class _SellingScreenState extends State<SellingScreen> {
         "штуку",
         "Марк6666666666666666666666666666666666666666",
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        3),
+        3,
+        false),
     GoodCardItem(
         203,
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
@@ -90,7 +96,8 @@ class _SellingScreenState extends State<SellingScreen> {
         "штуку",
         "Марк6666666666666666666666666666666666666666",
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        4),
+        4,
+        false),
     GoodCardItem(
         204,
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
@@ -99,7 +106,8 @@ class _SellingScreenState extends State<SellingScreen> {
         "штуку",
         "Марк6666666666666666666666666666666666666666",
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        8),
+        8,
+        false),
     GoodCardItem(
         205,
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
@@ -108,7 +116,8 @@ class _SellingScreenState extends State<SellingScreen> {
         "штуку",
         "Марк6666666666666666666666666666666666666666",
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        8),
+        8,
+        false),
     GoodCardItem(
         206,
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
@@ -117,7 +126,8 @@ class _SellingScreenState extends State<SellingScreen> {
         "штуку",
         "Марк6666666666666666666666666666666666666666",
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        8),
+        8,
+        false),
   ];
 
   List<GoodCardItemTrimmed> paidGoodItems = [
@@ -128,7 +138,8 @@ class _SellingScreenState extends State<SellingScreen> {
         30,
         "штуку",
         "Марта",
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200'),
+        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
+        false),
   ];
 
   List<GoodCardItemTrimmed> archiveGoodItems = [
@@ -139,7 +150,8 @@ class _SellingScreenState extends State<SellingScreen> {
         30,
         "штуку",
         "Марта",
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200'),
+        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
+        false),
   ];
 
   @override
@@ -158,58 +170,82 @@ class _SellingScreenState extends State<SellingScreen> {
             },
           ),
         ),
-        body: Column(children: <Widget>[
-          Container(
-              margin: EdgeInsets.only(bottom: 12),
-              height: 60,
-              padding: const EdgeInsets.only(left: 18),
-              decoration: const BoxDecoration(color: Colors.white, boxShadow: [
-                const BoxShadow(color: ColorsLibrary.lightGray, blurRadius: 6)
-              ]),
-              width: MediaQuery.of(context).size.width,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: goodsTypeLabelItems.map((goodsTypeLabelItem) {
-                    var itemIndex =
-                        goodsTypeLabelItems.indexOf(goodsTypeLabelItem);
-                    return InkWell(
-                      onTap: () {
-                        setState(() {
-                          selectedInteractiveLabelIndex = itemIndex;
-                        });
-                      },
-                      child: buildInteractiveLabelItem(goodsTypeLabelItem,
-                          selectedInteractiveLabelIndex == itemIndex),
-                    );
-                  }).toList(),
+        body: Stack(children: <Widget>[
+          Column(children: <Widget>[
+            Container(
+                margin: EdgeInsets.only(bottom: 12),
+                height: 60,
+                padding: const EdgeInsets.only(left: 18),
+                decoration:
+                    const BoxDecoration(color: Colors.white, boxShadow: [
+                  const BoxShadow(color: ColorsLibrary.lightGray, blurRadius: 6)
+                ]),
+                width: MediaQuery.of(context).size.width,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: goodsTypeLabelItems.map((goodsTypeLabelItem) {
+                      var itemIndex =
+                          goodsTypeLabelItems.indexOf(goodsTypeLabelItem);
+                      return InkWell(
+                        onTap: () {
+                          setState(() {
+                            selectedInteractiveLabelIndex = itemIndex;
+                          });
+                        },
+                        child: buildInteractiveLabelItem(goodsTypeLabelItem,
+                            selectedInteractiveLabelIndex == itemIndex),
+                      );
+                    }).toList(),
+                  ),
+                )),
+            Container(
+              child: Expanded(
+                child: ListView(
+                  shrinkWrap: true,
+                  children: selectedInteractiveLabelIndex == 0
+                      ? activeGoodItems.map((goodCardItem) {
+                          return buildGoodCardItem(goodCardItem, context);
+                        }).toList()
+                      : selectedInteractiveLabelIndex == 1
+                          ? bookingGoodItems.map((goodCardItem) {
+                              return buildGoodCardItem(goodCardItem, context);
+                            }).toList()
+                          : selectedInteractiveLabelIndex == 2
+                              ? paidGoodItems.map((goodCardItem) {
+                                  return buildGoodCardItemTrimmed(
+                                      goodCardItem, context);
+                                }).toList()
+                              : archiveGoodItems.map((goodCardItem) {
+                                  return buildGoodCardItemTrimmed(
+                                      goodCardItem, context);
+                                }).toList(),
                 ),
-              )),
-          Container(
-            child: Expanded(
-              child: ListView(
-                shrinkWrap: true,
-                children: selectedInteractiveLabelIndex == 0
-                    ? activeGoodItems.map((goodCardItem) {
-                        return buildGoodCardItem(goodCardItem, context);
-                      }).toList()
-                    : selectedInteractiveLabelIndex == 1
-                        ? bookingGoodItems.map((goodCardItem) {
-                            return buildGoodCardItem(goodCardItem, context);
-                          }).toList()
-                        : selectedInteractiveLabelIndex == 2
-                            ? paidGoodItems.map((goodCardItem) {
-                                return buildGoodCardItemTrimmed(
-                                    goodCardItem, context);
-                              }).toList()
-                            : archiveGoodItems.map((goodCardItem) {
-                                return buildGoodCardItemTrimmed(
-                                    goodCardItem, context);
-                              }).toList(),
               ),
-            ),
-          )
+            )
+          ]),
+          selectedInteractiveLabelIndex == 0
+              ? Container(
+                  alignment: Alignment.bottomRight,
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                  child: FloatingActionButton(
+                    onPressed: () {},
+                    child: selectByPlatform(
+                        const Icon(
+                          CupertinoIcons.add,
+                          color: ColorsLibrary.whiteColor,
+                        ),
+                        const Icon(
+                          Icons.add,
+                          color: ColorsLibrary.whiteColor,
+                        )),
+                    backgroundColor: ColorsLibrary.primaryColor,
+                    heroTag: "addGood",
+                  ),
+                )
+              : Container(),
         ]));
   }
 }

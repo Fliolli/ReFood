@@ -43,11 +43,15 @@ class StylesLibrary {
       fontFamily: 'Roboto_Mono',
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
-      color: ColorsLibrary.whiteColor);
+      color: ColorsLibrary.whiteColor,
+      wordSpacing: -4,
+      letterSpacing: -0.5);
   static const TextStyle optionalBlackTextStyle = TextStyle(
       fontSize: 13,
       fontFamily: 'Roboto_Mono',
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
-      color: ColorsLibrary.middleBlack);
+      color: ColorsLibrary.middleBlack,
+      wordSpacing: -4,
+      letterSpacing: -0.5);
 }

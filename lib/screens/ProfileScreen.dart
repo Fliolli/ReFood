@@ -7,6 +7,7 @@ import 'package:flutter_test_app/screens/SellingScreen.dart';
 import '../utils/PlatformUtils.dart';
 import '../widgets/MenuItem.dart';
 import '../widgets/BadgeItem.dart';
+import 'package:flutter_test_app/resources/StringsLibrary.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
