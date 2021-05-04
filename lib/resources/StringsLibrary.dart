@@ -5,6 +5,7 @@ const String sellingTitle = "Доступно для покупки";
 const String orders = "Заказы";
 const String expirationDate = "Срок годности";
 const String price = "Цена";
+const String priceAndFree = "Цена (введите 0, если отдаете бесплатно)";
 const String whenToPickUp = "Когда можно забрать";
 const String distance = "Удаленность";
 const String moveToChat = "Перейти в чат";

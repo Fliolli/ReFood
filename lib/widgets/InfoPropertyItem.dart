@@ -8,12 +8,10 @@ class InfoPropertyItem {
   final String propertyTitle;
   final String propertyValue;
 
-  const InfoPropertyItem(
-      this.propertyTitle, this.propertyValue);
+  const InfoPropertyItem(this.propertyTitle, this.propertyValue);
 }
 
-Widget buildInfoPropertyItem(
-    InfoPropertyItem item, BuildContext context) {
+Widget buildInfoPropertyItem(InfoPropertyItem item, BuildContext context) {
   return Column(
     children: [
       Padding(

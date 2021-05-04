@@ -180,7 +180,8 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
               elevation: 0,
               child: Container(
                 alignment: Alignment.center,
-                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                 child: Column(
                   children: [
                     Row(
@@ -285,7 +286,8 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
           ),
         ),
         Container(
-          margin: const EdgeInsets.only(top: 4, bottom: 16, left: 24, right: 24),
+          margin:
+              const EdgeInsets.only(top: 4, bottom: 16, left: 24, right: 24),
           child: SizedBox(
               width: MediaQuery.of(context).size.width,
               height: 200,
@@ -302,28 +304,30 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
           child: InkWell(
             onTap: () {},
             child: Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      strings.moveToChat,
-                      style: selectByPlatform(
-                              StylesLibrary.IOSPrimaryWhiteTextStyle,
-                              StylesLibrary.AndroidPrimaryWhiteTextStyle)
-                          .merge(const TextStyle(
-                              color: ColorsLibrary.whiteColor, fontSize: 17)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    strings.moveToChat,
+                    style: selectByPlatform(
+                            StylesLibrary.IOSPrimaryWhiteTextStyle,
+                            StylesLibrary.AndroidPrimaryWhiteTextStyle)
+                        .merge(const TextStyle(
+                            color: ColorsLibrary.whiteColor, fontSize: 17)),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5),
+                    child: Icon(
+                      selectByPlatform(
+                          CupertinoIcons.chat_bubble_2, Icons.send_rounded),
+                      color: ColorsLibrary.whiteColor,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 5),
-                      child: Icon(selectByPlatform(CupertinoIcons.chat_bubble_2, Icons.send_rounded),
-                        color: ColorsLibrary.whiteColor,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
+            ),
           ),
-          ),
+        ),
       ]),
     );
   }

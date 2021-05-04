@@ -7,8 +7,9 @@ import '../utils/PlatformUtils.dart';
 Widget buildCustomTextField(
     CustomTextField customTextField, BuildContext context) {
   return Container(
-      margin: EdgeInsets.only(top: 4, right: 16, left: 16),
+      margin: EdgeInsets.only(top: 6, right: 16, left: 16),
       height: customTextField._height,
+      width: customTextField._width,
       child: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
@@ -20,6 +21,10 @@ Widget buildCustomTextField(
               customTextField._borderRadius)), // set rounded corner radius
         ),
         child: TextFormField(
+          style: selectByPlatform(StylesLibrary.IOSPrimaryBlackTextStyle,
+                  StylesLibrary.AndroidPrimaryBlackTextStyle)
+              .merge(const TextStyle(
+                  fontSize: 16, color: ColorsLibrary.middleBlack)),
           cursorColor: ColorsLibrary.primaryColor,
           controller: customTextField._textEditingController,
           cursorHeight: 24,
@@ -31,11 +36,16 @@ Widget buildCustomTextField(
           minLines: customTextField._minLines,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           decoration: InputDecoration(
-            errorStyle: TextStyle(color: ColorsLibrary.primaryColor, height: 2),
+            errorStyle: selectByPlatform(StylesLibrary.IOSPrimaryBlackTextStyle,
+                    StylesLibrary.AndroidPrimaryBlackTextStyle)
+                .merge(const TextStyle(
+                    fontSize: 12, color: ColorsLibrary.primaryColor)),
             border: InputBorder.none,
             contentPadding: EdgeInsets.symmetric(vertical: 6, horizontal: 16),
             hintText: customTextField._hintText,
-            hintStyle: TextStyle(fontSize: 12,),
+            hintStyle: TextStyle(
+              fontSize: 12,
+            ),
           ),
           validator: customTextField._validator,
         ),
@@ -44,6 +54,7 @@ Widget buildCustomTextField(
 
 class CustomTextField {
   double _height;
+  double _width;
   double _borderRadius;
   TextInputType _textInputType;
   TextInputAction _textInputAction;
@@ -55,6 +66,7 @@ class CustomTextField {
 
   CustomTextField(
       this._height,
+      this._width,
       this._borderRadius,
       this._textInputType,
       this._textInputAction,

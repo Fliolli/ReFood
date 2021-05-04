@@ -6,7 +6,7 @@ import '../resources/StylesLibrary.dart';
 
 Widget buildTitleGoodPropertyItem(String title, BuildContext context) {
   return Padding(
-    padding: const EdgeInsets.only(top: 16, left: 32, right: 32),
+    padding: const EdgeInsets.only(top: 18, left: 32, right: 32),
     child: SizedBox(
       width: MediaQuery.of(context).size.width,
       child: Text(

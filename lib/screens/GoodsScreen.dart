@@ -236,8 +236,7 @@ class _GoodsScreenState extends State<GoodsScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => NewGoodScreen(
-                            ),
+                            builder: (context) => NewGoodScreen(),
                           ));
                     },
                     child: selectByPlatform(

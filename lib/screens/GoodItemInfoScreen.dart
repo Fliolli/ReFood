@@ -238,7 +238,8 @@ class _GoodItemInfoScreenState extends State<GoodItemInfoScreen> {
           ),
         ),
         Container(
-          margin: const EdgeInsets.only(top: 4, bottom: 16, left: 24, right: 24),
+          margin:
+              const EdgeInsets.only(top: 4, bottom: 16, left: 24, right: 24),
           child: SizedBox(
               width: MediaQuery.of(context).size.width,
               height: 200,
