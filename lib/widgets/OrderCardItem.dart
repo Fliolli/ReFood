@@ -4,7 +4,7 @@ import 'package:flutter/rendering.dart';
 import '../resources/ColorsLibrary.dart';
 import '../utils/PlatformUtils.dart';
 import '../resources/StylesLibrary.dart';
-import 'package:flutter_test_app/screens/FoodItemInfoScreen.dart';
+import 'package:flutter_test_app/screens/OrderItemInfoScreen.dart';
 
 Widget buildOrderCardItem(OrderCardItem orderCardItem, BuildContext context) {
   return Card(
@@ -18,7 +18,7 @@ Widget buildOrderCardItem(OrderCardItem orderCardItem, BuildContext context) {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => FoodItemInfoScreen(
+              builder: (context) => OrderItemInfoScreen(
                 id: orderCardItem._id,
                 image: orderCardItem._image,
                 name: orderCardItem._name,
@@ -27,6 +27,7 @@ Widget buildOrderCardItem(OrderCardItem orderCardItem, BuildContext context) {
                 ownerName: orderCardItem._ownerName,
                 ownerProfileImage: orderCardItem._ownerProfileImage,
                 isFree: orderCardItem._isFree,
+                ownerRating: orderCardItem._ownerRating,
               ),
             ));
       },
@@ -151,7 +152,10 @@ Widget buildOrderCardItem(OrderCardItem orderCardItem, BuildContext context) {
                                 style: selectByPlatform(
                                         StylesLibrary.optionalBlackTextStyle,
                                         StylesLibrary.optionalBlackTextStyle)
-                                    .merge(const TextStyle(
+                                    .merge(TextStyle(
+                                        color: orderCardItem._isFree
+                                            ? ColorsLibrary.greenColor
+                                            : ColorsLibrary.middleBlack,
                                         fontSize: 12,
                                         wordSpacing: -4,
                                         letterSpacing: -0.5)),

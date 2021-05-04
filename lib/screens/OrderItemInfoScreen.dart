@@ -10,8 +10,8 @@ import 'package:flutter_test_app/data/GlobalData.dart' as global;
 import 'package:flutter_test_app/resources/StringsLibrary.dart' as strings;
 import 'package:flutter_test_app/widgets/InfoPropertyItem.dart';
 
-class FoodItemInfoScreen extends StatefulWidget {
-  FoodItemInfoScreen(
+class OrderItemInfoScreen extends StatefulWidget {
+  OrderItemInfoScreen(
       {Key key,
       this.id,
       this.image,
@@ -20,7 +20,8 @@ class FoodItemInfoScreen extends StatefulWidget {
       this.unit,
       this.ownerName,
       this.ownerProfileImage,
-      this.isFree});
+      this.isFree,
+      this.ownerRating});
 
   final int id;
   final String image;
@@ -30,12 +31,13 @@ class FoodItemInfoScreen extends StatefulWidget {
   final String ownerName;
   final String ownerProfileImage;
   final bool isFree;
+  final double ownerRating;
 
   @override
-  _FoodItemInfoScreenState createState() => _FoodItemInfoScreenState();
+  _OrderItemInfoScreenState createState() => _OrderItemInfoScreenState();
 }
 
-class _FoodItemInfoScreenState extends State<FoodItemInfoScreen> {
+class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
   //поиск позиции по id, а пока берется из GlobalData
 
   @override
@@ -178,7 +180,7 @@ class _FoodItemInfoScreenState extends State<FoodItemInfoScreen> {
               elevation: 0,
               child: Container(
                 alignment: Alignment.center,
-                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                 child: Column(
                   children: [
                     Row(
@@ -196,7 +198,7 @@ class _FoodItemInfoScreenState extends State<FoodItemInfoScreen> {
                             ),
                           ),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.50,
+                            width: MediaQuery.of(context).size.width * 0.45,
                             child: Text(
                               widget.ownerName,
                               style: selectByPlatform(
@@ -221,7 +223,7 @@ class _FoodItemInfoScreenState extends State<FoodItemInfoScreen> {
                           SizedBox(
                             width: 30,
                             child: Text(
-                              global.foodItem.ownerRating.toString(),
+                              widget.ownerRating.toString(),
                               style: selectByPlatform(
                                       StylesLibrary.strongBlackTextStyle,
                                       StylesLibrary.strongBlackTextStyle)
@@ -232,8 +234,9 @@ class _FoodItemInfoScreenState extends State<FoodItemInfoScreen> {
                             ),
                           ),
                         ]),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8),
+                    Container(
+                      padding: const EdgeInsets.only(top: 8, left: 10),
+                      width: MediaQuery.of(context).size.width,
                       child: Text(
                         'Товар в закладках у ${global.foodItem.bookmarksCount} пользователей(я)',
                         style: selectByPlatform(

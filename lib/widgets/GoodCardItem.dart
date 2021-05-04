@@ -4,7 +4,7 @@ import 'package:flutter/rendering.dart';
 import '../resources/ColorsLibrary.dart';
 import '../utils/PlatformUtils.dart';
 import '../resources/StylesLibrary.dart';
-import 'package:flutter_test_app/screens/FoodItemInfoScreen.dart';
+import 'package:flutter_test_app/screens/GoodItemInfoScreen.dart';
 
 Widget buildGoodCardItem(GoodCardItem goodCardItem, BuildContext context) {
   return Card(
@@ -18,7 +18,7 @@ Widget buildGoodCardItem(GoodCardItem goodCardItem, BuildContext context) {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => FoodItemInfoScreen(
+              builder: (context) => GoodItemInfoScreen(
                 id: goodCardItem._id,
                 image: goodCardItem._image,
                 name: goodCardItem._name,

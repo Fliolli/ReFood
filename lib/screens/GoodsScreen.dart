@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test_app/resources/ColorsLibrary.dart';
 import 'package:flutter_test_app/resources/StylesLibrary.dart';
+import 'package:flutter_test_app/screens/NewGoodScreen.dart';
 import 'package:flutter_test_app/widgets/GoodCardItem.dart';
 import 'package:flutter_test_app/widgets/InteractiveLabelItem.dart';
 import '../utils/PlatformUtils.dart';
@@ -9,12 +10,12 @@ import 'package:flutter_test_app/widgets/OrderCardBookmarkItem.dart';
 import 'package:flutter_test_app/widgets/GoodCardItemTrimmed.dart';
 import 'package:flutter_test_app/resources/StringsLibrary.dart';
 
-class SellingScreen extends StatefulWidget {
+class GoodsScreen extends StatefulWidget {
   @override
-  _SellingScreenState createState() => _SellingScreenState();
+  _GoodsScreenState createState() => _GoodsScreenState();
 }
 
-class _SellingScreenState extends State<SellingScreen> {
+class _GoodsScreenState extends State<GoodsScreen> {
   int selectedInteractiveLabelIndex = 0;
   static const String title = "Витрина";
   final List<String> labelsName = ['Активные', 'Бронь', 'Оплачены', 'Архив'];
@@ -231,7 +232,14 @@ class _SellingScreenState extends State<SellingScreen> {
                   margin:
                       const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                   child: FloatingActionButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => NewGoodScreen(
+                            ),
+                          ));
+                    },
                     child: selectByPlatform(
                         const Icon(
                           CupertinoIcons.add,

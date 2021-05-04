@@ -4,7 +4,7 @@ import 'package:flutter/rendering.dart';
 import '../resources/ColorsLibrary.dart';
 import '../utils/PlatformUtils.dart';
 import '../resources/StylesLibrary.dart';
-import 'package:flutter_test_app/screens/FoodItemInfoScreen.dart';
+import 'package:flutter_test_app/screens/GoodItemInfoScreen.dart';
 
 Widget buildGoodCardItemTrimmed(
     GoodCardItemTrimmed goodCardItemTrimmed, BuildContext context) {
@@ -19,7 +19,7 @@ Widget buildGoodCardItemTrimmed(
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => FoodItemInfoScreen(
+              builder: (context) => GoodItemInfoScreen(
                 id: goodCardItemTrimmed._id,
                 image: goodCardItemTrimmed._image,
                 name: goodCardItemTrimmed._name,
@@ -110,7 +110,7 @@ Widget buildGoodCardItemTrimmed(
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 6),
+                      padding: const EdgeInsets.only(top: 16, bottom: 4),
                       child: SizedBox(
                         width: 120,
                         child: Text(

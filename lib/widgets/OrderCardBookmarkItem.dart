@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_test_app/screens/FoodItemInfoScreen.dart';
 import '../resources/ColorsLibrary.dart';
 import '../utils/PlatformUtils.dart';
 import '../resources/StylesLibrary.dart';
-import 'package:flutter_test_app/screens/FoodItemInfoScreen.dart';
+import 'package:flutter_test_app/screens/OrderItemInfoScreen.dart';
 
 Widget buildOrderCardBookmarkItem(
     OrderCardBookmarkItem orderCardBookmarkItem, BuildContext context) {
@@ -20,7 +19,7 @@ Widget buildOrderCardBookmarkItem(
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => FoodItemInfoScreen(
+              builder: (context) => OrderItemInfoScreen(
                 id: orderCardBookmarkItem._id,
                 image: orderCardBookmarkItem._image,
                 name: orderCardBookmarkItem._name,
@@ -29,6 +28,7 @@ Widget buildOrderCardBookmarkItem(
                 ownerName: orderCardBookmarkItem._ownerName,
                 ownerProfileImage: orderCardBookmarkItem._ownerProfileImage,
                 isFree: orderCardBookmarkItem._isFree,
+                ownerRating: orderCardBookmarkItem._ownerRating,
               ),
             ));
       },
@@ -181,7 +181,10 @@ Widget buildOrderCardBookmarkItem(
                                 style: selectByPlatform(
                                         StylesLibrary.optionalBlackTextStyle,
                                         StylesLibrary.optionalBlackTextStyle)
-                                    .merge(const TextStyle(
+                                    .merge(TextStyle(
+                                        color: orderCardBookmarkItem._isFree
+                                            ? ColorsLibrary.greenColor
+                                            : ColorsLibrary.middleBlack,
                                         fontSize: 12,
                                         wordSpacing: -4,
                                         letterSpacing: -0.5)),

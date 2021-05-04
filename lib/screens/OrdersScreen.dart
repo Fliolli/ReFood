@@ -43,7 +43,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         0.6,
         "Марта Мартовна Мартович",
         4.7,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200', false),
+        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200', true),
   ];
 
   List<OrderCardItem> bookingOrderItems = [
@@ -160,7 +160,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         appBar: AppBar(
           backgroundColor: ColorsLibrary.whiteColor,
           elevation: 0,
-          title: Text(title,
+          title: Text(orders,
               style: StylesLibrary.strongBlackTextStyle
                   .merge(const TextStyle(fontSize: 16))),
           leading: CloseButton(

@@ -4,7 +4,7 @@ import 'package:flutter/rendering.dart';
 import '../resources/ColorsLibrary.dart';
 import '../utils/PlatformUtils.dart';
 import '../resources/StylesLibrary.dart';
-import 'package:flutter_test_app/screens/FoodItemInfoScreen.dart';
+import 'package:flutter_test_app/screens/OrderItemInfoScreen.dart';
 
 Widget buildOrderCardItemTrimmed(
     OrderCardItemTrimmed orderCardItemTrimmed, BuildContext context) {
@@ -19,7 +19,7 @@ Widget buildOrderCardItemTrimmed(
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => FoodItemInfoScreen(
+                builder: (context) => OrderItemInfoScreen(
                   id: orderCardItemTrimmed._id,
                   image: orderCardItemTrimmed._image,
                   name: orderCardItemTrimmed._name,
@@ -28,6 +28,7 @@ Widget buildOrderCardItemTrimmed(
                   ownerName: orderCardItemTrimmed._ownerName,
                   ownerProfileImage: orderCardItemTrimmed._ownerProfileImage,
                   isFree: orderCardItemTrimmed._isFree,
+                  ownerRating: orderCardItemTrimmed._ownerRating,
                 ),
               ));
         },
@@ -127,7 +128,7 @@ Widget buildOrderCardItemTrimmed(
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 8),
+                        padding: const EdgeInsets.only(top: 16),
                         child: SizedBox(
                           width: 120,
                           child: Text(
@@ -137,7 +138,10 @@ Widget buildOrderCardItemTrimmed(
                             style: selectByPlatform(
                                     StylesLibrary.optionalBlackTextStyle,
                                     StylesLibrary.optionalBlackTextStyle)
-                                .merge(const TextStyle(
+                                .merge(TextStyle(
+                                    color: orderCardItemTrimmed._isFree
+                                        ? ColorsLibrary.greenColor
+                                        : ColorsLibrary.middleBlack,
                                     fontSize: 12,
                                     wordSpacing: -4,
                                     letterSpacing: -0.5)),

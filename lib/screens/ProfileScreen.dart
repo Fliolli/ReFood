@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test_app/resources/ColorsLibrary.dart';
 import 'package:flutter_test_app/resources/StylesLibrary.dart';
 import 'package:flutter_test_app/screens/OrdersScreen.dart';
-import 'package:flutter_test_app/screens/SellingScreen.dart';
+import 'package:flutter_test_app/screens/GoodsScreen.dart';
 import '../utils/PlatformUtils.dart';
 import '../widgets/MenuItem.dart';
 import '../widgets/BadgeItem.dart';
@@ -36,7 +36,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         "Витрина",
         (BuildContext context) => {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => SellingScreen()))
+                  MaterialPageRoute(builder: (context) => GoodsScreen()))
             }),
     MenuItem(
         selectByPlatform(
