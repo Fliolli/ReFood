@@ -15,7 +15,7 @@ class ReFoodApp extends StatelessWidget {
       return OrientationBuilder(//return OrientationBuilder
           builder: (context, orientation) {
         //initialize SizerUtil()
-        SizerUtil().init(constraints, orientation); //initialize SizerUtil
+        SizerUtil(); //initialize SizerUtil
         return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: _title,

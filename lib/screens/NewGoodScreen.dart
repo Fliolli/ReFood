@@ -23,6 +23,7 @@ class _NewGoodScreenState extends State<NewGoodScreen> {
   final _expirationDateTextController = TextEditingController();
   final _priceTextController = TextEditingController();
   final _whenToPickUpTextController = TextEditingController();
+  final _whereToPickUpTextController = TextEditingController();
 
   @override
   void dispose() {
@@ -63,6 +64,7 @@ class _NewGoodScreenState extends State<NewGoodScreen> {
 
   TextEditingController queryController = TextEditingController();
   String response = '';
+  String selectedAddress = "";
 
   @override
   Widget build(BuildContext context) {
@@ -76,6 +78,7 @@ class _NewGoodScreenState extends State<NewGoodScreen> {
         leading: CloseButton(
           color: ColorsLibrary.primaryColor,
           onPressed: () {
+            FocusScope.of(context).requestFocus(new FocusNode());
             Navigator.pop(context);
           },
         ),
@@ -247,7 +250,7 @@ class _NewGoodScreenState extends State<NewGoodScreen> {
                           if (regExp.hasMatch(value.toString())) {
                             return null;
                           } else {
-                            return 'Используйте только цифры';
+                            return 'Только цифры';
                           }
                         }, _priceTextController),
                         context),
@@ -332,6 +335,26 @@ class _NewGoodScreenState extends State<NewGoodScreen> {
                 context),
           ),
           buildTitleGoodPropertyItem(whereToPickUp, context),
+          Form(
+            key: _whereToPickUpKey,
+            child: buildCustomTextField(
+                CustomTextField(
+                    50,
+                    MediaQuery.of(context).size.width,
+                    30,
+                    TextInputType.multiline,
+                    TextInputAction.done,
+                    1,
+                    1,
+                    'Обозначьте адрес, где можно получить товар..',
+                    (String value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Введите адрес';
+                  }
+                  return null;
+                }, _whereToPickUpTextController),
+                context),
+          ),
           Padding(
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
               child: ProgressButton(
@@ -385,8 +408,8 @@ class _NewGoodScreenState extends State<NewGoodScreen> {
   Future<void> querySuggestions(String query) async {
     final cancelListening = await YandexSearch.getSuggestions(
         query,
-        const Point(latitude: 55.5143, longitude: 37.24841),
-        const Point(latitude: 56.0421, longitude: 38.0284),
+        const Point(latitude: 40.7685, longitude: 50.6725),
+        const Point(latitude: 71.0199, longitude: 60.7840),
         "SuggestType.geo",
         true, (List<SuggestItem> suggestItems) {
       setState(() {
