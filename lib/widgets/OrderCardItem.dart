@@ -5,6 +5,7 @@ import '../resources/ColorsLibrary.dart';
 import '../utils/PlatformUtils.dart';
 import '../resources/StylesLibrary.dart';
 import 'package:flutter_test_app/screens/OrderItemInfoScreen.dart';
+import 'package:flutter_test_app/data/GlobalData.dart';
 
 Widget buildOrderCardItem(OrderCardItem orderCardItem, BuildContext context) {
   return Card(
@@ -19,6 +20,7 @@ Widget buildOrderCardItem(OrderCardItem orderCardItem, BuildContext context) {
             context,
             MaterialPageRoute(
               builder: (context) => OrderItemInfoScreen(
+                orderType: OrderType.booked,
                 id: orderCardItem._id,
                 image: orderCardItem._image,
                 name: orderCardItem._name,

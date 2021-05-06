@@ -18,7 +18,6 @@ class GoodsScreen extends StatefulWidget {
 class _GoodsScreenState extends State<GoodsScreen> {
   int selectedInteractiveLabelIndex = 0;
   static const String title = "Витрина";
-  final List<String> labelsName = ['Активные', 'Бронь', 'Оплачены', 'Архив'];
 
   final List<InteractiveLabelItem> goodsTypeLabelItems = [
     const InteractiveLabelItem(
@@ -26,9 +25,6 @@ class _GoodsScreenState extends State<GoodsScreen> {
     ),
     const InteractiveLabelItem(
       'Бронь',
-    ),
-    const InteractiveLabelItem(
-      'Оплачены',
     ),
     const InteractiveLabelItem(
       'Архив',
@@ -131,18 +127,6 @@ class _GoodsScreenState extends State<GoodsScreen> {
         false),
   ];
 
-  List<GoodCardItemTrimmed> paidGoodItems = [
-    GoodCardItemTrimmed(
-        300,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        "Шоколад",
-        30,
-        "штуку",
-        "Марта",
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        false),
-  ];
-
   List<GoodCardItemTrimmed> archiveGoodItems = [
     GoodCardItemTrimmed(
         300,
@@ -213,12 +197,7 @@ class _GoodsScreenState extends State<GoodsScreen> {
                           ? bookingGoodItems.map((goodCardItem) {
                               return buildGoodCardItem(goodCardItem, context);
                             }).toList()
-                          : selectedInteractiveLabelIndex == 2
-                              ? paidGoodItems.map((goodCardItem) {
-                                  return buildGoodCardItemTrimmed(
-                                      goodCardItem, context);
-                                }).toList()
-                              : archiveGoodItems.map((goodCardItem) {
+                          : archiveGoodItems.map((goodCardItem) {
                                   return buildGoodCardItemTrimmed(
                                       goodCardItem, context);
                                 }).toList(),

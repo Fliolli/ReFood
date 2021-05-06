@@ -5,6 +5,7 @@ import '../resources/ColorsLibrary.dart';
 import '../utils/PlatformUtils.dart';
 import '../resources/StylesLibrary.dart';
 import 'package:flutter_test_app/screens/GoodItemInfoScreen.dart';
+import 'package:flutter_test_app/data/GlobalData.dart';
 
 Widget buildGoodCardItemTrimmed(
     GoodCardItemTrimmed goodCardItemTrimmed, BuildContext context) {
@@ -20,6 +21,7 @@ Widget buildGoodCardItemTrimmed(
             context,
             MaterialPageRoute(
               builder: (context) => GoodItemInfoScreen(
+                goodType: GoodType.trimmed,
                 id: goodCardItemTrimmed._id,
                 image: goodCardItemTrimmed._image,
                 name: goodCardItemTrimmed._name,

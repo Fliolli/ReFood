@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_test_app/data/GlobalData.dart';
 import '../resources/ColorsLibrary.dart';
 import '../utils/PlatformUtils.dart';
 import '../resources/StylesLibrary.dart';
@@ -19,6 +20,7 @@ Widget buildGoodCardItem(GoodCardItem goodCardItem, BuildContext context) {
             context,
             MaterialPageRoute(
               builder: (context) => GoodItemInfoScreen(
+                goodType: GoodType.full,
                 id: goodCardItem._id,
                 image: goodCardItem._image,
                 name: goodCardItem._name,

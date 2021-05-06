@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_test_app/data/GlobalData.dart';
 import '../resources/ColorsLibrary.dart';
 import '../utils/PlatformUtils.dart';
 import '../resources/StylesLibrary.dart';
@@ -20,6 +21,7 @@ Widget buildOrderCardBookmarkItem(
             context,
             MaterialPageRoute(
               builder: (context) => OrderItemInfoScreen(
+                orderType: OrderType.bookmarked,
                 id: orderCardBookmarkItem._id,
                 image: orderCardBookmarkItem._image,
                 name: orderCardBookmarkItem._name,

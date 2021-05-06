@@ -13,6 +13,7 @@ import 'package:flutter_test_app/widgets/InfoPropertyItem.dart';
 class OrderItemInfoScreen extends StatefulWidget {
   OrderItemInfoScreen(
       {Key key,
+      this.orderType,
       this.id,
       this.image,
       this.name,
@@ -23,6 +24,7 @@ class OrderItemInfoScreen extends StatefulWidget {
       this.isFree,
       this.ownerRating});
 
+  final global.OrderType orderType;
   final int id;
   final String image;
   final String name;
@@ -38,8 +40,6 @@ class OrderItemInfoScreen extends StatefulWidget {
 }
 
 class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
-  //поиск позиции по id, а пока берется из GlobalData
-
   @override
   Widget build(BuildContext context) {
     InfoPropertyItem expirationDateItem = InfoPropertyItem(
@@ -61,11 +61,29 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
       strings.distance,
       '${global.foodItem.distance.toString()} км. от Вас',
     );
+
+    List<String> bookmarkedPopUpMenuItems = [
+      "Забронировать",
+      "Удалить из закладок",
+      "Чат с продавцом",
+    ];
+
+    List<String> bookedPopUpMenuItems = [
+      "Подтвердить получение",
+      "Отменить бронь",
+      "Чат с продавцом",
+    ];
+
+    List<String> archivePopUpMenuItems = [
+      "Удалить",
+      "Чат с продавцом",
+    ];
+
     return Scaffold(
       appBar: AppBar(
           backgroundColor: ColorsLibrary.whiteColor,
           elevation: 0,
-          title: Text(widget.isFree ? bookingTitle : sellingTitle,
+          title: Text(bookingTitle,
               style: StylesLibrary.strongBlackTextStyle
                   .merge(const TextStyle(fontSize: 16))),
           leading: CloseButton(
@@ -75,11 +93,44 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
             },
           ),
           actions: <Widget>[
-            IconButton(
-                icon: selectByPlatform(
-                    Icon(Icons.more_horiz), Icon(Icons.more_vert)),
-                color: ColorsLibrary.middleBlack,
-                onPressed: () {})
+            Padding(
+              padding: const EdgeInsets.only(right: 16),
+              child: PopupMenuButton<String>(
+                child: selectByPlatform(
+                    Icon(
+                      Icons.more_horiz,
+                      color: ColorsLibrary.middleBlack,
+                    ),
+                    Icon(
+                      Icons.more_vert,
+                      color: ColorsLibrary.middleBlack,
+                    )),
+                elevation: 3.2,
+                onSelected: _selectMenuItem,
+                itemBuilder: (BuildContext context) {
+                  return widget.orderType == global.OrderType.bookmarked
+                      ? bookmarkedPopUpMenuItems.map((String choice) {
+                          return PopupMenuItem<String>(
+                            value: choice,
+                            child: Text(choice),
+                          );
+                        }).toList()
+                      : widget.orderType == global.OrderType.booked
+                          ? bookedPopUpMenuItems.map((String choice) {
+                              return PopupMenuItem<String>(
+                                value: choice,
+                                child: Text(choice),
+                              );
+                            }).toList()
+                          : archivePopUpMenuItems.map((String choice) {
+                              return PopupMenuItem<String>(
+                                value: choice,
+                                child: Text(choice),
+                              );
+                            }).toList();
+                },
+              ),
+            ),
           ]),
       body: ListView(children: [
         Column(
@@ -330,5 +381,26 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
         ),
       ]),
     );
+  }
+
+  void _selectMenuItem(String choice) {
+    if (choice == "Забронировать")
+    {
+    }
+    else if (choice == "Удалить из закладок")
+    {
+    }
+    else if (choice == "Чат с продавцом")
+    {
+    }
+    else if (choice == "Подтвердить получение")
+    {
+    }
+    else if (choice == "Отменить бронь")
+    {
+    }
+    else if (choice == "Удалить")
+    {
+    }
   }
 }

@@ -5,6 +5,7 @@ import '../resources/ColorsLibrary.dart';
 import '../utils/PlatformUtils.dart';
 import '../resources/StylesLibrary.dart';
 import 'package:flutter_test_app/screens/OrderItemInfoScreen.dart';
+import 'package:flutter_test_app/data/GlobalData.dart';
 
 Widget buildOrderCardItemTrimmed(
     OrderCardItemTrimmed orderCardItemTrimmed, BuildContext context) {
@@ -20,6 +21,7 @@ Widget buildOrderCardItemTrimmed(
               context,
               MaterialPageRoute(
                 builder: (context) => OrderItemInfoScreen(
+                  orderType: OrderType.archive,
                   id: orderCardItemTrimmed._id,
                   image: orderCardItemTrimmed._image,
                   name: orderCardItemTrimmed._name,

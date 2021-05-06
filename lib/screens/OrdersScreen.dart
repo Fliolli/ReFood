@@ -8,6 +8,7 @@ import 'package:flutter_test_app/widgets/OrderCardBookmarkItem.dart';
 import 'package:flutter_test_app/widgets/OrderCardItemTrimmed.dart';
 import 'package:flutter_test_app/widgets/OrderCardItem.dart';
 import 'package:flutter_test_app/resources/StringsLibrary.dart';
+import 'package:flutter_test_app/resources/StringsLibrary.dart' as strings;
 
 class OrdersScreen extends StatefulWidget {
   @override
@@ -16,7 +17,6 @@ class OrdersScreen extends StatefulWidget {
 
 class _OrdersScreenState extends State<OrdersScreen> {
   int selectedInteractiveLabelIndex = 0;
-  final List<String> labelsName = ['Закладки', 'Бронь', 'Оплачено', 'Архив'];
 
   final List<InteractiveLabelItem> orderTypeLabelItems = [
     const InteractiveLabelItem(
@@ -24,9 +24,6 @@ class _OrdersScreenState extends State<OrdersScreen> {
     ),
     const InteractiveLabelItem(
       'Бронь',
-    ),
-    const InteractiveLabelItem(
-      'Оплачено',
     ),
     const InteractiveLabelItem(
       'Архив',
@@ -72,86 +69,6 @@ class _OrdersScreenState extends State<OrdersScreen> {
         false),
   ];
 
-  List<OrderCardItem> paidOrderItems = [
-    OrderCardItem(
-        002,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        "Домашнее мороже00000000000000000000000ное",
-        50,
-        "штуку",
-        0.9,
-        "Марк6666666666666666666666666666666666666666",
-        4.7,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        false),
-    OrderCardItem(
-        003,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        "Домашнее мороженое",
-        50,
-        "штуку",
-        0.9,
-        "Марк",
-        4.7,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        false),
-    OrderCardItem(
-        003,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        "Домашнее мороженое",
-        50,
-        "штуку",
-        0.9,
-        "Марк",
-        4.7,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        false),
-    OrderCardItem(
-        003,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        "Домашнее мороженое",
-        50,
-        "штуку",
-        0.9,
-        "Марк",
-        4.7,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        false),
-    OrderCardItem(
-        003,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        "Домашнее мороженое",
-        50,
-        "штуку",
-        0.9,
-        "Марк",
-        4.7,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        false),
-    OrderCardItem(
-        003,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        "Домашнее мороженое",
-        50,
-        "штуку",
-        0.9,
-        "Марк",
-        4.7,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        false),
-    OrderCardItem(
-        003,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        "Домашнее мороженое",
-        50,
-        "штуку",
-        0.9,
-        "Марк",
-        4.7,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        false),
-  ];
-
   List<OrderCardItemTrimmed> archiveOrderItems = [
     OrderCardItemTrimmed(
         000,
@@ -171,7 +88,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         appBar: AppBar(
           backgroundColor: ColorsLibrary.whiteColor,
           elevation: 0,
-          title: Text(orders,
+          title: Text(strings.orders,
               style: StylesLibrary.strongBlackTextStyle
                   .merge(const TextStyle(fontSize: 16))),
           leading: CloseButton(
@@ -222,15 +139,10 @@ class _OrdersScreenState extends State<OrdersScreen> {
                         ? bookingOrderItems.map((orderCardItem) {
                             return buildOrderCardItem(orderCardItem, context);
                           }).toList()
-                        : selectedInteractiveLabelIndex == 2
-                            ? paidOrderItems.map((orderCardItem) {
-                                return buildOrderCardItem(
-                                    orderCardItem, context);
-                              }).toList()
-                            : archiveOrderItems.map((orderCardItem) {
-                                return buildOrderCardItemTrimmed(
-                                    orderCardItem, context);
-                              }).toList(),
+                        : archiveOrderItems.map((orderCardItem) {
+                            return buildOrderCardItemTrimmed(
+                                orderCardItem, context);
+                          }).toList(),
               ),
             ),
           )

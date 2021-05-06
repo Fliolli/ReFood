@@ -13,6 +13,7 @@ import 'package:flutter_test_app/widgets/InfoPropertyItem.dart';
 class GoodItemInfoScreen extends StatefulWidget {
   GoodItemInfoScreen(
       {Key key,
+      this.goodType,
       this.id,
       this.image,
       this.name,
@@ -22,6 +23,7 @@ class GoodItemInfoScreen extends StatefulWidget {
       this.ownerProfileImage,
       this.isFree});
 
+  final global.GoodType goodType;
   final int id;
   final String image;
   final String name;
@@ -59,6 +61,18 @@ class _GoodItemInfoScreenState extends State<GoodItemInfoScreen> {
       strings.distance,
       '${global.foodItem.distance.toString()} км. от Вас',
     );
+
+    List<String> popUpMenuItems = [
+      "Редактировать",
+      "Удалить",
+      "Чаты",
+    ];
+
+    List<String> popUpMenuItemsTrimmed = [
+      "Удалить",
+      "Чаты",
+    ];
+
     return Scaffold(
       appBar: AppBar(
           backgroundColor: ColorsLibrary.whiteColor,
@@ -73,11 +87,37 @@ class _GoodItemInfoScreenState extends State<GoodItemInfoScreen> {
             },
           ),
           actions: <Widget>[
-            IconButton(
-                icon: selectByPlatform(
-                    Icon(Icons.more_horiz), Icon(Icons.more_vert)),
-                color: ColorsLibrary.middleBlack,
-                onPressed: () {})
+            Padding(
+              padding: const EdgeInsets.only(right: 16),
+              child: PopupMenuButton<String>(
+                child: selectByPlatform(
+                    Icon(
+                      Icons.more_horiz,
+                      color: ColorsLibrary.middleBlack,
+                    ),
+                    Icon(
+                      Icons.more_vert,
+                      color: ColorsLibrary.middleBlack,
+                    )),
+                elevation: 3.2,
+                onSelected: _selectMenuItem,
+                itemBuilder: (BuildContext context) {
+                  return widget.goodType == global.GoodType.full
+                      ? popUpMenuItems.map((String choice) {
+                          return PopupMenuItem<String>(
+                            value: choice,
+                            child: Text(choice),
+                          );
+                        }).toList()
+                      : popUpMenuItemsTrimmed.map((String choice) {
+                          return PopupMenuItem<String>(
+                            value: choice,
+                            child: Text(choice),
+                          );
+                        }).toList();
+                },
+              ),
+            ),
           ]),
       body: ListView(children: [
         Column(
@@ -268,5 +308,11 @@ class _GoodItemInfoScreenState extends State<GoodItemInfoScreen> {
         ),
       ]),
     );
+  }
+
+  void _selectMenuItem(String choice) {
+    if (choice == "Редактировать") {
+    } else if (choice == "Удалить") {
+    } else if (choice == "Чаты") {}
   }
 }
