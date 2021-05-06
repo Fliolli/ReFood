@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -8,6 +7,7 @@ import 'package:flutter_test_app/resources/StylesLibrary.dart';
 import 'package:flutter_test_app/widgets/InteractiveLabelItem.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../utils/PlatformUtils.dart';
 import 'package:flutter_test_app/widgets/OrderCardBookmarkItem.dart';
 import 'package:flutter_test_app/widgets/CustomTextField.dart';
@@ -215,12 +215,14 @@ class _NewGoodScreenState extends State<NewGoodScreen> {
               child: Container(
                   margin: EdgeInsets.only(top: 6, left: 32),
                   alignment: Alignment.centerLeft,
-                  child: imageFile == null ? Image.asset(
-                    "assets/images/addImage.png",
-                    fit: BoxFit.cover,
-                    height: 90,
-                    width: 90,
-                  ) : Image.file(imageFile)),
+                  child: imageFile == null
+                      ? Image.asset(
+                          "assets/images/addImage.png",
+                          fit: BoxFit.cover,
+                          height: 90,
+                          width: 90,
+                        )
+                      : Image.file(imageFile)),
               onTap: () {
                 showModalBottomSheet(
                     context: context,
@@ -540,26 +542,34 @@ class _NewGoodScreenState extends State<NewGoodScreen> {
   }
 
   _getFromGallery() async {
-    PickedFile pickedFile = await ImagePicker().getImage(
-      source: ImageSource.gallery,
-      maxWidth: 90,
-      maxHeight: 90,
-    );
-    if (pickedFile != null) {
-      imageFile = File(pickedFile.path);
+    if (await Permission.mediaLibrary.isGranted) {
+      PickedFile pickedFile = await ImagePicker().getImage(
+        source: ImageSource.gallery,
+        maxWidth: 90,
+        maxHeight: 90,
+      );
+      if (pickedFile != null) {
+        imageFile = File(pickedFile.path);
+      }
+    } else {
+      openAppSettings();
     }
   }
 
   _getFromCamera() async {
-    PickedFile pickedFile = await ImagePicker().getImage(
-      source: ImageSource.camera,
-      maxWidth: 90,
-      maxHeight: 90,
-    );
-    if (pickedFile != null) {
-      setState(() {
-        imageFile = File(pickedFile.path);
-      });
+    if (await Permission.mediaLibrary.isGranted) {
+      PickedFile pickedFile = await ImagePicker().getImage(
+        source: ImageSource.camera,
+        maxWidth: 90,
+        maxHeight: 90,
+      );
+      if (pickedFile != null) {
+        setState(() {
+          imageFile = File(pickedFile.path);
+        });
+      }
+    } else {
+      openAppSettings();
     }
   }
 }
