@@ -11,6 +11,7 @@ Widget buildTitleGoodPropertyItem(String title, BuildContext context) {
       width: MediaQuery.of(context).size.width,
       child: Text(
         title,
+        textAlign: TextAlign.justify,
         style: selectByPlatform(StylesLibrary.strongBlackTextStyle,
                 StylesLibrary.strongBlackTextStyle)
             .merge(const TextStyle(

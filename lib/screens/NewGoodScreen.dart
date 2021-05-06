@@ -1,8 +1,13 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test_app/resources/ColorsLibrary.dart';
 import 'package:flutter_test_app/resources/StylesLibrary.dart';
 import 'package:flutter_test_app/widgets/InteractiveLabelItem.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import '../utils/PlatformUtils.dart';
 import 'package:flutter_test_app/widgets/OrderCardBookmarkItem.dart';
 import 'package:flutter_test_app/widgets/CustomTextField.dart';
@@ -38,6 +43,7 @@ class _NewGoodScreenState extends State<NewGoodScreen> {
   final _nameKey = GlobalKey<FormState>();
   final _sellerKey = GlobalKey<FormState>();
   final _descriptionKey = GlobalKey<FormState>();
+  final _photoKey = GlobalKey<FormState>();
   final _expirationDateKey = GlobalKey<FormState>();
   final _priceKey = GlobalKey<FormState>();
   final _whenToPickUpKey = GlobalKey<FormState>();
@@ -65,6 +71,8 @@ class _NewGoodScreenState extends State<NewGoodScreen> {
   TextEditingController queryController = TextEditingController();
   String response = '';
   String selectedAddress = "";
+
+  File imageFile;
 
   @override
   Widget build(BuildContext context) {
@@ -200,31 +208,140 @@ class _NewGoodScreenState extends State<NewGoodScreen> {
                 }, _descriptionTextController),
                 context),
           ),
+          buildTitleGoodPropertyItem(photoOfGood, context),
+          Form(
+            key: _photoKey,
+            child: InkWell(
+              child: Container(
+                  margin: EdgeInsets.only(top: 6, left: 32),
+                  alignment: Alignment.centerLeft,
+                  child: imageFile == null ? Image.asset(
+                    "assets/images/addImage.png",
+                    fit: BoxFit.cover,
+                    height: 90,
+                    width: 90,
+                  ) : Image.file(imageFile)),
+              onTap: () {
+                showModalBottomSheet(
+                    context: context,
+                    builder: (BuildContext builder) {
+                      return Container(
+                          height:
+                              MediaQuery.of(context).copyWith().size.height / 5,
+                          child: Container(
+                            alignment: Alignment.center,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    _getFromGallery();
+                                  },
+                                  child: Text(
+                                    "Галерея",
+                                    style: selectByPlatform(
+                                            StylesLibrary
+                                                .IOSPrimaryBlackTextStyle,
+                                            StylesLibrary
+                                                .AndroidPrimaryBlackTextStyle)
+                                        .merge(const TextStyle(
+                                            fontSize: 18,
+                                            color: ColorsLibrary.middleBlack)),
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    _getFromCamera();
+                                  },
+                                  child: Text(
+                                    "Камера",
+                                    style: selectByPlatform(
+                                            StylesLibrary
+                                                .IOSPrimaryBlackTextStyle,
+                                            StylesLibrary
+                                                .AndroidPrimaryBlackTextStyle)
+                                        .merge(const TextStyle(
+                                            fontSize: 18,
+                                            color: ColorsLibrary.middleBlack)),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ));
+                    });
+              },
+            ),
+          ),
           buildTitleGoodPropertyItem(expirationDate, context),
           Form(
             key: _expirationDateKey,
-            child: buildCustomTextField(
-                CustomTextField(
-                    50,
-                    MediaQuery.of(context).size.width,
-                    30,
-                    TextInputType.datetime,
-                    TextInputAction.newline,
-                    1,
-                    1,
-                    'дд.мм.гггг или дд-мм-гггг', (String value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Введите срок годности';
-                  }
-                  RegExp regExp = new RegExp(
-                      r"^(0[1-9]|[12][0-9]|3[01])[-|.](0[1-9]|1[012])[-|.](19|20)\d\d$");
-                  if (regExp.hasMatch(value.toString())) {
-                    return null;
-                  } else {
-                    return 'Неверный формат даты';
-                  }
-                }, _expirationDateTextController),
-                context),
+            child: Container(
+                margin: EdgeInsets.only(top: 6, right: 16, left: 16),
+                height: 50,
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        color: ColorsLibrary.neutralGray, // set border color
+                        width: 1.0), // set border width
+                    borderRadius: BorderRadius.all(
+                        Radius.circular(30)), // set rounded corner radius
+                  ),
+                  child: TextFormField(
+                    onTap: () {
+                      FocusScope.of(context).requestFocus(new FocusNode());
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (BuildContext builder) {
+                            return Container(
+                                height: MediaQuery.of(context)
+                                        .copyWith()
+                                        .size
+                                        .height /
+                                    3,
+                                child: CupertinoDatePicker(
+                                  initialDateTime: DateTime.now(),
+                                  onDateTimeChanged: (DateTime date) {
+                                    setState(() {
+                                      _expirationDateTextController.text =
+                                          DateFormat("dd-MM-yyyy").format(date);
+                                    });
+                                  },
+                                  use24hFormat: true,
+                                  minimumYear: DateTime.now().year,
+                                  maximumYear: DateTime.now().year + 30,
+                                  minuteInterval: 1,
+                                  mode: CupertinoDatePickerMode.date,
+                                ));
+                          });
+                    },
+                    style: selectByPlatform(
+                            StylesLibrary.IOSPrimaryBlackTextStyle,
+                            StylesLibrary.AndroidPrimaryBlackTextStyle)
+                        .merge(const TextStyle(
+                            fontSize: 15, color: ColorsLibrary.middleBlack)),
+                    cursorColor: ColorsLibrary.primaryColor,
+                    controller: _expirationDateTextController,
+                    cursorHeight: 24,
+                    cursorWidth: 1,
+                    maxLines: 1,
+                    minLines: 1,
+                    autovalidateMode: AutovalidateMode.disabled,
+                    decoration: InputDecoration(
+                      errorStyle: selectByPlatform(
+                              StylesLibrary.IOSPrimaryBlackTextStyle,
+                              StylesLibrary.AndroidPrimaryBlackTextStyle)
+                          .merge(const TextStyle(
+                              fontSize: 12, color: ColorsLibrary.primaryColor)),
+                      border: InputBorder.none,
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 6, horizontal: 16),
+                      hintText: 'дд-мм-гггг',
+                      hintStyle: TextStyle(
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                )),
           ),
           buildTitleGoodPropertyItem(priceAndFree, context),
           Form(
@@ -365,6 +482,7 @@ class _NewGoodScreenState extends State<NewGoodScreen> {
                 height: 45,
                 borderRadius: 30,
                 onPressed: () async {
+                  FocusScope.of(context).requestFocus(new FocusNode());
                   int score = await Future.delayed(
                       const Duration(milliseconds: 3000), () => 42);
                   return () {};
@@ -419,6 +537,30 @@ class _NewGoodScreenState extends State<NewGoodScreen> {
     });
     await Future<dynamic>.delayed(
         const Duration(seconds: 3), () => cancelListening());
+  }
+
+  _getFromGallery() async {
+    PickedFile pickedFile = await ImagePicker().getImage(
+      source: ImageSource.gallery,
+      maxWidth: 90,
+      maxHeight: 90,
+    );
+    if (pickedFile != null) {
+      imageFile = File(pickedFile.path);
+    }
+  }
+
+  _getFromCamera() async {
+    PickedFile pickedFile = await ImagePicker().getImage(
+      source: ImageSource.camera,
+      maxWidth: 90,
+      maxHeight: 90,
+    );
+    if (pickedFile != null) {
+      setState(() {
+        imageFile = File(pickedFile.path);
+      });
+    }
   }
 }
 
