@@ -24,7 +24,7 @@ Widget buildCustomTextField(
           style: selectByPlatform(StylesLibrary.IOSPrimaryBlackTextStyle,
                   StylesLibrary.AndroidPrimaryBlackTextStyle)
               .merge(const TextStyle(
-                  fontSize: 16, color: ColorsLibrary.middleBlack)),
+                  fontSize: 15, color: ColorsLibrary.middleBlack)),
           cursorColor: ColorsLibrary.primaryColor,
           controller: customTextField._textEditingController,
           cursorHeight: 24,

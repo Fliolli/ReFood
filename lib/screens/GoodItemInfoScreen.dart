@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_test_app/data/GlobalData.dart';
 import 'package:flutter_test_app/resources/ColorsLibrary.dart';
 import 'package:flutter_test_app/resources/StylesLibrary.dart';
+import 'package:flutter_test_app/screens/NewOrEditGoodScreen.dart';
 import '../utils/PlatformUtils.dart';
 import 'package:flutter_test_app/resources/StringsLibrary.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
@@ -27,7 +29,7 @@ class GoodItemInfoScreen extends StatefulWidget {
   final int id;
   final String image;
   final String name;
-  final int price;
+  final double price;
   final String unit;
   final String ownerName;
   final String ownerProfileImage;
@@ -47,7 +49,7 @@ class _GoodItemInfoScreenState extends State<GoodItemInfoScreen> {
         DateFormat("dd-MM-yy hh:mm")
             .format(global.foodItem.expirationDate)
             .toString());
-    InfoPropertyItem priceDateItem = InfoPropertyItem(
+    InfoPropertyItem priceUnitItem = InfoPropertyItem(
       strings.price,
       widget.isFree
           ? 'бесплатно'
@@ -55,7 +57,7 @@ class _GoodItemInfoScreenState extends State<GoodItemInfoScreen> {
     );
     InfoPropertyItem pickUpItem = InfoPropertyItem(
       strings.whenToPickUp,
-      global.foodItem.pickUpTimes,
+      global.foodItem.whenToPickUp,
     );
     InfoPropertyItem distanceItem = InfoPropertyItem(
       strings.distance,
@@ -65,12 +67,10 @@ class _GoodItemInfoScreenState extends State<GoodItemInfoScreen> {
     List<String> popUpMenuItems = [
       "Редактировать",
       "Удалить",
-      "Чаты",
     ];
 
     List<String> popUpMenuItemsTrimmed = [
       "Удалить",
-      "Чаты",
     ];
 
     return Scaffold(
@@ -154,6 +154,7 @@ class _GoodItemInfoScreenState extends State<GoodItemInfoScreen> {
                 ],
               ),
             ),
+            widget.goodType != GoodType.trimmed ?
             Container(
               padding: const EdgeInsets.only(right: 36, left: 36, bottom: 16),
               width: MediaQuery.of(context).size.width * 0.8,
@@ -166,7 +167,9 @@ class _GoodItemInfoScreenState extends State<GoodItemInfoScreen> {
                   fontSize: 11,
                 )),
               ),
-            ),
+            )
+            : Container(),
+            widget.goodType != GoodType.trimmed ?
             Card(
               color: ColorsLibrary.lightGray,
               margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -244,7 +247,8 @@ class _GoodItemInfoScreenState extends State<GoodItemInfoScreen> {
                   ],
                 ),
               ),
-            ),
+            )
+            : Container(),
           ],
         ),
         Container(
@@ -267,52 +271,58 @@ class _GoodItemInfoScreenState extends State<GoodItemInfoScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 4),
             child: Column(
               children: [
+                widget.goodType != GoodType.trimmed ?
                 Padding(
                   padding: const EdgeInsets.only(top: 16),
                   child: buildInfoPropertyItem(expirationDateItem, context),
-                ),
-                buildInfoPropertyItem(priceDateItem, context),
-                buildInfoPropertyItem(pickUpItem, context),
+                )
+                : Container(height: 16,),
+                buildInfoPropertyItem(priceUnitItem, context),
+                widget.goodType != GoodType.trimmed ?
+                buildInfoPropertyItem(pickUpItem, context)
+                : Container(),
               ],
             ),
           ),
         ),
+        widget.goodType != GoodType.trimmed ?
         Container(
           margin:
-              const EdgeInsets.only(top: 4, bottom: 16, left: 24, right: 24),
+              const EdgeInsets.only(top: 4, bottom: 24, left: 24, right: 24),
           child: SizedBox(
               width: MediaQuery.of(context).size.width,
-              height: 200,
+              height: 250,
               child: const YandexMap()),
-        ),
-        Container(
-          margin: const EdgeInsets.only(right: 32, left: 32, bottom: 32),
-          height: 45,
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: ColorsLibrary.lightOrange,
-            borderRadius: const BorderRadius.all(Radius.circular(35)),
-          ),
-          child: InkWell(
-            onTap: () {},
-            child: Center(
-              child: Text(
-                strings.edit,
-                style: selectByPlatform(StylesLibrary.IOSPrimaryWhiteTextStyle,
-                        StylesLibrary.AndroidPrimaryWhiteTextStyle)
-                    .merge(const TextStyle(
-                        color: ColorsLibrary.whiteColor, fontSize: 17)),
-              ),
-            ),
-          ),
-        ),
+        )
+        : Container(),
       ]),
     );
   }
 
   void _selectMenuItem(String choice) {
     if (choice == "Редактировать") {
-    } else if (choice == "Удалить") {
-    } else if (choice == "Чаты") {}
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => NewOrEditGoodScreen(
+              screenType: ScreenType.editGood,
+              id: widget.id,
+              name: widget.name,
+              ownerName: widget.ownerName,
+              ownerProfileImage: widget.ownerProfileImage,
+              description: global.foodItem.description,
+              image: widget.image,
+              expirationDate: global.foodItem.expirationDate,
+              price: widget.price,
+              unit: widget.unit,
+              whenToPickUp: global.foodItem.whenToPickUp,
+              whereToPickUp: global.foodItem.whereToPickUp,
+              isFree: widget.isFree,
+            ),
+          ));
+    } else if (choice == "Удалить")
+    {
+
+    }
   }
 }

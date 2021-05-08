@@ -34,7 +34,6 @@ Widget buildOrderCardBookmarkItem(
               ),
             ));
       },
-      splashColor: ColorsLibrary.lightOrange,
       child: Container(
           padding: const EdgeInsets.all(4),
           child: Row(

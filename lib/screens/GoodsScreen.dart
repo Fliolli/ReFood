@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_test_app/data/GlobalData.dart';
 import 'package:flutter_test_app/resources/ColorsLibrary.dart';
 import 'package:flutter_test_app/resources/StylesLibrary.dart';
-import 'package:flutter_test_app/screens/NewGoodScreen.dart';
+import 'package:flutter_test_app/screens/NewOrEditGoodScreen.dart';
 import 'package:flutter_test_app/widgets/GoodCardItem.dart';
 import 'package:flutter_test_app/widgets/InteractiveLabelItem.dart';
 import '../utils/PlatformUtils.dart';
@@ -215,7 +216,7 @@ class _GoodsScreenState extends State<GoodsScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => NewGoodScreen(),
+                            builder: (context) => NewOrEditGoodScreen.newGood(screenType: ScreenType.newGood,),
                           ));
                     },
                     child: selectByPlatform(

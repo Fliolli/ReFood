@@ -11,8 +11,8 @@ class FoodItem {
   int bookmarksCount;
   DateTime addMoment;
   String description;
-  String location;
-  String pickUpTimes;
+  String whereToPickUp;
+  String whenToPickUp;
   DateTime expirationDate;
   bool isFree;
   bool isInBookmarks;
@@ -30,8 +30,8 @@ class FoodItem {
       this.bookmarksCount,
       this.addMoment,
       this.description,
-      this.location,
-      this.pickUpTimes,
+      this.whereToPickUp,
+      this.whenToPickUp,
       this.expirationDate,
       this.isFree,
       this.isInBookmarks);

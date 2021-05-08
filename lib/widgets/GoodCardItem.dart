@@ -32,7 +32,6 @@ Widget buildGoodCardItem(GoodCardItem goodCardItem, BuildContext context) {
               ),
             ));
       },
-      splashColor: ColorsLibrary.lightOrange,
       child: Container(
           padding: const EdgeInsets.all(4),
           child: Row(
@@ -149,7 +148,7 @@ class GoodCardItem {
   final int _id;
   String _image;
   String _name;
-  int _price;
+  double _price;
   String _unit;
   String _ownerName;
   String _ownerProfileImage;

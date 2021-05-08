@@ -14,15 +14,49 @@ import 'package:flutter_test_app/widgets/CustomTextField.dart';
 import 'package:flutter_test_app/widgets/TitleGoodPropertyItem.dart';
 import 'package:flutter_test_app/resources/StringsLibrary.dart';
 import 'package:flutter_test_app/resources/StringsLibrary.dart' as strings;
+import 'package:flutter_test_app/data/GlobalData.dart' as global;
 import 'package:flutter_progress_button/flutter_progress_button.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
-class NewGoodScreen extends StatefulWidget {
+class NewOrEditGoodScreen extends StatefulWidget {
+  NewOrEditGoodScreen({
+    Key key,
+    this.screenType,
+    this.id,
+    this.name,
+    this.ownerName,
+    this.ownerProfileImage,
+    this.description,
+    this.image,
+    this.expirationDate,
+    this.price,
+    this.unit,
+    this.whenToPickUp,
+    this.whereToPickUp,
+    this.isFree,
+  });
+
+  NewOrEditGoodScreen.newGood({Key key, this.screenType});
+
+  global.ScreenType screenType;
+  int id;
+  String name;
+  String ownerName;
+  String ownerProfileImage;
+  String description;
+  String image;
+  DateTime expirationDate;
+  double price;
+  String unit;
+  String whenToPickUp;
+  String whereToPickUp;
+  bool isFree;
+
   @override
-  _NewGoodScreenState createState() => _NewGoodScreenState();
+  _NewOrEditGoodScreenState createState() => _NewOrEditGoodScreenState();
 }
 
-class _NewGoodScreenState extends State<NewGoodScreen> {
+class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
   final _nameTextController = TextEditingController();
   final _descriptionTextController = TextEditingController();
   final _expirationDateTextController = TextEditingController();
@@ -76,6 +110,16 @@ class _NewGoodScreenState extends State<NewGoodScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.screenType == global.ScreenType.editGood) {
+      selectedUnit = UnitDropDownItem(widget.unit);
+      _nameTextController.text = widget.name;
+      _descriptionTextController.text = widget.description;
+      _expirationDateTextController.text = widget.expirationDate.toString();
+      _priceTextController.text = widget.price.toString();
+      _whenToPickUpTextController.text = widget.whenToPickUp;
+      _whereToPickUpTextController.text = widget.whereToPickUp;
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorsLibrary.whiteColor,
@@ -210,11 +254,11 @@ class _NewGoodScreenState extends State<NewGoodScreen> {
           ),
           buildTitleGoodPropertyItem(photoOfGood, context),
           Form(
-            key: _photoKey,
-            child: InkWell(
+              key: _photoKey,
               child: Container(
-                  margin: EdgeInsets.only(top: 6, left: 32),
-                  alignment: Alignment.centerLeft,
+                margin: EdgeInsets.only(top: 6, left: 32),
+                alignment: Alignment.centerLeft,
+                child: InkWell(
                   child: imageFile == null
                       ? Image.asset(
                           "assets/images/addImage.png",
@@ -222,58 +266,63 @@ class _NewGoodScreenState extends State<NewGoodScreen> {
                           height: 90,
                           width: 90,
                         )
-                      : Image.file(imageFile)),
-              onTap: () {
-                showModalBottomSheet(
-                    context: context,
-                    builder: (BuildContext builder) {
-                      return Container(
-                          height:
-                              MediaQuery.of(context).copyWith().size.height / 5,
-                          child: Container(
-                            alignment: Alignment.center,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                TextButton(
-                                  onPressed: () {
-                                    _getFromGallery();
-                                  },
-                                  child: Text(
-                                    "Галерея",
-                                    style: selectByPlatform(
-                                            StylesLibrary
-                                                .IOSPrimaryBlackTextStyle,
-                                            StylesLibrary
-                                                .AndroidPrimaryBlackTextStyle)
-                                        .merge(const TextStyle(
-                                            fontSize: 18,
-                                            color: ColorsLibrary.middleBlack)),
-                                  ),
+                      : Image.file(imageFile),
+                  onTap: () {
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (BuildContext builder) {
+                          return Container(
+                              height: MediaQuery.of(context)
+                                      .copyWith()
+                                      .size
+                                      .height /
+                                  5,
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    TextButton(
+                                      onPressed: () {
+                                        _getFromGallery();
+                                      },
+                                      child: Text(
+                                        "Галерея",
+                                        style: selectByPlatform(
+                                                StylesLibrary
+                                                    .IOSPrimaryBlackTextStyle,
+                                                StylesLibrary
+                                                    .AndroidPrimaryBlackTextStyle)
+                                            .merge(const TextStyle(
+                                                fontSize: 18,
+                                                color:
+                                                    ColorsLibrary.middleBlack)),
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        _getFromCamera();
+                                      },
+                                      child: Text(
+                                        "Камера",
+                                        style: selectByPlatform(
+                                                StylesLibrary
+                                                    .IOSPrimaryBlackTextStyle,
+                                                StylesLibrary
+                                                    .AndroidPrimaryBlackTextStyle)
+                                            .merge(const TextStyle(
+                                                fontSize: 18,
+                                                color:
+                                                    ColorsLibrary.middleBlack)),
+                                      ),
+                                    )
+                                  ],
                                 ),
-                                TextButton(
-                                  onPressed: () {
-                                    _getFromCamera();
-                                  },
-                                  child: Text(
-                                    "Камера",
-                                    style: selectByPlatform(
-                                            StylesLibrary
-                                                .IOSPrimaryBlackTextStyle,
-                                            StylesLibrary
-                                                .AndroidPrimaryBlackTextStyle)
-                                        .merge(const TextStyle(
-                                            fontSize: 18,
-                                            color: ColorsLibrary.middleBlack)),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ));
-                    });
-              },
-            ),
-          ),
+                              ));
+                        });
+                  },
+                ),
+              )),
           buildTitleGoodPropertyItem(expirationDate, context),
           Form(
             key: _expirationDateKey,
@@ -405,7 +454,7 @@ class _NewGoodScreenState extends State<NewGoodScreen> {
                                     fontSize: 15,
                                     color: ColorsLibrary.middleBlack)),
                           ),
-                          value: selectedUnit,
+                          value:  selectedUnit,
                           onChanged: (UnitDropDownItem value) {
                             setState(() {
                               selectedUnit = value;

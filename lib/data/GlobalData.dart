@@ -30,3 +30,5 @@ Map<String, String> foodItemAvailableFeature = {
 enum GoodType {full, trimmed}
 
 enum OrderType {newOrder, bookmarked, booked, archive}
+
+enum ScreenType {newGood, editGood}

@@ -1,6 +1,8 @@
 library flutter_test_app.strings;
 
 const String bookingTitle = "Доступно для брони";
+const String bookedTitle = "Забронировано";
+const String archivedTitle = "Закрытый заказ";
 const String orders = "Заказы";
 const String expirationDate = "Срок годности";
 const String price = "Цена";

@@ -1,16 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_test_app/resources/ColorsLibrary.dart';
-import 'package:flutter_test_app/resources/StylesLibrary.dart';
-import '../utils/PlatformUtils.dart';
-import 'package:flutter_test_app/resources/StringsLibrary.dart';
-import 'package:yandex_mapkit/yandex_mapkit.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter_test_app/data/GlobalData.dart' as global;
+import 'package:flutter_test_app/resources/ColorsLibrary.dart';
+import 'package:flutter_test_app/resources/StringsLibrary.dart';
 import 'package:flutter_test_app/resources/StringsLibrary.dart' as strings;
+import 'package:flutter_test_app/resources/StylesLibrary.dart';
 import 'package:flutter_test_app/widgets/InfoPropertyItem.dart';
+import 'package:intl/intl.dart';
+import 'package:yandex_mapkit/yandex_mapkit.dart';
+
+import '../utils/PlatformUtils.dart';
 
 class OrderItemInfoScreen extends StatefulWidget {
+  final global.OrderType orderType;
+
+  final int id;
+  final String image;
+  final String name;
+  final int price;
+  final String unit;
+  final String ownerName;
+  final String ownerProfileImage;
+  final bool isFree;
+  final double ownerRating;
   OrderItemInfoScreen(
       {Key key,
       this.orderType,
@@ -23,17 +35,6 @@ class OrderItemInfoScreen extends StatefulWidget {
       this.ownerProfileImage,
       this.isFree,
       this.ownerRating});
-
-  final global.OrderType orderType;
-  final int id;
-  final String image;
-  final String name;
-  final int price;
-  final String unit;
-  final String ownerName;
-  final String ownerProfileImage;
-  final bool isFree;
-  final double ownerRating;
 
   @override
   _OrderItemInfoScreenState createState() => _OrderItemInfoScreenState();
@@ -55,7 +56,7 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
     );
     InfoPropertyItem pickUpItem = InfoPropertyItem(
       strings.whenToPickUp,
-      global.foodItem.pickUpTimes,
+      global.foodItem.whenToPickUp,
     );
     InfoPropertyItem distanceItem = InfoPropertyItem(
       strings.distance,
@@ -65,25 +66,27 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
     List<String> bookmarkedPopUpMenuItems = [
       "Забронировать",
       "Удалить из закладок",
-      "Чат с продавцом",
     ];
 
     List<String> bookedPopUpMenuItems = [
       "Подтвердить получение",
       "Отменить бронь",
-      "Чат с продавцом",
     ];
 
     List<String> archivePopUpMenuItems = [
       "Удалить",
-      "Чат с продавцом",
     ];
 
     return Scaffold(
       appBar: AppBar(
           backgroundColor: ColorsLibrary.whiteColor,
           elevation: 0,
-          title: Text(bookingTitle,
+          title: Text(
+              widget.orderType == global.OrderType.bookmarked
+                  ? bookingTitle
+                  : widget.orderType == global.OrderType.booked
+                      ? bookedTitle
+                      : archivedTitle,
               style: StylesLibrary.strongBlackTextStyle
                   .merge(const TextStyle(fontSize: 16))),
           leading: CloseButton(
@@ -135,11 +138,11 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
       body: ListView(children: [
         Column(
           children: <Widget>[
-            Center(
-              child: Stack(
-                overflow: Overflow.visible,
-                children: [
-                  Container(
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Center(
+                  child: Container(
                     margin: const EdgeInsets.only(top: 15),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(130),
@@ -147,48 +150,50 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
                           height: 255, width: 255, fit: BoxFit.cover),
                     ),
                   ),
-                  Positioned(
-                    top: 15,
-                    left: 10,
-                    child: InkWell(
-                      splashColor: ColorsLibrary.whiteTransparentColor,
-                      onTap: () {
-                        try {
-                          setState(() {
-                            global.foodItem.isInBookmarks =
-                                !global.foodItem.isInBookmarks;
-                          });
-                        } catch (e) {
-                          print(e);
-                        }
-                      },
-                      child: Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: ColorsLibrary.whiteColor,
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.2),
-                              spreadRadius: 2,
-                              blurRadius: 6,
-                              offset: const Offset(0, 3),
+                ),
+                widget.orderType == global.OrderType.bookmarked
+                    ? Positioned(
+                        top: 15,
+                        left: 65,
+                        child: InkWell(
+                          splashColor: ColorsLibrary.whiteTransparentColor,
+                          onTap: () {
+                            try {
+                              setState(() {
+                                global.foodItem.isInBookmarks =
+                                    !global.foodItem.isInBookmarks;
+                              });
+                            } catch (e) {
+                              print(e);
+                            }
+                          },
+                          child: Container(
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: ColorsLibrary.whiteColor,
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  spreadRadius: 2,
+                                  blurRadius: 6,
+                                  offset: const Offset(0, 3),
+                                ),
+                              ],
                             ),
-                          ],
+                            child: Icon(
+                              global.foodItem.isInBookmarks
+                                  ? CupertinoIcons.heart_solid
+                                  : CupertinoIcons.heart,
+                              size: 32,
+                              color: ColorsLibrary.lightOrange,
+                            ),
+                          ),
                         ),
-                        child: Icon(
-                          global.foodItem.isInBookmarks
-                              ? CupertinoIcons.heart_solid
-                              : CupertinoIcons.heart,
-                          size: 32,
-                          color: ColorsLibrary.lightOrange,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                      )
+                    : Container(),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.only(top: 5, right: 24, left: 24),
@@ -212,6 +217,7 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
                 ],
               ),
             ),
+            widget.orderType != global.OrderType.archive ?
             Container(
               padding: const EdgeInsets.only(right: 36, left: 36, bottom: 16),
               width: MediaQuery.of(context).size.width * 0.8,
@@ -224,7 +230,8 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
                   fontSize: 11,
                 )),
               ),
-            ),
+            )
+            : Container(height: 16,),
             Card(
               color: ColorsLibrary.lightGray,
               margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -286,6 +293,7 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
                             ),
                           ),
                         ]),
+                    widget.orderType != global.OrderType.archive ?
                     Container(
                       padding: const EdgeInsets.only(top: 8, left: 10),
                       width: MediaQuery.of(context).size.width,
@@ -298,7 +306,8 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
                           fontSize: 12,
                         )),
                       ),
-                    ),
+                    )
+                    : Container(),
                   ],
                 ),
               ),
@@ -325,82 +334,42 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 4),
             child: Column(
               children: [
+                widget.orderType != global.OrderType.archive ?
                 Padding(
                   padding: const EdgeInsets.only(top: 16),
                   child: buildInfoPropertyItem(expirationDateItem, context),
-                ),
+                )
+                : Container(height: 16,),
                 buildInfoPropertyItem(priceDateItem, context),
-                buildInfoPropertyItem(pickUpItem, context),
-                buildInfoPropertyItem(distanceItem, context),
+                widget.orderType != global.OrderType.archive ?
+                buildInfoPropertyItem(pickUpItem, context)
+                : Container(),
+                widget.orderType != global.OrderType.archive ?
+                buildInfoPropertyItem(distanceItem, context)
+                :Container(),
               ],
             ),
           ),
         ),
+        widget.orderType != global.OrderType.archive ?
         Container(
           margin:
               const EdgeInsets.only(top: 4, bottom: 16, left: 24, right: 24),
           child: SizedBox(
               width: MediaQuery.of(context).size.width,
-              height: 200,
+              height: 250,
               child: const YandexMap()),
-        ),
-        Container(
-          margin: const EdgeInsets.only(right: 32, left: 32, bottom: 32),
-          height: 45,
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: ColorsLibrary.lightOrange,
-            borderRadius: const BorderRadius.all(Radius.circular(35)),
-          ),
-          child: InkWell(
-            onTap: () {},
-            child: Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    strings.moveToChat,
-                    style: selectByPlatform(
-                            StylesLibrary.IOSPrimaryWhiteTextStyle,
-                            StylesLibrary.AndroidPrimaryWhiteTextStyle)
-                        .merge(const TextStyle(
-                            color: ColorsLibrary.whiteColor, fontSize: 17)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 5),
-                    child: Icon(
-                      selectByPlatform(
-                          CupertinoIcons.chat_bubble_2, Icons.send_rounded),
-                      color: ColorsLibrary.whiteColor,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+        )
+        : Container(),
       ]),
     );
   }
 
   void _selectMenuItem(String choice) {
-    if (choice == "Забронировать")
-    {
-    }
-    else if (choice == "Удалить из закладок")
-    {
-    }
-    else if (choice == "Чат с продавцом")
-    {
-    }
-    else if (choice == "Подтвердить получение")
-    {
-    }
-    else if (choice == "Отменить бронь")
-    {
-    }
-    else if (choice == "Удалить")
-    {
-    }
+    if (choice == "Забронировать") {
+    } else if (choice == "Удалить из закладок") {
+    } else if (choice == "Подтвердить получение") {
+    } else if (choice == "Отменить бронь") {
+    } else if (choice == "Удалить") {}
   }
 }
