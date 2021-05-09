@@ -53,18 +53,18 @@ Widget buildCustomTextField(
 }
 
 class CustomTextField {
-  double _height;
-  double _width;
-  double _borderRadius;
-  TextInputType _textInputType;
-  TextInputAction _textInputAction;
-  int _maxLines;
-  int _minLines;
-  String _hintText;
-  Function _validator;
-  TextEditingController _textEditingController;
+  final double _height;
+  final double _width;
+  final double _borderRadius;
+  final TextInputType _textInputType;
+  final TextInputAction _textInputAction;
+  final int _maxLines;
+  final int _minLines;
+  final String _hintText;
+  final Function _validator;
+  final TextEditingController _textEditingController;
 
-  CustomTextField(
+  const CustomTextField(
       this._height,
       this._width,
       this._borderRadius,

@@ -5,11 +5,11 @@ import '../utils/PlatformUtils.dart';
 import '../resources/StylesLibrary.dart';
 
 class NavigationItem {
-  final IconData icon;
-  final String title;
-  final Color color;
+  final IconData _icon;
+  final String _title;
+  final Color _color;
 
-  const NavigationItem(this.icon, this.title, this.color);
+  const NavigationItem(this._icon, this._title, this._color);
 }
 
 Widget buildNavigationItem(NavigationItem item, bool isSelected) {
@@ -20,7 +20,7 @@ Widget buildNavigationItem(NavigationItem item, bool isSelected) {
     padding: const EdgeInsets.only(left: 12, right: 12),
     decoration: isSelected
         ? BoxDecoration(
-            color: item.color,
+            color: item._color,
             borderRadius: BorderRadius.all(Radius.circular(50)))
         : null,
     child: ListView(
@@ -37,7 +37,7 @@ Widget buildNavigationItem(NavigationItem item, bool isSelected) {
                     : ColorsLibrary.neutralGray,
               ),
               child: Icon(
-                item.icon,
+                item._icon,
               ),
             ),
             Padding(
@@ -47,7 +47,7 @@ Widget buildNavigationItem(NavigationItem item, bool isSelected) {
                       style: selectByPlatform(
                           StylesLibrary.IOSPrimaryWhiteTextStyle,
                           StylesLibrary.AndroidPrimaryWhiteTextStyle),
-                      child: Text('${item.title}'))
+                      child: Text('${item._title}'))
                   : Container(),
             )
           ],

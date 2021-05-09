@@ -4,20 +4,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test_app/resources/ColorsLibrary.dart';
 import 'package:flutter_test_app/resources/StylesLibrary.dart';
-import 'package:flutter_test_app/widgets/InteractiveLabelItem.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../utils/PlatformUtils.dart';
-import 'package:flutter_test_app/widgets/OrderCardBookmarkItem.dart';
 import 'package:flutter_test_app/widgets/CustomTextField.dart';
-import 'package:flutter_test_app/widgets/TitleGoodPropertyItem.dart';
+import 'package:flutter_test_app/widgets/PropertyTitleItem.dart';
 import 'package:flutter_test_app/resources/StringsLibrary.dart';
 import 'package:flutter_test_app/resources/StringsLibrary.dart' as strings;
 import 'package:flutter_test_app/data/GlobalData.dart' as global;
 import 'package:flutter_progress_button/flutter_progress_button.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
+// ignore: must_be_immutable
 class NewOrEditGoodScreen extends StatefulWidget {
   NewOrEditGoodScreen({
     Key key,
@@ -137,7 +136,7 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
       ),
       body: ListView(children: [
         Column(children: <Widget>[
-          buildTitleGoodPropertyItem(nameOfGood, context),
+          buildPropertyTitleItem(nameOfGood, context),
           Form(
             key: _nameKey,
             child: buildCustomTextField(
@@ -157,7 +156,7 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                 }, _nameTextController),
                 context),
           ),
-          buildTitleGoodPropertyItem(seller, context),
+          buildPropertyTitleItem(seller, context),
           Form(
             key: _sellerKey,
             child: Container(
@@ -231,7 +230,7 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
               ),
             ),
           ),
-          buildTitleGoodPropertyItem(descriptionOfGood, context),
+          buildPropertyTitleItem(descriptionOfGood, context),
           Form(
             key: _descriptionKey,
             child: buildCustomTextField(
@@ -252,7 +251,7 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                 }, _descriptionTextController),
                 context),
           ),
-          buildTitleGoodPropertyItem(photoOfGood, context),
+          buildPropertyTitleItem(photoOfGood, context),
           Form(
               key: _photoKey,
               child: Container(
@@ -323,7 +322,7 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                   },
                 ),
               )),
-          buildTitleGoodPropertyItem(expirationDate, context),
+          buildPropertyTitleItem(expirationDate, context),
           Form(
             key: _expirationDateKey,
             child: Container(
@@ -394,7 +393,7 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                   ),
                 )),
           ),
-          buildTitleGoodPropertyItem(priceAndFree, context),
+          buildPropertyTitleItem(priceAndFree, context),
           Form(
               key: _priceKey,
               child: Padding(
@@ -454,7 +453,7 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                                     fontSize: 15,
                                     color: ColorsLibrary.middleBlack)),
                           ),
-                          value:  selectedUnit,
+                          value: selectedUnit,
                           onChanged: (UnitDropDownItem value) {
                             setState(() {
                               selectedUnit = value;
@@ -481,7 +480,7 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                   ],
                 ),
               )),
-          buildTitleGoodPropertyItem(whenToPickUp, context),
+          buildPropertyTitleItem(whenToPickUp, context),
           Form(
             key: _whenToPickUpKey,
             child: buildCustomTextField(
@@ -502,7 +501,7 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                 }, _whenToPickUpTextController),
                 context),
           ),
-          buildTitleGoodPropertyItem(whereToPickUp, context),
+          buildPropertyTitleItem(whereToPickUp, context),
           Form(
             key: _whereToPickUpKey,
             child: buildCustomTextField(

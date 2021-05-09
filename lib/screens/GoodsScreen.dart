@@ -7,9 +7,7 @@ import 'package:flutter_test_app/screens/NewOrEditGoodScreen.dart';
 import 'package:flutter_test_app/widgets/GoodCardItem.dart';
 import 'package:flutter_test_app/widgets/InteractiveLabelItem.dart';
 import '../utils/PlatformUtils.dart';
-import 'package:flutter_test_app/widgets/OrderCardBookmarkItem.dart';
 import 'package:flutter_test_app/widgets/GoodCardItemTrimmed.dart';
-import 'package:flutter_test_app/resources/StringsLibrary.dart';
 
 class GoodsScreen extends StatefulWidget {
   @override
@@ -199,9 +197,9 @@ class _GoodsScreenState extends State<GoodsScreen> {
                               return buildGoodCardItem(goodCardItem, context);
                             }).toList()
                           : archiveGoodItems.map((goodCardItem) {
-                                  return buildGoodCardItemTrimmed(
-                                      goodCardItem, context);
-                                }).toList(),
+                              return buildGoodCardItemTrimmed(
+                                  goodCardItem, context);
+                            }).toList(),
                 ),
               ),
             )
@@ -216,7 +214,9 @@ class _GoodsScreenState extends State<GoodsScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => NewOrEditGoodScreen.newGood(screenType: ScreenType.newGood,),
+                            builder: (context) => NewOrEditGoodScreen.newGood(
+                              screenType: ScreenType.newGood,
+                            ),
                           ));
                     },
                     child: selectByPlatform(

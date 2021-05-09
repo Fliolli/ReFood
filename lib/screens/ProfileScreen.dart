@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_test_app/data/GlobalData.dart';
 import 'package:flutter_test_app/resources/ColorsLibrary.dart';
 import 'package:flutter_test_app/resources/StylesLibrary.dart';
 import 'package:flutter_test_app/screens/OrdersScreen.dart';
 import 'package:flutter_test_app/screens/GoodsScreen.dart';
+import 'package:flutter_test_app/widgets/AchievementItem.dart';
 import '../utils/PlatformUtils.dart';
 import '../widgets/MenuItem.dart';
 import '../widgets/BadgeItem.dart';
-import 'package:flutter_test_app/resources/StringsLibrary.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -71,12 +72,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
   ];
 
   final List<BadgeItem> badgeItems = [
-    const BadgeItem(("assets/images/1.jpg"), "Климат кадет", "Чтобы получить"),
-    const BadgeItem(("assets/images/2.jpg"), "Климат кадет", "Чтобы получить"),
-    const BadgeItem(("assets/images/3.jpg"), "Климат кадет", "Чтобы получить"),
-    const BadgeItem(("assets/images/4.jpg"), "Климат кадет", "Чтобы получить"),
-    const BadgeItem(("assets/images/5.jpg"), "Климат кадет", "Чтобы получить"),
-    const BadgeItem(("assets/images/6.jpg"), "Климат кадет", "Чтобы получить"),
+    const BadgeItem(
+        ("assets/images/1.jpg"), "Климат кадет", BackGroundType.dark),
+    const BadgeItem(
+        ("assets/images/2.jpg"), "Климат кадет", BackGroundType.dark),
+    const BadgeItem(
+        ("assets/images/3.jpg"), "Климат кадет", BackGroundType.dark),
+    const BadgeItem(
+        ("assets/images/4.jpg"), "Климат кадет", BackGroundType.dark),
+    const BadgeItem(
+        ("assets/images/5.jpg"), "Климат кадет", BackGroundType.dark),
+    const BadgeItem(
+        ("assets/images/6.jpg"), "Климат кадет", BackGroundType.dark),
   ];
 
   @override
@@ -142,57 +149,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(children: <Widget>[
-                        Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 22),
-                          child: Column(children: <Widget>[
-                            Text(
-                              '${2} шт.',
-                              style: StylesLibrary.strongWhiteTextStyle,
-                              textAlign: TextAlign.center,
-                            ),
-                            Container(
-                                margin: const EdgeInsets.only(top: 6),
-                                child: Text(
-                                  'Позиций \nспасено',
-                                  style: StylesLibrary.optionalWhiteTextStyle,
-                                  textAlign: TextAlign.center,
-                                ))
-                          ]),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 22),
-                          child: Column(children: <Widget>[
-                            Text(
-                              'На ${5} куб.м',
-                              style: StylesLibrary.strongWhiteTextStyle,
-                              textAlign: TextAlign.center,
-                            ),
-                            Container(
-                                margin: EdgeInsets.only(top: 6),
-                                child: Text(
-                                  'Меньше \nвыброс CO2',
-                                  style: StylesLibrary.optionalWhiteTextStyle,
-                                  textAlign: TextAlign.center,
-                                ))
-                          ]),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 22),
-                          child: Column(children: <Widget>[
-                            Text(
-                              '${2} кг.',
-                              style: StylesLibrary.strongWhiteTextStyle,
-                              textAlign: TextAlign.center,
-                            ),
-                            Container(
-                                margin: const EdgeInsets.only(top: 6),
-                                child: Text(
-                                  'Еды \nспасено',
-                                  style: StylesLibrary.optionalWhiteTextStyle,
-                                  textAlign: TextAlign.center,
-                                ))
-                          ]),
-                        )
+                        buildAchievementItem(AchievementItem('${2} шт.',
+                            'Позиций \nспасено', BackGroundType.dark)),
+                        buildAchievementItem(AchievementItem('На ${5} куб.м',
+                            'Меньше \nвыброс CO2', BackGroundType.dark)),
+                        buildAchievementItem(AchievementItem(
+                            '${2} кг.', 'Еды \nспасено', BackGroundType.dark)),
                       ]),
                     ),
                   )

@@ -5,10 +5,10 @@ import '../utils/PlatformUtils.dart';
 import '../resources/StylesLibrary.dart';
 
 class InfoPropertyItem {
-  final String propertyTitle;
-  final String propertyValue;
+  final String _propertyTitle;
+  final String _propertyValue;
 
-  const InfoPropertyItem(this.propertyTitle, this.propertyValue);
+  const InfoPropertyItem(this._propertyTitle, this._propertyValue);
 }
 
 Widget buildInfoPropertyItem(InfoPropertyItem item, BuildContext context) {
@@ -19,7 +19,7 @@ Widget buildInfoPropertyItem(InfoPropertyItem item, BuildContext context) {
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
           child: Text(
-            item.propertyTitle,
+            item._propertyTitle,
             style: selectByPlatform(StylesLibrary.strongBlackTextStyle,
                     StylesLibrary.strongBlackTextStyle)
                 .merge(const TextStyle(
@@ -34,7 +34,7 @@ Widget buildInfoPropertyItem(InfoPropertyItem item, BuildContext context) {
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
           child: Text(
-            item.propertyValue,
+            item._propertyValue,
             style: selectByPlatform(StylesLibrary.optionalBlackTextStyle,
                     StylesLibrary.optionalBlackTextStyle)
                 .merge(const TextStyle(

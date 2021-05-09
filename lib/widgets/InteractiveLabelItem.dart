@@ -5,9 +5,9 @@ import '../resources/StylesLibrary.dart';
 import '../utils/PlatformUtils.dart';
 
 class InteractiveLabelItem {
-  final String title;
+  final String _title;
 
-  const InteractiveLabelItem(this.title);
+  const InteractiveLabelItem(this._title);
 }
 
 Widget buildInteractiveLabelItem(InteractiveLabelItem item, bool isSelected) {
@@ -33,7 +33,7 @@ Widget buildInteractiveLabelItem(InteractiveLabelItem item, bool isSelected) {
         padding: const EdgeInsets.symmetric(horizontal: 8),
         child: Center(
           child: Text(
-            '${item.title}',
+            '${item._title}',
             style: isSelected
                 ? selectByPlatform(StylesLibrary.IOSPrimaryWhiteTextStyle,
                     StylesLibrary.AndroidPrimaryWhiteTextStyle)

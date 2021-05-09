@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test_app/resources/ColorsLibrary.dart';
 import 'package:flutter_test_app/resources/StylesLibrary.dart';
 import 'package:flutter_test_app/widgets/InteractiveLabelItem.dart';
-import '../utils/PlatformUtils.dart';
 import 'package:flutter_test_app/widgets/OrderCardBookmarkItem.dart';
 import 'package:flutter_test_app/widgets/OrderCardItemTrimmed.dart';
 import 'package:flutter_test_app/widgets/OrderCardItem.dart';
-import 'package:flutter_test_app/resources/StringsLibrary.dart';
 import 'package:flutter_test_app/resources/StringsLibrary.dart' as strings;
 
 class OrdersScreen extends StatefulWidget {

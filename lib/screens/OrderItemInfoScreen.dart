@@ -5,6 +5,7 @@ import 'package:flutter_test_app/resources/ColorsLibrary.dart';
 import 'package:flutter_test_app/resources/StringsLibrary.dart';
 import 'package:flutter_test_app/resources/StringsLibrary.dart' as strings;
 import 'package:flutter_test_app/resources/StylesLibrary.dart';
+import 'package:flutter_test_app/screens/UserInfoScreen.dart';
 import 'package:flutter_test_app/widgets/InfoPropertyItem.dart';
 import 'package:intl/intl.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
@@ -13,7 +14,6 @@ import '../utils/PlatformUtils.dart';
 
 class OrderItemInfoScreen extends StatefulWidget {
   final global.OrderType orderType;
-
   final int id;
   final String image;
   final String name;
@@ -41,6 +41,20 @@ class OrderItemInfoScreen extends StatefulWidget {
 }
 
 class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
+  final List<String> bookmarkedPopUpMenuItems = [
+    "Забронировать",
+    "Удалить из закладок",
+  ];
+
+  final List<String> bookedPopUpMenuItems = [
+    "Подтвердить получение",
+    "Отменить бронь",
+  ];
+
+  final List<String> archivePopUpMenuItems = [
+    "Удалить",
+  ];
+
   @override
   Widget build(BuildContext context) {
     InfoPropertyItem expirationDateItem = InfoPropertyItem(
@@ -62,20 +76,6 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
       strings.distance,
       '${global.foodItem.distance.toString()} км. от Вас',
     );
-
-    List<String> bookmarkedPopUpMenuItems = [
-      "Забронировать",
-      "Удалить из закладок",
-    ];
-
-    List<String> bookedPopUpMenuItems = [
-      "Подтвердить получение",
-      "Отменить бронь",
-    ];
-
-    List<String> archivePopUpMenuItems = [
-      "Удалить",
-    ];
 
     return Scaffold(
       appBar: AppBar(
@@ -217,21 +217,25 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
                 ],
               ),
             ),
-            widget.orderType != global.OrderType.archive ?
-            Container(
-              padding: const EdgeInsets.only(right: 36, left: 36, bottom: 16),
-              width: MediaQuery.of(context).size.width * 0.8,
-              child: Text(
-                formatTimeDifference(global.foodItem.addMoment),
-                textAlign: TextAlign.center,
-                style: selectByPlatform(StylesLibrary.optionalBlackTextStyle,
-                        StylesLibrary.optionalBlackTextStyle)
-                    .merge(const TextStyle(
-                  fontSize: 11,
-                )),
-              ),
-            )
-            : Container(height: 16,),
+            widget.orderType != global.OrderType.archive
+                ? Container(
+                    padding:
+                        const EdgeInsets.only(right: 36, left: 36, bottom: 16),
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: Text(
+                      formatTimeDifference(global.foodItem.addMoment),
+                      textAlign: TextAlign.center,
+                      style: selectByPlatform(
+                              StylesLibrary.optionalBlackTextStyle,
+                              StylesLibrary.optionalBlackTextStyle)
+                          .merge(const TextStyle(
+                        fontSize: 11,
+                      )),
+                    ),
+                  )
+                : Container(
+                    height: 16,
+                  ),
             Card(
               color: ColorsLibrary.lightGray,
               margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -242,72 +246,86 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
                     const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                 child: Column(
                   children: [
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(right: 5),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(60),
-                              child: Image.network(
-                                  widget.ownerProfileImage.toString(),
-                                  height: 40,
-                                  width: 40,
-                                  fit: BoxFit.cover),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => UserInfoScreen(
+                                id: global.userItem.id,
+                                ownerName: widget.ownerName,
+                                ownerProfileImage: widget.ownerProfileImage,
+                                ownerRating: widget.ownerRating,
+                              ),
+                            ));
+                      },
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(right: 5),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(60),
+                                child: Image.network(
+                                    widget.ownerProfileImage.toString(),
+                                    height: 40,
+                                    width: 40,
+                                    fit: BoxFit.cover),
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.45,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.45,
+                              child: Text(
+                                widget.ownerName,
+                                style: selectByPlatform(
+                                        StylesLibrary.strongBlackTextStyle,
+                                        StylesLibrary.strongBlackTextStyle)
+                                    .merge(const TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.normal,
+                                        color: ColorsLibrary.blackColor)),
+                                softWrap: true,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 16),
+                              child: Icon(
+                                Icons.star_border_rounded,
+                                color: ColorsLibrary.lightOrange,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 30,
+                              child: Text(
+                                widget.ownerRating.toString(),
+                                style: selectByPlatform(
+                                        StylesLibrary.strongBlackTextStyle,
+                                        StylesLibrary.strongBlackTextStyle)
+                                    .merge(const TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.normal,
+                                        color: ColorsLibrary.blackColor)),
+                              ),
+                            ),
+                          ]),
+                    ),
+                    widget.orderType != global.OrderType.archive
+                        ? Container(
+                            padding: const EdgeInsets.only(top: 8, left: 10),
+                            width: MediaQuery.of(context).size.width,
                             child: Text(
-                              widget.ownerName,
+                              'Товар в закладках у ${global.foodItem.bookmarksCount} пользователей(я)',
                               style: selectByPlatform(
-                                      StylesLibrary.strongBlackTextStyle,
-                                      StylesLibrary.strongBlackTextStyle)
+                                      StylesLibrary.optionalBlackTextStyle,
+                                      StylesLibrary.optionalBlackTextStyle)
                                   .merge(const TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.normal,
-                                      color: ColorsLibrary.blackColor)),
-                              softWrap: true,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
+                                fontSize: 12,
+                              )),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 16),
-                            child: Icon(
-                              Icons.star_border_rounded,
-                              color: ColorsLibrary.lightOrange,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 30,
-                            child: Text(
-                              widget.ownerRating.toString(),
-                              style: selectByPlatform(
-                                      StylesLibrary.strongBlackTextStyle,
-                                      StylesLibrary.strongBlackTextStyle)
-                                  .merge(const TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.normal,
-                                      color: ColorsLibrary.blackColor)),
-                            ),
-                          ),
-                        ]),
-                    widget.orderType != global.OrderType.archive ?
-                    Container(
-                      padding: const EdgeInsets.only(top: 8, left: 10),
-                      width: MediaQuery.of(context).size.width,
-                      child: Text(
-                        'Товар в закладках у ${global.foodItem.bookmarksCount} пользователей(я)',
-                        style: selectByPlatform(
-                                StylesLibrary.optionalBlackTextStyle,
-                                StylesLibrary.optionalBlackTextStyle)
-                            .merge(const TextStyle(
-                          fontSize: 12,
-                        )),
-                      ),
-                    )
-                    : Container(),
+                          )
+                        : Container(),
                   ],
                 ),
               ),
@@ -334,33 +352,36 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 4),
             child: Column(
               children: [
-                widget.orderType != global.OrderType.archive ?
-                Padding(
-                  padding: const EdgeInsets.only(top: 16),
-                  child: buildInfoPropertyItem(expirationDateItem, context),
-                )
-                : Container(height: 16,),
+                widget.orderType != global.OrderType.archive
+                    ? Padding(
+                        padding: const EdgeInsets.only(top: 16),
+                        child:
+                            buildInfoPropertyItem(expirationDateItem, context),
+                      )
+                    : Container(
+                        height: 16,
+                      ),
                 buildInfoPropertyItem(priceDateItem, context),
-                widget.orderType != global.OrderType.archive ?
-                buildInfoPropertyItem(pickUpItem, context)
-                : Container(),
-                widget.orderType != global.OrderType.archive ?
-                buildInfoPropertyItem(distanceItem, context)
-                :Container(),
+                widget.orderType != global.OrderType.archive
+                    ? buildInfoPropertyItem(pickUpItem, context)
+                    : Container(),
+                widget.orderType != global.OrderType.archive
+                    ? buildInfoPropertyItem(distanceItem, context)
+                    : Container(),
               ],
             ),
           ),
         ),
-        widget.orderType != global.OrderType.archive ?
-        Container(
-          margin:
-              const EdgeInsets.only(top: 4, bottom: 16, left: 24, right: 24),
-          child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: 250,
-              child: const YandexMap()),
-        )
-        : Container(),
+        widget.orderType != global.OrderType.archive
+            ? Container(
+                margin: const EdgeInsets.only(
+                    top: 4, bottom: 16, left: 24, right: 24),
+                child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: 250,
+                    child: const YandexMap()),
+              )
+            : Container(),
       ]),
     );
   }

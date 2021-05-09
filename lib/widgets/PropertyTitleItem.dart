@@ -4,7 +4,7 @@ import '../resources/ColorsLibrary.dart';
 import '../utils/PlatformUtils.dart';
 import '../resources/StylesLibrary.dart';
 
-Widget buildTitleGoodPropertyItem(String title, BuildContext context) {
+Widget buildPropertyTitleItem(String title, BuildContext context) {
   return Padding(
     padding: const EdgeInsets.only(top: 18, left: 32, right: 32),
     child: SizedBox(
