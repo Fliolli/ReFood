@@ -66,7 +66,7 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
       strings.price,
       widget.isFree
           ? 'бесплатно'
-          : '${widget.price.toString()} р. за ${widget.unit}',
+          : '${widget.price.toString()} р. ${widget.unit}',
     );
     InfoPropertyItem pickUpItem = InfoPropertyItem(
       strings.whenToPickUp,
@@ -162,6 +162,18 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
                               setState(() {
                                 global.foodItem.isInBookmarks =
                                     !global.foodItem.isInBookmarks;
+                                final snackBar = SnackBar(
+                                  content: Text(
+                                    global.foodItem.isInBookmarks
+                                        ? strings.orderAddedToBookmarks
+                                        : strings.orderDeletedFromBookmarks,
+                                    style: StylesLibrary.optionalWhiteTextStyle,
+                                  ),
+                                  backgroundColor: global.foodItem.isInBookmarks
+                                      ? ColorsLibrary.lightGreen
+                                      : ColorsLibrary.lightYellow,
+                                );
+                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
                               });
                             } catch (e) {
                               print(e);

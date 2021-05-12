@@ -16,6 +16,9 @@ class FoodItem {
   DateTime expirationDate;
   bool isFree;
   bool isInBookmarks;
+  int mark;
+  double mass;
+
 
   FoodItem(
       this.id,
@@ -34,5 +37,7 @@ class FoodItem {
       this.whenToPickUp,
       this.expirationDate,
       this.isFree,
-      this.isInBookmarks);
+      this.isInBookmarks,
+      this.mark,
+      this.mass);
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_test_app/data/GlobalData.dart';
+import 'package:flutter_test_app/data/GlobalData.dart' as global;
+import 'package:intl/intl.dart';
 import '../resources/ColorsLibrary.dart';
 import '../utils/PlatformUtils.dart';
 import '../resources/StylesLibrary.dart';
@@ -20,14 +21,12 @@ Widget buildGoodCardItem(GoodCardItem goodCardItem, BuildContext context) {
             context,
             MaterialPageRoute(
               builder: (context) => GoodItemInfoScreen(
-                goodType: GoodType.full,
+                goodType: global.GoodType.full,
                 id: goodCardItem._id,
                 image: goodCardItem._image,
                 name: goodCardItem._name,
                 price: goodCardItem._price,
                 unit: goodCardItem._unit,
-                ownerName: goodCardItem._ownerName,
-                ownerProfileImage: goodCardItem._ownerProfileImage,
                 isFree: goodCardItem._isFree,
               ),
             ));
@@ -64,33 +63,20 @@ Widget buildGoodCardItem(GoodCardItem goodCardItem, BuildContext context) {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 4),
-                      child: Row(children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(right: 3),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(60),
-                            child: Image.network(
-                                goodCardItem._ownerProfileImage.toString(),
-                                height: 25,
-                                width: 25,
-                                fit: BoxFit.cover),
-                          ),
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.59,
+                        child: Text(
+                          "Срок годности: ${DateFormat("dd-MM-yyyy").format(global.foodItem.expirationDate).toString()}",
+                          style: selectByPlatform(
+                                  StylesLibrary.optionalBlackTextStyle,
+                                  StylesLibrary.optionalBlackTextStyle)
+                              .merge(const TextStyle(fontSize: 13,)),
+                          softWrap: true,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.5,
-                          child: Text(
-                            goodCardItem._ownerName,
-                            style: selectByPlatform(
-                                    StylesLibrary.optionalBlackTextStyle,
-                                    StylesLibrary.optionalBlackTextStyle)
-                                .merge(const TextStyle(fontSize: 13)),
-                            softWrap: true,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ]),
+                      ),
                     ),
                     Container(
                       margin: const EdgeInsets.symmetric(vertical: 6),
@@ -104,7 +90,7 @@ Widget buildGoodCardItem(GoodCardItem goodCardItem, BuildContext context) {
                               child: Text(
                                 goodCardItem._isFree
                                     ? 'бесплатно'
-                                    : '${goodCardItem._price.toString()} р. за ${goodCardItem._unit}',
+                                    : '${goodCardItem._price.toString()} р. ${goodCardItem._unit}',
                                 style: selectByPlatform(
                                         StylesLibrary.optionalBlackTextStyle,
                                         StylesLibrary.optionalBlackTextStyle)
@@ -150,19 +136,10 @@ class GoodCardItem {
   String _name;
   double _price;
   String _unit;
-  String _ownerName;
-  String _ownerProfileImage;
+  DateTime _expirationDate;
   int _bookmarksCount;
   bool _isFree;
 
-  GoodCardItem(
-      this._id,
-      this._image,
-      this._name,
-      this._price,
-      this._unit,
-      this._ownerName,
-      this._ownerProfileImage,
-      this._bookmarksCount,
-      this._isFree);
+  GoodCardItem(this._id, this._image, this._name, this._price, this._unit,
+      this._expirationDate, this._bookmarksCount, this._isFree);
 }

@@ -178,7 +178,7 @@ Widget buildOrderCardBookmarkItem(
                               child: Text(
                                 orderCardBookmarkItem._isFree
                                     ? 'бесплатно'
-                                    : '${orderCardBookmarkItem._price.toString()} р. за ${orderCardBookmarkItem._unit}',
+                                    : '${orderCardBookmarkItem._price.toString()} р. ${orderCardBookmarkItem._unit}',
                                 style: selectByPlatform(
                                         StylesLibrary.optionalBlackTextStyle,
                                         StylesLibrary.optionalBlackTextStyle)

@@ -29,25 +29,25 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Stack(children: <Widget>[
         const SizedBox.expand(child: const YandexMap()),
         Container(
-            alignment: Alignment.topLeft,
-            margin: const EdgeInsets.symmetric(vertical: 100, horizontal: 15),
-            child: FloatingActionButton(
-              onPressed: () {},
-              child: selectByPlatform(
-                  const Icon(
-                    CupertinoIcons.location_north,
-                    color: ColorsLibrary.primaryColor,
-                  ),
-                  const Icon(
-                    Icons.navigation,
-                    color: ColorsLibrary.primaryColor,
-                  )),
-              mini: true,
-              backgroundColor: ColorsLibrary.whiteColor,
-              heroTag: "navigation",
-            )),
+          alignment: Alignment.topRight,
+          margin: const EdgeInsets.symmetric(vertical: 35, horizontal: 10),
+          child: FloatingActionButton(
+            onPressed: () {},
+            child: selectByPlatform(
+                const Icon(
+                  CupertinoIcons.location_north,
+                  color: ColorsLibrary.primaryColor,
+                ),
+                const Icon(
+                  Icons.navigation,
+                  color: ColorsLibrary.primaryColor,
+                )),
+            backgroundColor: ColorsLibrary.whiteColor,
+            heroTag: "location",
+          ),
+        ),
         DraggableScrollableSheet(
-            initialChildSize: 0.78,
+            initialChildSize: 0.2,
             maxChildSize: 1,
             minChildSize: 0.1,
             builder: (BuildContext context, ScrollController scrollController) {
@@ -98,24 +98,6 @@ class _HomeScreenState extends State<HomeScreen> {
               backgroundColor: ColorsLibrary.whiteColor,
               heroTag: "menu",
             )),
-        Container(
-          alignment: Alignment.topRight,
-          margin: const EdgeInsets.symmetric(vertical: 35, horizontal: 10),
-          child: FloatingActionButton(
-            onPressed: () {},
-            child: selectByPlatform(
-                const Icon(
-                  CupertinoIcons.cart,
-                  color: ColorsLibrary.middleBlack,
-                ),
-                const Icon(
-                  Icons.shopping_cart_outlined,
-                  color: ColorsLibrary.middleBlack,
-                )),
-            backgroundColor: ColorsLibrary.whiteColor,
-            heroTag: "cart",
-          ),
-        )
       ])
           //_widgetOptions.elementAt(_selectedIndex),
           ),

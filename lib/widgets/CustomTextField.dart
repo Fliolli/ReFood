@@ -41,7 +41,7 @@ Widget buildCustomTextField(
                 .merge(const TextStyle(
                     fontSize: 12, color: ColorsLibrary.primaryColor)),
             border: InputBorder.none,
-            contentPadding: EdgeInsets.symmetric(vertical: 6, horizontal: 16),
+            contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
             hintText: customTextField._hintText,
             hintStyle: TextStyle(
               fontSize: 12,

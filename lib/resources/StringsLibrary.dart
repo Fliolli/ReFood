@@ -19,6 +19,17 @@ const String descriptionOfGood = "Описание товара";
 const String nameOfGood = "Название товара";
 const String create = "Создать";
 const String photoOfGood = "Фото товара";
+const String massOfGood = "Масса товара";
 const String choose = "Выбрать";
-
-
+const String usersGoods = "Товары пользователя";
+const String mass = "Масса";
+const String mark = "Оценка";
+const String userAddedToFavorites = "Пользователь добавлен в фавориты";
+const String userDeletedFromFavorites = "Пользователь удален из фаворитов";
+const String orderAddedToBookmarks = "Добавлено в закладки";
+const String orderDeletedFromBookmarks = "Удалено из закладок";
+const String thingUnit = "за штуку";
+const String kgUnit = "за кг.";
+const String literUnit = "за литр";
+const String gr100Unit = "за 100гр.";
+const String packetUnit = "за пакет";

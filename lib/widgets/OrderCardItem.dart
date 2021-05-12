@@ -149,7 +149,7 @@ Widget buildOrderCardItem(OrderCardItem orderCardItem, BuildContext context) {
                               child: Text(
                                 orderCardItem._isFree
                                     ? 'бесплатно'
-                                    : '${orderCardItem._price.toString()} р. за ${orderCardItem._unit}',
+                                    : '${orderCardItem._price.toString()} р. ${orderCardItem._unit}',
                                 style: selectByPlatform(
                                         StylesLibrary.optionalBlackTextStyle,
                                         StylesLibrary.optionalBlackTextStyle)

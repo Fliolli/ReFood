@@ -135,7 +135,7 @@ Widget buildOrderCardItemTrimmed(
                           child: Text(
                             orderCardItemTrimmed._isFree
                                 ? 'бесплатно'
-                                : '${orderCardItemTrimmed._price.toString()} р. за ${orderCardItemTrimmed._unit}',
+                                : '${orderCardItemTrimmed._price.toString()} р. ${orderCardItemTrimmed._unit}',
                             style: selectByPlatform(
                                     StylesLibrary.optionalBlackTextStyle,
                                     StylesLibrary.optionalBlackTextStyle)

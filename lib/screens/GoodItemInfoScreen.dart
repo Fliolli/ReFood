@@ -20,8 +20,7 @@ class GoodItemInfoScreen extends StatefulWidget {
       this.name,
       this.price,
       this.unit,
-      this.ownerName,
-      this.ownerProfileImage,
+      this.expirationDate,
       this.isFree});
 
   final global.GoodType goodType;
@@ -30,8 +29,7 @@ class GoodItemInfoScreen extends StatefulWidget {
   final String name;
   final double price;
   final String unit;
-  final String ownerName;
-  final String ownerProfileImage;
+  final DateTime expirationDate;
   final bool isFree;
 
   @override
@@ -60,11 +58,19 @@ class _GoodItemInfoScreenState extends State<GoodItemInfoScreen> {
       strings.price,
       widget.isFree
           ? 'бесплатно'
-          : '${widget.price.toString()} р. за ${widget.unit}',
+          : '${widget.price.toString()} р. ${widget.unit}',
     );
     InfoPropertyItem pickUpItem = InfoPropertyItem(
       strings.whenToPickUp,
       global.foodItem.whenToPickUp,
+    );
+    InfoPropertyItem massItem = InfoPropertyItem(
+      strings.mass,
+      'Масса товара: ${global.foodItem.mass.toString()} кг.',
+    );
+    InfoPropertyItem markItem = InfoPropertyItem(
+      strings.mark,
+      'Оценка покупателя: ${global.foodItem.mark.toString()}',
     );
 
     return Scaffold(
@@ -184,7 +190,8 @@ class _GoodItemInfoScreenState extends State<GoodItemInfoScreen> {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(60),
                                     child: Image.network(
-                                        widget.ownerProfileImage.toString(),
+                                        global.foodItem.ownerProfileImage
+                                            .toString(),
                                         height: 40,
                                         width: 40,
                                         fit: BoxFit.cover),
@@ -194,7 +201,7 @@ class _GoodItemInfoScreenState extends State<GoodItemInfoScreen> {
                                   width:
                                       MediaQuery.of(context).size.width * 0.45,
                                   child: Text(
-                                    widget.ownerName,
+                                    global.foodItem.ownerName,
                                     style: selectByPlatform(
                                             StylesLibrary.strongBlackTextStyle,
                                             StylesLibrary.strongBlackTextStyle)
@@ -281,6 +288,10 @@ class _GoodItemInfoScreenState extends State<GoodItemInfoScreen> {
                 widget.goodType != GoodType.trimmed
                     ? buildInfoPropertyItem(pickUpItem, context)
                     : Container(),
+                buildInfoPropertyItem(massItem, context),
+                widget.goodType == GoodType.trimmed
+                    ? buildInfoPropertyItem(markItem, context)
+                    : Container(),
               ],
             ),
           ),
@@ -308,8 +319,6 @@ class _GoodItemInfoScreenState extends State<GoodItemInfoScreen> {
               screenType: ScreenType.editGood,
               id: widget.id,
               name: widget.name,
-              ownerName: widget.ownerName,
-              ownerProfileImage: widget.ownerProfileImage,
               description: global.foodItem.description,
               image: widget.image,
               expirationDate: global.foodItem.expirationDate,

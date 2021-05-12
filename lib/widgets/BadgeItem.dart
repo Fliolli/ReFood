@@ -8,8 +8,10 @@ class BadgeItem {
   final String _image;
   final String _title;
   final BackGroundType _backGroundType;
+  final bool _achived;
 
-  const BadgeItem(this._image, this._title, this._backGroundType);
+  const BadgeItem(
+      this._image, this._title, this._backGroundType, this._achived);
 }
 
 Widget buildBadgeItem(BadgeItem badgeItem) {
@@ -26,13 +28,15 @@ Widget buildBadgeItem(BadgeItem badgeItem) {
                 height: 140,
                 width: 140,
               )),
-          ClipRRect(
-              borderRadius: BorderRadius.circular(60),
-              child: Container(
-                height: 140,
-                width: 140,
-                color: ColorsLibrary.whiteTransparentColor,
-              )),
+          badgeItem._achived == true
+              ? Container()
+              : ClipRRect(
+                  borderRadius: BorderRadius.circular(60),
+                  child: Container(
+                    height: 140,
+                    width: 140,
+                    color: ColorsLibrary.whiteTransparentColor,
+                  )),
         ],
       ),
       Container(

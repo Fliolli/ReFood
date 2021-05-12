@@ -5,7 +5,7 @@ import '../resources/ColorsLibrary.dart';
 import '../utils/PlatformUtils.dart';
 import '../resources/StylesLibrary.dart';
 import 'package:flutter_test_app/screens/GoodItemInfoScreen.dart';
-import 'package:flutter_test_app/data/GlobalData.dart';
+import 'package:flutter_test_app/data/GlobalData.dart' as global;
 
 Widget buildGoodCardItemTrimmed(
     GoodCardItemTrimmed goodCardItemTrimmed, BuildContext context) {
@@ -21,14 +21,12 @@ Widget buildGoodCardItemTrimmed(
             context,
             MaterialPageRoute(
               builder: (context) => GoodItemInfoScreen(
-                goodType: GoodType.trimmed,
+                goodType: global.GoodType.trimmed,
                 id: goodCardItemTrimmed._id,
                 image: goodCardItemTrimmed._image,
                 name: goodCardItemTrimmed._name,
                 price: goodCardItemTrimmed._price,
                 unit: goodCardItemTrimmed._unit,
-                ownerName: goodCardItemTrimmed._ownerName,
-                ownerProfileImage: goodCardItemTrimmed._ownerProfileImage,
                 isFree: goodCardItemTrimmed._isFree,
               ),
             ));
@@ -64,60 +62,36 @@ Widget buildGoodCardItemTrimmed(
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 4),
-                      child: Row(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(right: 3),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(60),
-                              child: Image.network(
-                                  goodCardItemTrimmed._ownerProfileImage
-                                      .toString(),
-                                  height: 25,
-                                  width: 25,
-                                  fit: BoxFit.cover),
-                            ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.symmetric(vertical: 4),
-                            child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 10),
-                                    child: SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.4,
-                                      child: Text(
-                                        goodCardItemTrimmed._ownerName,
-                                        style: selectByPlatform(
-                                                StylesLibrary
-                                                    .optionalBlackTextStyle,
-                                                StylesLibrary
-                                                    .optionalBlackTextStyle)
-                                            .merge(
-                                                const TextStyle(fontSize: 13)),
-                                        softWrap: true,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                  ),
-                                ]),
-                          ),
-                        ],
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.59,
+                      padding: EdgeInsets.only(top: 4),
+                      child: Text(
+                        "Масса: ${global.foodItem.mass} кг.",
+                        style: selectByPlatform(
+                            StylesLibrary.optionalBlackTextStyle,
+                            StylesLibrary.optionalBlackTextStyle)
+                            .merge(const TextStyle(fontSize: 13)),
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width *  0.59,
+                      padding: EdgeInsets.only(top: 4),
+                      child: Text(
+                        "Оценка: ${global.foodItem.mark}",
+                        style: selectByPlatform(
+                            StylesLibrary.optionalBlackTextStyle,
+                            StylesLibrary.optionalBlackTextStyle)
+                            .merge(const TextStyle(fontSize: 13)),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 16, bottom: 4),
+                      padding: const EdgeInsets.only(top: 8),
                       child: SizedBox(
                         width: 120,
                         child: Text(
                           goodCardItemTrimmed._isFree
                               ? 'бесплатно'
-                              : '${goodCardItemTrimmed._price.toString()} р. за ${goodCardItemTrimmed._unit}',
+                              : '${goodCardItemTrimmed._price.toString()} р. ${goodCardItemTrimmed._unit}',
                           style: selectByPlatform(
                                   StylesLibrary.optionalBlackTextStyle,
                                   StylesLibrary.optionalBlackTextStyle)
@@ -143,10 +117,10 @@ class GoodCardItemTrimmed {
   String _name;
   double _price;
   String _unit;
-  String _ownerName;
-  String _ownerProfileImage;
+  double _mass;
+  int _mark;
   bool _isFree;
 
   GoodCardItemTrimmed(this._id, this._image, this._name, this._price,
-      this._unit, this._ownerName, this._ownerProfileImage, this._isFree);
+      this._unit, this._mass, this._mark, this._isFree);
 }

@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test_app/data/GlobalData.dart';
 import 'package:flutter_test_app/resources/ColorsLibrary.dart';
 import 'package:flutter_test_app/resources/StylesLibrary.dart';
-import 'package:flutter_test_app/screens/OrdersScreen.dart';
 import 'package:flutter_test_app/screens/GoodsScreen.dart';
+import 'package:flutter_test_app/screens/OrdersScreen.dart';
 import 'package:flutter_test_app/widgets/AchievementItem.dart';
+
 import '../utils/PlatformUtils.dart';
-import '../widgets/MenuItem.dart';
 import '../widgets/BadgeItem.dart';
+import '../widgets/MenuItem.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -33,7 +34,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           CupertinoIcons.square_grid_2x2,
           Icons.apps_rounded,
         ),
-        ColorsLibrary.lightYellow,
+        ColorsLibrary.yellowColor,
         "Витрина",
         (BuildContext context) => {
               Navigator.push(context,
@@ -73,17 +74,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   final List<BadgeItem> badgeItems = [
     const BadgeItem(
-        ("assets/images/1.jpg"), "Климат кадет", BackGroundType.dark),
+        ("assets/images/1.jpg"), "Климат кадет", BackGroundType.dark, true),
     const BadgeItem(
-        ("assets/images/2.jpg"), "Климат кадет", BackGroundType.dark),
+        ("assets/images/2.jpg"), "Климат кадет", BackGroundType.dark, false),
     const BadgeItem(
-        ("assets/images/3.jpg"), "Климат кадет", BackGroundType.dark),
+        ("assets/images/3.jpg"), "Климат кадет", BackGroundType.dark, true),
     const BadgeItem(
-        ("assets/images/4.jpg"), "Климат кадет", BackGroundType.dark),
+        ("assets/images/4.jpg"), "Климат кадет", BackGroundType.dark, false),
     const BadgeItem(
-        ("assets/images/5.jpg"), "Климат кадет", BackGroundType.dark),
+        ("assets/images/5.jpg"), "Климат кадет", BackGroundType.dark, false),
     const BadgeItem(
-        ("assets/images/6.jpg"), "Климат кадет", BackGroundType.dark),
+        ("assets/images/6.jpg"), "Климат кадет", BackGroundType.dark, true),
   ];
 
   @override

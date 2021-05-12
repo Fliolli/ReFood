@@ -8,6 +8,7 @@ import 'package:flutter_test_app/widgets/GoodCardItem.dart';
 import 'package:flutter_test_app/widgets/InteractiveLabelItem.dart';
 import '../utils/PlatformUtils.dart';
 import 'package:flutter_test_app/widgets/GoodCardItemTrimmed.dart';
+import 'package:flutter_test_app/resources/StringsLibrary.dart' as strings;
 
 class GoodsScreen extends StatefulWidget {
   @override
@@ -36,9 +37,8 @@ class _GoodsScreenState extends State<GoodsScreen> {
         'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
         "Шоколадные круассаны",
         30,
-        "штуку",
-        "Марта",
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
+        strings.thingUnit,
+        DateTime.now(),
         6986,
         false),
     GoodCardItem(
@@ -46,9 +46,8 @@ class _GoodsScreenState extends State<GoodsScreen> {
         'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
         "Шоколадные круассаны",
         30,
-        "штуку",
-        "Марта",
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
+        strings.thingUnit,
+        DateTime.now(),
         2,
         false),
   ];
@@ -59,9 +58,8 @@ class _GoodsScreenState extends State<GoodsScreen> {
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
         "Домашнее мороже00000000000000000000000ное",
         50,
-        "штуку",
-        "Марк6666666666666666666666666666666666666666",
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
+        strings.thingUnit,
+        DateTime.now(),
         1,
         false),
     GoodCardItem(
@@ -69,9 +67,8 @@ class _GoodsScreenState extends State<GoodsScreen> {
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
         "Домашнее мороже00000000000000000000000ное",
         50,
-        "штуку",
-        "Марк6666666666666666666666666666666666666666",
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
+        strings.thingUnit,
+        DateTime.now(),
         6,
         false),
     GoodCardItem(
@@ -79,9 +76,8 @@ class _GoodsScreenState extends State<GoodsScreen> {
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
         "Домашнее мороже00000000000000000000000ное",
         50,
-        "штуку",
-        "Марк6666666666666666666666666666666666666666",
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
+        strings.thingUnit,
+        DateTime.now(),
         3,
         false),
     GoodCardItem(
@@ -89,9 +85,8 @@ class _GoodsScreenState extends State<GoodsScreen> {
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
         "Домашнее мороже00000000000000000000000ное",
         50,
-        "штуку",
-        "Марк6666666666666666666666666666666666666666",
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
+        strings.thingUnit,
+        DateTime.now(),
         4,
         false),
     GoodCardItem(
@@ -99,9 +94,8 @@ class _GoodsScreenState extends State<GoodsScreen> {
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
         "Домашнее мороже00000000000000000000000ное",
         50,
-        "штуку",
-        "Марк6666666666666666666666666666666666666666",
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
+        strings.thingUnit,
+        DateTime.now(),
         8,
         false),
     GoodCardItem(
@@ -109,9 +103,8 @@ class _GoodsScreenState extends State<GoodsScreen> {
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
         "Домашнее мороже00000000000000000000000ное",
         50,
-        "штуку",
-        "Марк6666666666666666666666666666666666666666",
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
+        strings.thingUnit,
+        DateTime.now(),
         8,
         false),
     GoodCardItem(
@@ -119,9 +112,8 @@ class _GoodsScreenState extends State<GoodsScreen> {
         'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
         "Домашнее мороже00000000000000000000000ное",
         50,
-        "штуку",
-        "Марк6666666666666666666666666666666666666666",
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
+        strings.thingUnit,
+        DateTime.now(),
         8,
         false),
   ];
@@ -132,9 +124,9 @@ class _GoodsScreenState extends State<GoodsScreen> {
         'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
         "Шоколадные круассаны",
         30,
-        "штуку",
-        "Марта",
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
+        strings.thingUnit,
+        0.7,
+        5,
         false),
   ];
 

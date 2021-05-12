@@ -1,42 +1,9 @@
 import 'package:flutter/material.dart';
-
-import 'screens/HomeScreen.dart';
-import 'package:sizer/sizer.dart';
-
+import 'main.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(ReFoodApp());
-}
-
-class ReFoodApp extends StatelessWidget {
-  static const String _title = 'ReFood';
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(//return LayoutBuilder
-        builder: (context, constraints) {
-      return OrientationBuilder(//return OrientationBuilder
-          builder: (context, orientation) {
-        //initialize SizerUtil()
-        SizerUtil(); //initialize SizerUtil
-        return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: _title,
-            theme: ThemeData(
-                brightness: Brightness.light,
-                visualDensity: VisualDensity.adaptivePlatformDensity,
-                primaryColor: Colors.pink[300],
-                accentColor: Colors.pink[200],
-                splashColor: Colors.pink[200],
-                pageTransitionsTheme: PageTransitionsTheme(builders: {
-                  TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-                  TargetPlatform.android: ZoomPageTransitionsBuilder(),
-                })),
-            home: HomeScreen());
-      });
-    });
-  }
 }

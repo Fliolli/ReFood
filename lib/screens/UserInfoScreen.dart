@@ -7,8 +7,11 @@ import 'package:flutter_test_app/resources/StringsLibrary.dart';
 import 'package:flutter_test_app/resources/StylesLibrary.dart';
 import 'package:flutter_test_app/widgets/AchievementItem.dart';
 import 'package:flutter_test_app/widgets/BadgeItem.dart';
-
+import 'package:flutter_test_app/widgets/OrderCardItem.dart';
+import 'package:flutter_test_app/widgets/PropertyTitleItem.dart';
+import 'package:rating_bar/rating_bar.dart';
 import '../utils/PlatformUtils.dart';
+import 'package:flutter_test_app/resources/StringsLibrary.dart' as strings;
 
 class UserInfoScreen extends StatefulWidget {
   final int id;
@@ -29,9 +32,6 @@ class UserInfoScreen extends StatefulWidget {
 
 class _UserInfoScreenState extends State<UserInfoScreen> {
   List<String> ownerPopUpMenuItems = [
-    global.userItem.isInFavorites
-        ? "Убрать из фаворитов"
-        : "Добавить в фавориты",
     "Пожаловаться",
   ];
 
@@ -102,6 +102,18 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                         setState(() {
                           global.userItem.isInFavorites =
                               !global.userItem.isInFavorites;
+                          final snackBar = SnackBar(
+                            content: Text(
+                              global.userItem.isInFavorites
+                                  ? strings.userAddedToFavorites
+                                  : strings.userDeletedFromFavorites,
+                              style: StylesLibrary.optionalWhiteTextStyle,
+                            ),
+                            backgroundColor: global.userItem.isInFavorites
+                                ? ColorsLibrary.lightGreen
+                                : ColorsLibrary.lightYellow,
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         });
                       } catch (e) {
                         print(e);
@@ -169,39 +181,17 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                     Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(right: 5),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(60),
-                              child: Image.network(
-                                  widget.ownerProfileImage.toString(),
-                                  height: 40,
-                                  width: 40,
-                                  fit: BoxFit.cover),
-                            ),
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.45,
-                            child: Text(
-                              widget.ownerName,
-                              style: selectByPlatform(
-                                      StylesLibrary.strongBlackTextStyle,
-                                      StylesLibrary.strongBlackTextStyle)
-                                  .merge(const TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.normal,
-                                      color: ColorsLibrary.blackColor)),
-                              softWrap: true,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 16),
-                            child: Icon(
-                              Icons.star_border_rounded,
-                              color: ColorsLibrary.lightOrange,
-                            ),
+                          RatingBar.readOnly(
+                            maxRating: 5,
+                            initialRating: 4,
+                            isHalfAllowed: true,
+                            halfFilledIcon: Icons.star_half_rounded,
+                            filledIcon: Icons.star_rate_rounded,
+                            emptyIcon: Icons.star_border_rounded,
+                            filledColor: ColorsLibrary.lightOrange,
+                            emptyColor: ColorsLibrary.neutralGray,
+                            halfFilledColor: ColorsLibrary.lightOrange,
+                            size: 26,
                           ),
                           SizedBox(
                             width: 30,
@@ -219,7 +209,6 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                         ]),
                     Container(
                       padding: const EdgeInsets.only(top: 8, left: 10),
-                      width: MediaQuery.of(context).size.width,
                       child: Text(
                         'Пользователь в фаворитах у ${global.userItem.countOfInFavorites} человек(а)',
                         style: selectByPlatform(
@@ -248,7 +237,7 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
           ),
         ),
         Card(
-          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          margin: const EdgeInsets.only(left: 20, right: 20, top: 16),
           elevation: 0,
           child: Container(
               height: 340,
@@ -290,13 +279,23 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                 )
               ])),
         ),
+        buildPropertyTitleItem(strings.usersGoods, context),
+        Container(
+          margin: EdgeInsets.symmetric(vertical: 16),
+          child: Expanded(
+            child: ListView(
+              shrinkWrap: true,
+              children: global.userItem.magazineItems.map((magazineCardItem) {
+                return buildOrderCardItem(magazineCardItem, context);
+              }).toList(),
+            ),
+          ),
+        )
       ]),
     );
   }
 
   void _selectMenuItem(String choice) {
-    if (choice == "Убрать из фаворитов") {
-    } else if (choice == "Добавить в фавориты") {
-    } else if (choice == "Пожаловаться") {}
+    if (choice == "Пожаловаться") {}
   }
 }

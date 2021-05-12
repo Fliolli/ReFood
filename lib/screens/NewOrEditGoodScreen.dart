@@ -23,8 +23,6 @@ class NewOrEditGoodScreen extends StatefulWidget {
     this.screenType,
     this.id,
     this.name,
-    this.ownerName,
-    this.ownerProfileImage,
     this.description,
     this.image,
     this.expirationDate,
@@ -40,8 +38,6 @@ class NewOrEditGoodScreen extends StatefulWidget {
   global.ScreenType screenType;
   int id;
   String name;
-  String ownerName;
-  String ownerProfileImage;
   String description;
   String image;
   DateTime expirationDate;
@@ -62,6 +58,7 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
   final _priceTextController = TextEditingController();
   final _whenToPickUpTextController = TextEditingController();
   final _whereToPickUpTextController = TextEditingController();
+  final _massTextController = TextEditingController();
 
   @override
   void dispose() {
@@ -70,24 +67,25 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
     _expirationDateTextController.dispose();
     _priceTextController.dispose();
     _whenToPickUpTextController.dispose();
+    _massTextController.dispose();
     super.dispose();
   }
 
   final _nameKey = GlobalKey<FormState>();
-  final _sellerKey = GlobalKey<FormState>();
   final _descriptionKey = GlobalKey<FormState>();
   final _photoKey = GlobalKey<FormState>();
   final _expirationDateKey = GlobalKey<FormState>();
   final _priceKey = GlobalKey<FormState>();
   final _whenToPickUpKey = GlobalKey<FormState>();
   final _whereToPickUpKey = GlobalKey<FormState>();
+  final _massKey = GlobalKey<FormState>();
 
   List<UnitDropDownItem> units = <UnitDropDownItem>[
-    UnitDropDownItem('за кг.'),
-    UnitDropDownItem('за литр'),
-    UnitDropDownItem('за 100гр.'),
-    UnitDropDownItem('за штуку'),
-    UnitDropDownItem('за пакет')
+    UnitDropDownItem(strings.thingUnit),
+    UnitDropDownItem(strings.kgUnit),
+    UnitDropDownItem(strings.literUnit),
+    UnitDropDownItem(strings.gr100Unit),
+    UnitDropDownItem(strings.packetUnit)
   ];
 
   UnitDropDownItem selectedUnit;
@@ -102,7 +100,7 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
   OwnerDropDownItem selectedOwner;
 
   TextEditingController queryController = TextEditingController();
-  String response = '';
+  static List<String> response = <String>[];
   String selectedAddress = "";
 
   File imageFile;
@@ -117,13 +115,14 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
       _priceTextController.text = widget.price.toString();
       _whenToPickUpTextController.text = widget.whenToPickUp;
       _whereToPickUpTextController.text = widget.whereToPickUp;
+      _massTextController.text = global.foodItem.mass.toString();
     }
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorsLibrary.whiteColor,
         elevation: 0,
-        title: Text(createGood,
+        title: Text(widget.screenType == global.ScreenType.newGood ? createGood : edit,
             style: StylesLibrary.strongBlackTextStyle
                 .merge(const TextStyle(fontSize: 16))),
         leading: CloseButton(
@@ -156,80 +155,6 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                 }, _nameTextController),
                 context),
           ),
-          buildPropertyTitleItem(seller, context),
-          Form(
-            key: _sellerKey,
-            child: Container(
-              margin: EdgeInsets.only(left: 16, right: 16, top: 6),
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              decoration: BoxDecoration(
-                border: Border.all(
-                    color: ColorsLibrary.neutralGray, // set border color
-                    width: 1.0), // set border width
-                borderRadius: BorderRadius.all(
-                    Radius.circular(30)), // set rounded corner radius
-              ),
-              child: DropdownButtonFormField<OwnerDropDownItem>(
-                icon: Icon(
-                  CupertinoIcons.chevron_down,
-                  color: ColorsLibrary.primaryColor,
-                  size: 18,
-                ),
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                ),
-                hint: Text(
-                  "Выберите продавца",
-                  style: selectByPlatform(
-                          StylesLibrary.IOSPrimaryBlackTextStyle,
-                          StylesLibrary.AndroidPrimaryBlackTextStyle)
-                      .merge(const TextStyle(
-                          fontSize: 15, color: ColorsLibrary.middleBlack)),
-                ),
-                value: selectedOwner,
-                onChanged: (value) {
-                  setState(() {
-                    selectedOwner = value;
-                  });
-                },
-                items: owners.map((OwnerDropDownItem owner) {
-                  return DropdownMenuItem<OwnerDropDownItem>(
-                    value: owner,
-                    child: Row(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(30),
-                            child: Image.network(
-                                owner.ownerProfileImage.toString(),
-                                height: 45,
-                                width: 45,
-                                fit: BoxFit.cover),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 220,
-                          child: Text(
-                            owner.ownerName,
-                            style: selectByPlatform(
-                                    StylesLibrary.IOSPrimaryBlackTextStyle,
-                                    StylesLibrary.AndroidPrimaryBlackTextStyle)
-                                .merge(const TextStyle(
-                                    fontSize: 15,
-                                    color: ColorsLibrary.middleBlack)),
-                            softWrap: true,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }).toList(),
-              ),
-            ),
-          ),
           buildPropertyTitleItem(descriptionOfGood, context),
           Form(
             key: _descriptionKey,
@@ -249,6 +174,31 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                   }
                   return null;
                 }, _descriptionTextController),
+                context),
+          ),
+          buildPropertyTitleItem(massOfGood, context),
+          Form(
+            key: _massKey,
+            child: buildCustomTextField(
+                CustomTextField(
+                    50,
+                    MediaQuery.of(context).size.width,
+                    30,
+                    TextInputType.number,
+                    TextInputAction.done,
+                    1,
+                    1,
+                    'Обозначьте массу товара в килограммах..', (String value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Введите массу товара';
+                  }
+                  RegExp regExp = new RegExp(r'^[0-9]+.[0-9]+$');
+                  if (regExp.hasMatch(value.toString())) {
+                    return null;
+                  } else {
+                    return 'Некоректный формат. Пример: 3.0';
+                  }
+                }, _massTextController),
                 context),
           ),
           buildPropertyTitleItem(photoOfGood, context),
@@ -298,6 +248,7 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                                                     ColorsLibrary.middleBlack)),
                                       ),
                                     ),
+                                    Divider(),
                                     TextButton(
                                       onPressed: () {
                                         _getFromCamera();
@@ -413,11 +364,11 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                           if (value == null || value.isEmpty) {
                             return 'Введите цену товара';
                           }
-                          RegExp regExp = new RegExp(r'^[0-9]+$');
+                          RegExp regExp = new RegExp(r'^[0-9]+.[0-9]+$');
                           if (regExp.hasMatch(value.toString())) {
                             return null;
                           } else {
-                            return 'Только цифры';
+                            return 'Пример: 15.0';
                           }
                         }, _priceTextController),
                         context),
@@ -453,7 +404,12 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                                     fontSize: 15,
                                     color: ColorsLibrary.middleBlack)),
                           ),
-                          value: selectedUnit,
+                          value: widget.unit != null
+                              ? units
+                                  .where(
+                                      (element) => element.title == widget.unit)
+                                  .first
+                              : selectedUnit,
                           onChanged: (UnitDropDownItem value) {
                             setState(() {
                               selectedUnit = value;
@@ -504,32 +460,84 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
           buildPropertyTitleItem(whereToPickUp, context),
           Form(
             key: _whereToPickUpKey,
-            child: buildCustomTextField(
-                CustomTextField(
-                    50,
-                    MediaQuery.of(context).size.width,
-                    30,
-                    TextInputType.multiline,
-                    TextInputAction.done,
-                    1,
-                    1,
-                    'Обозначьте адрес, где можно получить товар..',
-                    (String value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Введите адрес';
-                  }
-                  return null;
-                }, _whereToPickUpTextController),
-                context),
+            child: Container(
+                margin: EdgeInsets.only(top: 6, right: 16, left: 16),
+                height: 50,
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        color: ColorsLibrary.neutralGray, // set border color
+                        width: 1.0), // set border width
+                    borderRadius: BorderRadius.all(
+                        Radius.circular(30)), // set rounded corner radius
+                  ),
+                  child: TextFormField(
+                    onTap: () {
+                      FocusScope.of(context).requestFocus(new FocusNode());
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (BuildContext builder) {
+                            return Container(
+                              margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                                child: ListView(
+                                  children: [Column(
+                                    children: [
+                                      Autocomplete<String>(
+                                        optionsBuilder:
+                                            (TextEditingValue textEditingValue) {
+                                          if (textEditingValue.text == '') {
+                                            return const Iterable<String>.empty();
+                                          }
+                                          querySuggestions(textEditingValue.text);
+                                          return response;
+                                        },
+                                        onSelected: (String selection) {
+                                          print('You just selected $selection');
+                                        },
+                                      ),
+                                    ],
+                                  ),]
+                                ),
+                            );
+                          });
+                    },
+                    style: selectByPlatform(
+                            StylesLibrary.IOSPrimaryBlackTextStyle,
+                            StylesLibrary.AndroidPrimaryBlackTextStyle)
+                        .merge(const TextStyle(
+                            fontSize: 15, color: ColorsLibrary.middleBlack)),
+                    cursorColor: ColorsLibrary.primaryColor,
+                    controller: _whereToPickUpTextController,
+                    cursorHeight: 24,
+                    cursorWidth: 1,
+                    maxLines: 1,
+                    minLines: 1,
+                    autovalidateMode: AutovalidateMode.disabled,
+                    decoration: InputDecoration(
+                      errorStyle: selectByPlatform(
+                              StylesLibrary.IOSPrimaryBlackTextStyle,
+                              StylesLibrary.AndroidPrimaryBlackTextStyle)
+                          .merge(const TextStyle(
+                              fontSize: 12, color: ColorsLibrary.primaryColor)),
+                      border: InputBorder.none,
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 6, horizontal: 16),
+                      hintText: 'Обозначьте адрес, где можно получить товар..',
+                      hintStyle: TextStyle(
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                )),
           ),
           Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+              padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
               child: ProgressButton(
                 progressWidget: CircularProgressIndicator(
                     backgroundColor: ColorsLibrary.whiteColor),
                 color: ColorsLibrary.primaryColor,
                 width: MediaQuery.of(context).size.width,
-                height: 45,
+                height: 50,
                 borderRadius: 30,
                 onPressed: () async {
                   FocusScope.of(context).requestFocus(new FocusNode());
@@ -544,30 +552,6 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                         .merge(const TextStyle(
                             color: ColorsLibrary.whiteColor, fontSize: 17))),
               )),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              Flexible(
-                child: TextField(
-                  controller: queryController,
-                ),
-              ),
-              RaisedButton(
-                onPressed: () {
-                  querySuggestions(queryController.text);
-                },
-                child: Text('Query'),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          const Text('Response:'),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Flexible(child: Text(response)),
-            ],
-          ),
         ])
       ]),
     );
@@ -581,8 +565,9 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
         "SuggestType.geo",
         true, (List<SuggestItem> suggestItems) {
       setState(() {
-        response =
-            suggestItems.map((SuggestItem item) => item.title).join('\n');
+        response.clear();
+        response
+            .addAll(suggestItems.map((SuggestItem item) => item.title).take(10));
       });
     });
     await Future<dynamic>.delayed(
