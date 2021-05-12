@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "243819111978",
+    "project_id": "refoodapp-f852f",
+    "storage_bucket": "refoodapp-f852f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:243819111978:android:67d37dc149ee88f02b8553",
+        "android_client_info": {
+          "package_name": "com.example.flutter_test_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "243819111978-3dau50erom2hicc9mnln6toh2aq0kunm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDa37xd7Qb079ffJj5At3b5optYUOZLrxc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "243819111978-3dau50erom2hicc9mnln6toh2aq0kunm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "243819111978-cj2jj5qnernpd3lr63ia3qu2gkbttp1u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterTestApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

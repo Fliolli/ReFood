@@ -3,7 +3,13 @@ import 'package:flutter/material.dart';
 import 'screens/HomeScreen.dart';
 import 'package:sizer/sizer.dart';
 
-void main() => runApp(ReFoodApp());
+import 'package:firebase_core/firebase_core.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(ReFoodApp());
+}
 
 class ReFoodApp extends StatelessWidget {
   static const String _title = 'ReFood';
