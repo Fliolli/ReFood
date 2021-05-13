@@ -74,6 +74,24 @@ UserItem userItem = UserItem(
   5,
 );
 
+class Badge {
+  String image;
+  String title;
+  BackGroundType backGroundType;
+  bool achieved;
+  String description;
+
+  Badge(this.image, this.title, this.backGroundType, this.achieved,
+      this.description);
+}
+
+Badge badge = Badge(
+    ("assets/images/1.jpg"),
+    "Климат кадет",
+    BackGroundType.light,
+    true,
+    "Чтобы получить этот значок, нужно много много стараться и ваще быть пусечкой.");
+
 enum GoodType { full, trimmed }
 
 enum OrderType { newOrder, bookmarked, booked, archive }

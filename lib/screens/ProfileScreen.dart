@@ -141,7 +141,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: badgeItems.map((badgeItem) {
-                            return buildBadgeItem(badgeItem);
+                            return buildBadgeItem(badgeItem, context);
                           }).toList(),
                         )),
                   ),

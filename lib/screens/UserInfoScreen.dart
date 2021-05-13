@@ -253,7 +253,7 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: global.userItem.badges.map((badgeItem) {
-                          return buildBadgeItem(badgeItem);
+                          return buildBadgeItem(badgeItem, context);
                         }).toList(),
                       )),
                 ),
