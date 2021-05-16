@@ -3,13 +3,18 @@ import 'package:flutter/material.dart';
 import '../resources/ColorsLibrary.dart';
 import '../utils/PlatformUtils.dart';
 import '../resources/StylesLibrary.dart';
+import 'package:flutter_test_app/data/GlobalData.dart' as global;
 
 class NavigationItem {
   final IconData _icon;
   final String _title;
   final Color _color;
 
-  const NavigationItem(this._icon, this._title, this._color);
+  const NavigationItem(
+    this._icon,
+    this._title,
+    this._color,
+  );
 }
 
 Widget buildNavigationItem(NavigationItem item, bool isSelected) {

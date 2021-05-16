@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../resources/ColorsLibrary.dart';
 import '../utils/PlatformUtils.dart';
 import 'NavigationItem.dart';
+import 'package:flutter_test_app/data/GlobalData.dart' as global;
 
 class BottomNavCustom extends StatefulWidget {
   const BottomNavCustom({
@@ -57,6 +58,7 @@ class _BottomNavCustomState extends State<BottomNavCustom> {
             onTap: () {
               setState(() {
                 selectedNavigationItemIndex = itemIndex;
+                global.selectedBottomNavItem = itemIndex;
               });
             },
             child: buildNavigationItem(

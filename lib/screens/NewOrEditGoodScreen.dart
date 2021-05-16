@@ -111,7 +111,8 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
       selectedUnit = UnitDropDownItem(widget.unit);
       _nameTextController.text = widget.name;
       _descriptionTextController.text = widget.description;
-      _expirationDateTextController.text = widget.expirationDate.toString();
+      _expirationDateTextController.text =
+          DateFormat("dd-MM-yyyy").format(widget.expirationDate);
       _priceTextController.text = widget.price.toString();
       _whenToPickUpTextController.text = widget.whenToPickUp;
       _whereToPickUpTextController.text = widget.whereToPickUp;
@@ -122,7 +123,8 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
       appBar: AppBar(
         backgroundColor: ColorsLibrary.whiteColor,
         elevation: 0,
-        title: Text(widget.screenType == global.ScreenType.newGood ? createGood : edit,
+        title: Text(
+            widget.screenType == global.ScreenType.newGood ? createGood : edit,
             style: StylesLibrary.strongBlackTextStyle
                 .merge(const TextStyle(fontSize: 16))),
         leading: CloseButton(
@@ -215,8 +217,10 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                           height: 90,
                           width: 90,
                         )
-                      : Image.file(imageFile),
+                      : Image.memory(imageFile.readAsBytesSync(),
+                          gaplessPlayback: true),
                   onTap: () {
+                    FocusScope.of(context).requestFocus(new FocusNode());
                     showModalBottomSheet(
                         context: context,
                         builder: (BuildContext builder) {
@@ -478,26 +482,27 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                           context: context,
                           builder: (BuildContext builder) {
                             return Container(
-                              margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                                child: ListView(
-                                  children: [Column(
-                                    children: [
-                                      Autocomplete<String>(
-                                        optionsBuilder:
-                                            (TextEditingValue textEditingValue) {
-                                          if (textEditingValue.text == '') {
-                                            return const Iterable<String>.empty();
-                                          }
-                                          querySuggestions(textEditingValue.text);
-                                          return response;
-                                        },
-                                        onSelected: (String selection) {
-                                          print('You just selected $selection');
-                                        },
-                                      ),
-                                    ],
-                                  ),]
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 8, horizontal: 16),
+                              child: ListView(children: [
+                                Column(
+                                  children: [
+                                    Autocomplete<String>(
+                                      optionsBuilder:
+                                          (TextEditingValue textEditingValue) {
+                                        if (textEditingValue.text == '') {
+                                          return const Iterable<String>.empty();
+                                        }
+                                        querySuggestions(textEditingValue.text);
+                                        return response;
+                                      },
+                                      onSelected: (String selection) {
+                                        print('You just selected $selection');
+                                      },
+                                    ),
+                                  ],
                                 ),
+                              ]),
                             );
                           });
                     },
@@ -566,8 +571,8 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
         true, (List<SuggestItem> suggestItems) {
       setState(() {
         response.clear();
-        response
-            .addAll(suggestItems.map((SuggestItem item) => item.title).take(10));
+        response.addAll(
+            suggestItems.map((SuggestItem item) => item.title).take(10));
       });
     });
     await Future<dynamic>.delayed(

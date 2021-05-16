@@ -9,6 +9,7 @@ import 'package:flutter_test_app/screens/UserInfoScreen.dart';
 import 'package:flutter_test_app/widgets/InfoPropertyItem.dart';
 import 'package:intl/intl.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
+import 'package:slide_popup_dialog/slide_popup_dialog.dart';
 
 import '../utils/PlatformUtils.dart';
 
@@ -173,7 +174,8 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
                                       ? ColorsLibrary.lightGreen
                                       : ColorsLibrary.lightYellow,
                                 );
-                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
                               });
                             } catch (e) {
                               print(e);
@@ -402,6 +404,25 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
     if (choice == "Забронировать") {
     } else if (choice == "Удалить из закладок") {
     } else if (choice == "Подтвердить получение") {
+      showSlideDialog(
+        context: context,
+        pillColor: ColorsLibrary.neutralGray,
+        backgroundColor: ColorsLibrary.whiteColor,
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height * 0.6,
+          padding: EdgeInsets.symmetric(horizontal: 36),
+          child: ListView(
+            children: [
+              Column(
+                children: [
+
+                ],
+              )
+            ],
+          ),
+        ),
+      );
     } else if (choice == "Отменить бронь") {
     } else if (choice == "Удалить") {}
   }

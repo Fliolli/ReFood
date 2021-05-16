@@ -99,3 +99,5 @@ enum OrderType { newOrder, bookmarked, booked, archive }
 enum ScreenType { newGood, editGood }
 
 enum BackGroundType { light, dark }
+
+int selectedBottomNavItem = 1;
