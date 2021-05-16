@@ -39,3 +39,4 @@ const String drink = "напитки";
 const String pastries = "выпечка";
 const String fruits = "фрукты";
 const String vegetables = "овощи";
+const String address = "Адрес";

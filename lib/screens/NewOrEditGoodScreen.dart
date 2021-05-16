@@ -1,12 +1,18 @@
+import 'dart:developer';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoder/geocoder.dart';
 import 'package:flutter_test_app/resources/ColorsLibrary.dart';
 import 'package:flutter_test_app/resources/StylesLibrary.dart';
+import 'package:flutter_test_app/screens/AddressSearchScreen.dart';
+import 'package:flutter_test_app/services/PlaceApiProvider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:uuid/uuid.dart';
 import '../utils/PlatformUtils.dart';
 import 'package:flutter_test_app/widgets/CustomTextField.dart';
 import 'package:flutter_test_app/widgets/PropertyTitleItem.dart';
@@ -14,7 +20,11 @@ import 'package:flutter_test_app/resources/StringsLibrary.dart';
 import 'package:flutter_test_app/resources/StringsLibrary.dart' as strings;
 import 'package:flutter_test_app/data/GlobalData.dart' as global;
 import 'package:flutter_progress_button/flutter_progress_button.dart';
-import 'package:yandex_mapkit/yandex_mapkit.dart';
+import "package:google_maps_webservice/geocoding.dart";
+
+import 'dart:async';
+import 'dart:math';
+import 'package:google_maps_webservice/places.dart';
 
 // ignore: must_be_immutable
 class NewOrEditGoodScreen extends StatefulWidget {
@@ -104,6 +114,11 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
   String selectedAddress = "";
 
   File imageFile;
+
+  double longitude;
+  double latitude;
+
+  final geocoding = GoogleMapsGeocoding(apiKey: Platform.isIOS ? 'AIzaSyCRZguDFpDMVrlPy-tqJR6YSePT237eHyc' : "AIzaSyDeWEmtAR98Oxm19lCOu1eEdwtDUKrHGjk");
 
   @override
   Widget build(BuildContext context) {
@@ -292,8 +307,8 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                         Radius.circular(30)), // set rounded corner radius
                   ),
                   child: TextFormField(
+                    readOnly: true,
                     onTap: () {
-                      FocusScope.of(context).requestFocus(new FocusNode());
                       showModalBottomSheet(
                           context: context,
                           builder: (BuildContext builder) {
@@ -476,35 +491,22 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                         Radius.circular(30)), // set rounded corner radius
                   ),
                   child: TextFormField(
-                    onTap: () {
-                      FocusScope.of(context).requestFocus(new FocusNode());
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext builder) {
-                            return Container(
-                              margin: EdgeInsets.symmetric(
-                                  vertical: 8, horizontal: 16),
-                              child: ListView(children: [
-                                Column(
-                                  children: [
-                                    Autocomplete<String>(
-                                      optionsBuilder:
-                                          (TextEditingValue textEditingValue) {
-                                        if (textEditingValue.text == '') {
-                                          return const Iterable<String>.empty();
-                                        }
-                                        querySuggestions(textEditingValue.text);
-                                        return response;
-                                      },
-                                      onSelected: (String selection) {
-                                        print('You just selected $selection');
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ]),
-                            );
+                    readOnly: true,
+                    onTap: () async {
+                      final sessionToken = Uuid().v4();
+                      final PlaceSuggestion result = await showSearch(
+                        context: context,
+                        delegate: AddressSearch(sessionToken),
+                      );
+                      if (result != null) {
+                        var addresses = await Geocoder.local.findAddressesFromQuery(result.description);
+                        var address = addresses.first;
+                        longitude = address.coordinates.longitude;
+                        latitude = address.coordinates.latitude;
+                          setState(() {
+                            _whereToPickUpTextController.text = result.description;
                           });
+                      }
                     },
                     style: selectByPlatform(
                             StylesLibrary.IOSPrimaryBlackTextStyle,
@@ -560,23 +562,6 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
         ])
       ]),
     );
-  }
-
-  Future<void> querySuggestions(String query) async {
-    final cancelListening = await YandexSearch.getSuggestions(
-        query,
-        const Point(latitude: 40.7685, longitude: 50.6725),
-        const Point(latitude: 71.0199, longitude: 60.7840),
-        "SuggestType.geo",
-        true, (List<SuggestItem> suggestItems) {
-      setState(() {
-        response.clear();
-        response.addAll(
-            suggestItems.map((SuggestItem item) => item.title).take(10));
-      });
-    });
-    await Future<dynamic>.delayed(
-        const Duration(seconds: 3), () => cancelListening());
   }
 
   _getFromGallery() async {
