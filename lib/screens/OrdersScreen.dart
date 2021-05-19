@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test_app/resources/ColorsLibrary.dart';
@@ -82,6 +83,11 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseFirestore.instance
+        .collection('foods')
+        .doc('VDAUqNPRIVRRNIzzzi79')
+        .get()
+        .then((value) => print(value.data()));
     return Scaffold(
         appBar: AppBar(
           backgroundColor: ColorsLibrary.whiteColor,

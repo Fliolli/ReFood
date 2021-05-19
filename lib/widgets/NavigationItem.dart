@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../resources/ColorsLibrary.dart';
 import '../utils/PlatformUtils.dart';
 import '../resources/StylesLibrary.dart';
-import 'package:flutter_test_app/data/GlobalData.dart' as global;
 
 class NavigationItem {
   final IconData _icon;

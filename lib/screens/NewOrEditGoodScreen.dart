@@ -2,8 +2,12 @@ import 'dart:developer';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_test_app/models/FoodItem.dart';
+import 'package:flutter_test_app/models/persistant/FoodModel.dart';
+import 'package:flutter_test_app/screens/GoodsScreen.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:flutter_test_app/resources/ColorsLibrary.dart';
 import 'package:flutter_test_app/resources/StylesLibrary.dart';
@@ -21,10 +25,9 @@ import 'package:flutter_test_app/resources/StringsLibrary.dart' as strings;
 import 'package:flutter_test_app/data/GlobalData.dart' as global;
 import 'package:flutter_progress_button/flutter_progress_button.dart';
 import "package:google_maps_webservice/geocoding.dart";
+import 'package:flutter_test_app/services/Authentication.dart';
 
 import 'dart:async';
-import 'dart:math';
-import 'package:google_maps_webservice/places.dart';
 
 // ignore: must_be_immutable
 class NewOrEditGoodScreen extends StatefulWidget {
@@ -100,25 +103,25 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
 
   UnitDropDownItem selectedUnit;
 
-  List<OwnerDropDownItem> owners = <OwnerDropDownItem>[
-    OwnerDropDownItem('CookiesHome',
-        'https://i.pinimg.com/originals/c7/df/12/c7df122cffc23fea28b0ec1c9874534d.jpg'),
-    OwnerDropDownItem('Мария',
-        'https://uhd.name/uploads/posts/2020-09/1600723784_22-p-mariya-kozakova-85.jpg'),
-  ];
-
-  OwnerDropDownItem selectedOwner;
-
   TextEditingController queryController = TextEditingController();
   static List<String> response = <String>[];
-  String selectedAddress = "";
 
   File imageFile;
 
-  double longitude;
-  double latitude;
+  String addressID;
 
-  final geocoding = GoogleMapsGeocoding(apiKey: Platform.isIOS ? 'AIzaSyCRZguDFpDMVrlPy-tqJR6YSePT237eHyc' : "AIzaSyDeWEmtAR98Oxm19lCOu1eEdwtDUKrHGjk");
+  DateTime selectedExpirationDate;
+
+  final geocoding = GoogleMapsGeocoding(
+      apiKey: Platform.isIOS
+          ? 'AIzaSyCRZguDFpDMVrlPy-tqJR6YSePT237eHyc'
+          : "AIzaSyDeWEmtAR98Oxm19lCOu1eEdwtDUKrHGjk");
+
+  CollectionReference foods = FirebaseFirestore.instance
+      .collection('foods')
+      .withConverter(
+          fromFirestore: (snapshot, _) => FoodModel.fromJson(snapshot.data()),
+          toFirestore: (food, _) => (food as FoodModel).toJson());
 
   @override
   Widget build(BuildContext context) {
@@ -324,6 +327,7 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                                     setState(() {
                                       _expirationDateTextController.text =
                                           DateFormat("dd-MM-yyyy").format(date);
+                                      selectedExpirationDate = date;
                                     });
                                   },
                                   use24hFormat: true,
@@ -499,13 +503,11 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                         delegate: AddressSearch(sessionToken),
                       );
                       if (result != null) {
-                        var addresses = await Geocoder.local.findAddressesFromQuery(result.description);
-                        var address = addresses.first;
-                        longitude = address.coordinates.longitude;
-                        latitude = address.coordinates.latitude;
-                          setState(() {
-                            _whereToPickUpTextController.text = result.description;
-                          });
+                        addressID = result.placeId;
+                        setState(() {
+                          _whereToPickUpTextController.text =
+                              result.description;
+                        });
                       }
                     },
                     style: selectByPlatform(
@@ -548,9 +550,9 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                 borderRadius: 30,
                 onPressed: () async {
                   FocusScope.of(context).requestFocus(new FocusNode());
-                  int score = await Future.delayed(
-                      const Duration(milliseconds: 3000), () => 42);
-                  return () {};
+                  await createFoodItem();
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => GoodsScreen()));
                 },
                 defaultWidget: Text(strings.create,
                     style: selectByPlatform(
@@ -594,6 +596,29 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
     } else {
       openAppSettings();
     }
+  }
+
+  Future<void> createFoodItem() async {
+    var foodItem = FoodModel(
+        image: imageFile.toString(),
+        name: _nameTextController.text,
+        price: double.parse(_priceTextController.text),
+        unit: selectedUnit.title,
+        ownerID: (await Authentication().getCurrentUser()).uid,
+        bookmarksCount: 0,
+        addMoment: DateTime.now(),
+        description: _descriptionTextController.text,
+        whereToPickUp: addressID,
+        whenToPickUp: _whenToPickUpTextController.text,
+        expirationDate: selectedExpirationDate,
+        mass: double.parse(_massTextController.text));
+    var id = foodItem.hashCode.toString();
+    foodItem.id = id;
+    return foods
+        .doc(id)
+        .set(foodItem)
+        .then((value) => print("User Added"))
+        .catchError((error) => print("Failed to add user: $error"));
   }
 }
 

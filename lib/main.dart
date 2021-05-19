@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test_app/rootScreen.dart';
-import 'package:flutter_test_app/screens/LoginSignUpScreen.dart';
 import 'package:flutter_test_app/services/Authentication.dart';
-
-import 'screens/HomeScreen.dart';
 import 'package:sizer/sizer.dart';
 
 class ReFoodApp extends StatelessWidget {
-  static const String _title = 'ReFood';
+  ReFoodApp({this.title});
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +13,10 @@ class ReFoodApp extends StatelessWidget {
         builder: (context, constraints) {
       return OrientationBuilder(//return OrientationBuilder
           builder: (context, orientation) {
-        //initialize SizerUtil()
         SizerUtil(); //initialize SizerUtil
         return MaterialApp(
             debugShowCheckedModeBanner: false,
-            title: _title,
+            title: title,
             theme: ThemeData(
                 brightness: Brightness.light,
                 visualDensity: VisualDensity.adaptivePlatformDensity,

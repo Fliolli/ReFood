@@ -11,11 +11,14 @@ import 'package:flutter_test_app/widgets/GoodCardItemTrimmed.dart';
 import 'package:flutter_test_app/resources/StringsLibrary.dart' as strings;
 
 class GoodsScreen extends StatefulWidget {
+
   @override
   _GoodsScreenState createState() => _GoodsScreenState();
 }
 
-class _GoodsScreenState extends State<GoodsScreen> {
+class _GoodsScreenState extends State<GoodsScreen>{
+
+
   int selectedInteractiveLabelIndex = 0;
   static const String title = "Витрина";
 

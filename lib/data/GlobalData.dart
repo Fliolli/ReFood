@@ -1,8 +1,7 @@
 library flutter_test_app.global;
 
-import 'package:flutter_test_app/data/FoodItem.dart';
-import 'package:flutter_test_app/data/UserItem.dart';
-import 'package:flutter_test_app/widgets/BadgeItem.dart';
+import 'package:flutter_test_app/models/FoodItem.dart';
+import 'package:flutter_test_app/models/UserItem.dart';
 import 'package:flutter_test_app/widgets/OrderCardItem.dart';
 import 'package:flutter_test_app/resources/StringsLibrary.dart' as strings;
 
@@ -51,14 +50,7 @@ List<OrderCardItem> magazineItems = [
       'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
       false),
 ];
-final List<BadgeItem> badges = [
-  const BadgeItem(
-      ("assets/images/1.jpg"), "Климат кадет", BackGroundType.light, true),
-  const BadgeItem(
-      ("assets/images/2.jpg"), "Климат кадет", BackGroundType.light, true),
-  const BadgeItem(
-      ("assets/images/3.jpg"), "Климат кадет", BackGroundType.light, true),
-];
+
 UserItem userItem = UserItem(
   900,
   "Виктория",
@@ -67,7 +59,7 @@ UserItem userItem = UserItem(
   "Пусечная распупусечка, самая лучшая..",
   true,
   6,
-  badges,
+  [],
   magazineItems,
   8,
   5,

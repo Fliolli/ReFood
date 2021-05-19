@@ -1,4 +1,4 @@
-import 'package:flutter_test_app/widgets/BadgeItem.dart';
+import 'package:flutter_test_app/models/BadgeItem.dart';
 import 'package:flutter_test_app/widgets/OrderCardItem.dart';
 
 class UserItem{

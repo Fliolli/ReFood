@@ -1,11 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test_app/data/GlobalData.dart';
+import 'package:flutter_test_app/models/BadgeItem.dart';
+import 'package:flutter_test_app/models/persistant/BadgeModel.dart';
+import 'package:flutter_test_app/models/persistant/UserAnalyticModel.dart';
+import 'package:flutter_test_app/providers/UserProvider.dart';
 import 'package:flutter_test_app/resources/ColorsLibrary.dart';
 import 'package:flutter_test_app/resources/StylesLibrary.dart';
 import 'package:flutter_test_app/screens/GoodsScreen.dart';
 import 'package:flutter_test_app/screens/OrdersScreen.dart';
+import 'package:flutter_test_app/services/Authentication.dart';
 import 'package:flutter_test_app/widgets/AchievementItem.dart';
+import 'package:flutter_test_app/data/GlobalData.dart' as global;
 
 import '../utils/PlatformUtils.dart';
 import '../widgets/BadgeItem.dart';
@@ -17,6 +24,21 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  FirebaseFirestore _fireStore = FirebaseFirestore.instance;
+
+  CollectionReference badgesRef = FirebaseFirestore.instance
+      .collection('badges')
+      .withConverter(
+          fromFirestore: (snapshot, _) => BadgeModel.fromJson(snapshot.data()),
+          toFirestore: (badge, _) => (badge as BadgeModel).toJson());
+
+  CollectionReference userAnalyticsRef = FirebaseFirestore.instance
+      .collection("userAnalytic")
+      .withConverter(
+          fromFirestore: (snapshot, _) =>
+              UserAnalyticModel.fromJson(snapshot.data()),
+          toFirestore: (badge, _) => (badge as UserAnalyticModel).toJson());
+
   final List<MenuItem> menuItems = [
     MenuItem(
         selectByPlatform(
@@ -72,29 +94,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
             }),
   ];
 
-  final List<BadgeItem> badgeItems = [
-    const BadgeItem(
-        ("assets/images/1.jpg"), "Климат кадет", BackGroundType.dark, true),
-    const BadgeItem(
-        ("assets/images/2.jpg"), "Климат кадет", BackGroundType.dark, false),
-    const BadgeItem(
-        ("assets/images/3.jpg"), "Климат кадет", BackGroundType.dark, true),
-    const BadgeItem(
-        ("assets/images/4.jpg"), "Климат кадет", BackGroundType.dark, false),
-    const BadgeItem(
-        ("assets/images/5.jpg"), "Климат кадет", BackGroundType.dark, false),
-    const BadgeItem(
-        ("assets/images/6.jpg"), "Климат кадет", BackGroundType.dark, true),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
-          title: Text('Марина',
-              style: StylesLibrary.strongWhiteTextStyle
-                  .merge(TextStyle(fontSize: 17))),
+          title: FutureBuilder(
+              future: UserProvider().getUserName(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Text(snapshot.data,
+                      style: StylesLibrary.strongWhiteTextStyle
+                          .merge(TextStyle(fontSize: 17)));
+                }
+                if (snapshot.hasError) {
+                  print(snapshot.error);
+                  return Text('${snapshot.error}');
+                } else {
+                  return Container();
+                }
+              }),
           centerTitle: true,
           leading: CloseButton(
             onPressed: () {
@@ -135,16 +154,57 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ],
                 )),
                 child: Column(children: <Widget>[
-                  Container(
-                    margin: const EdgeInsets.symmetric(vertical: 32),
-                    child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: badgeItems.map((badgeItem) {
-                            return buildBadgeItem(badgeItem, context);
-                          }).toList(),
-                        )),
-                  ),
+                  FutureBuilder(
+                      future: loadUserAnalytics(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return FutureBuilder(
+                              future: loadBadges(snapshot.data),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  return Container(
+                                      margin: const EdgeInsets.symmetric(
+                                          vertical: 32),
+                                      child: SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Row(
+                                            children: [
+                                              SizedBox(
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                height: 176,
+                                                child: ListView.builder(
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    itemCount:
+                                                        snapshot.data.length,
+                                                    itemBuilder:
+                                                        (context, index) {
+                                                      return buildBadgeItem(
+                                                          snapshot.data[index],
+                                                          context);
+                                                    }),
+                                              ),
+                                            ],
+                                          )));
+                                }
+                                if (snapshot.hasError) {
+                                  print(snapshot.error);
+                                  return Text('${snapshot.error}');
+                                } else {
+                                  return Center(
+                                      child: Container());
+                                }
+                              });
+                        }
+                        if (snapshot.hasError) {
+                          print(snapshot.error);
+                          return Text('${snapshot.error}');
+                        } else {
+                          return Center(child: CircularProgressIndicator());
+                        }
+                      }),
                   Container(
                     margin: const EdgeInsets.symmetric(vertical: 10),
                     child: SingleChildScrollView(
@@ -168,7 +228,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     return buildMenuItem(menuItem, context);
                   }).toList(),
                 ))
-          ])
+          ]),
         ]));
+  }
+
+  Future<List<BadgeItem>> loadBadges(
+      UserAnalyticModel userAnalyticModel) async {
+    List<BadgeModel> badges = await badgesRef.get().then(
+        (value) => value.docs.map((e) => e.data() as BadgeModel).toList());
+    return badges
+        .map((e) => BadgeItem(
+            e.image, e.title, e.description, false, global.BackGroundType.dark))
+        .toList();
+  }
+
+  Future<UserAnalyticModel> loadUserAnalytics() async {
+    return await userAnalyticsRef
+        .doc((await Authentication().getCurrentUser()).uid)
+        .get()
+        .then((value) => value.data());
   }
 }

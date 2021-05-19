@@ -4,8 +4,6 @@ import 'package:flutter/rendering.dart';
 import '../resources/ColorsLibrary.dart';
 import '../utils/PlatformUtils.dart';
 import '../resources/StylesLibrary.dart';
-import 'package:flutter_test_app/screens/OrderItemInfoScreen.dart';
-import 'package:flutter_test_app/data/GlobalData.dart';
 
 Widget buildFavoriteCardItem(
     FavoriteCardItem favoriteCardItem, BuildContext context) {
