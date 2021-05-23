@@ -1,6 +1,9 @@
+import 'dart:typed_data';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test_app/data/GlobalData.dart' as global;
+import 'package:flutter_test_app/models/persistant/UserModelTrimmed.dart';
 import 'package:flutter_test_app/resources/ColorsLibrary.dart';
 import 'package:flutter_test_app/resources/StringsLibrary.dart';
 import 'package:flutter_test_app/resources/StringsLibrary.dart' as strings;
@@ -14,16 +17,14 @@ import 'package:slide_popup_dialog/slide_popup_dialog.dart';
 import '../utils/PlatformUtils.dart';
 
 class OrderItemInfoScreen extends StatefulWidget {
-  final global.OrderType orderType;
-  final int id;
+  final global.OrderStatus orderType;
+  final String id;
   final String image;
   final String name;
-  final int price;
+  final double price;
   final String unit;
-  final String ownerName;
-  final String ownerProfileImage;
+  final UserModelTrimmed owner;
   final bool isFree;
-  final double ownerRating;
   OrderItemInfoScreen(
       {Key key,
       this.orderType,
@@ -32,10 +33,8 @@ class OrderItemInfoScreen extends StatefulWidget {
       this.name,
       this.price,
       this.unit,
-      this.ownerName,
-      this.ownerProfileImage,
-      this.isFree,
-      this.ownerRating});
+      this.owner,
+      this.isFree});
 
   @override
   _OrderItemInfoScreenState createState() => _OrderItemInfoScreenState();
@@ -83,9 +82,9 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
           backgroundColor: ColorsLibrary.whiteColor,
           elevation: 0,
           title: Text(
-              widget.orderType == global.OrderType.bookmarked
+              widget.orderType == global.OrderStatus.bookmarked
                   ? bookingTitle
-                  : widget.orderType == global.OrderType.booked
+                  : widget.orderType == global.OrderStatus.booked
                       ? bookedTitle
                       : archivedTitle,
               style: StylesLibrary.strongBlackTextStyle
@@ -112,14 +111,14 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
                 elevation: 3.2,
                 onSelected: _selectMenuItem,
                 itemBuilder: (BuildContext context) {
-                  return widget.orderType == global.OrderType.bookmarked
+                  return widget.orderType == global.OrderStatus.bookmarked
                       ? bookmarkedPopUpMenuItems.map((String choice) {
                           return PopupMenuItem<String>(
                             value: choice,
                             child: Text(choice),
                           );
                         }).toList()
-                      : widget.orderType == global.OrderType.booked
+                      : widget.orderType == global.OrderStatus.booked
                           ? bookedPopUpMenuItems.map((String choice) {
                               return PopupMenuItem<String>(
                                 value: choice,
@@ -152,7 +151,7 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
                     ),
                   ),
                 ),
-                widget.orderType == global.OrderType.bookmarked
+                widget.orderType == global.OrderStatus.bookmarked
                     ? Positioned(
                         top: 15,
                         left: 65,
@@ -231,7 +230,7 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
                 ],
               ),
             ),
-            widget.orderType != global.OrderType.archive
+            widget.orderType != global.OrderStatus.archived
                 ? Container(
                     padding:
                         const EdgeInsets.only(right: 36, left: 36, bottom: 16),
@@ -267,9 +266,9 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
                             MaterialPageRoute(
                               builder: (context) => UserInfoScreen(
                                 id: global.userItem.id,
-                                ownerName: widget.ownerName,
-                                ownerProfileImage: widget.ownerProfileImage,
-                                ownerRating: widget.ownerRating,
+                                ownerName: widget.owner.name,
+                                ownerProfileImage: widget.owner.profileImage,
+                                ownerRating: widget.owner.rating,
                               ),
                             ));
                       },
@@ -280,17 +279,36 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
                               padding: const EdgeInsets.only(right: 5),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(60),
-                                child: Image.network(
-                                    widget.ownerProfileImage.toString(),
-                                    height: 40,
-                                    width: 40,
-                                    fit: BoxFit.cover),
+                                child: FutureBuilder(
+                                    future: global.userProvider
+                                        .downloadUserImage(
+                                            widget.owner.profileImage),
+                                    builder: (context, profileImage) {
+                                      if (profileImage.hasData) {
+                                        return Image.memory(
+                                            profileImage.data as Uint8List,
+                                            height: 40,
+                                            width: 40,
+                                            fit: BoxFit.cover);
+                                      }
+                                      if (profileImage.hasError) {
+                                        print(profileImage.error);
+                                        return Text('${profileImage.error}');
+                                      } else {
+                                        return Container(
+                                            height: 90,
+                                            width: 90,
+                                            child: Center(
+                                                child:
+                                                    CircularProgressIndicator()));
+                                      }
+                                    }),
                               ),
                             ),
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.45,
                               child: Text(
-                                widget.ownerName,
+                                widget.owner.name,
                                 style: selectByPlatform(
                                         StylesLibrary.strongBlackTextStyle,
                                         StylesLibrary.strongBlackTextStyle)
@@ -313,7 +331,7 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
                             SizedBox(
                               width: 30,
                               child: Text(
-                                widget.ownerRating.toString(),
+                                widget.owner.rating.toString(),
                                 style: selectByPlatform(
                                         StylesLibrary.strongBlackTextStyle,
                                         StylesLibrary.strongBlackTextStyle)
@@ -325,7 +343,7 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
                             ),
                           ]),
                     ),
-                    widget.orderType != global.OrderType.archive
+                    widget.orderType != global.OrderStatus.archived
                         ? Container(
                             padding: const EdgeInsets.only(top: 8, left: 10),
                             width: MediaQuery.of(context).size.width,
@@ -366,7 +384,7 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 4),
             child: Column(
               children: [
-                widget.orderType != global.OrderType.archive
+                widget.orderType != global.OrderStatus.archived
                     ? Padding(
                         padding: const EdgeInsets.only(top: 16),
                         child:
@@ -376,17 +394,17 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
                         height: 16,
                       ),
                 buildInfoPropertyItem(priceDateItem, context),
-                widget.orderType != global.OrderType.archive
+                widget.orderType != global.OrderStatus.archived
                     ? buildInfoPropertyItem(pickUpItem, context)
                     : Container(),
-                widget.orderType != global.OrderType.archive
+                widget.orderType != global.OrderStatus.archived
                     ? buildInfoPropertyItem(distanceItem, context)
                     : Container(),
               ],
             ),
           ),
         ),
-        widget.orderType != global.OrderType.archive
+        widget.orderType != global.OrderStatus.archived
             ? Container(
                 margin: const EdgeInsets.only(
                     top: 4, bottom: 16, left: 24, right: 24),
@@ -415,9 +433,7 @@ class _OrderItemInfoScreenState extends State<OrderItemInfoScreen> {
           child: ListView(
             children: [
               Column(
-                children: [
-
-                ],
+                children: [],
               )
             ],
           ),

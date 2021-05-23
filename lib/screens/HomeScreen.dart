@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_test_app/models/OrderCardItem.dart';
 import 'package:flutter_test_app/resources/StylesLibrary.dart';
 import 'package:flutter_test_app/services/Authentication.dart';
 import 'package:flutter_test_app/widgets/OrderCardItem.dart';
@@ -132,64 +133,6 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 Widget sheet(ScrollController sc, BuildContext context) {
-  List<OrderCardItem> orders = [
-    OrderCardItem(
-        000,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        "Шоколадные круассаны",
-        30,
-        strings.thingUnit,
-        0.6,
-        "Марта",
-        4.7,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        false),
-    OrderCardItem(
-        001,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        "Шоколадные круассаны",
-        30,
-        strings.thingUnit,
-        0.6,
-        "Марта",
-        4.7,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        false),
-    OrderCardItem(
-        001,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        "Шоколадные круассаны",
-        30,
-        strings.thingUnit,
-        0.6,
-        "Марта",
-        4.7,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        false),
-    OrderCardItem(
-        001,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        "Шоколадные круассаны",
-        30,
-        strings.thingUnit,
-        0.6,
-        "Марта",
-        4.7,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        false),
-    OrderCardItem(
-        001,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        "Шоколадные круассаны",
-        30,
-        strings.thingUnit,
-        0.6,
-        "Марта",
-        4.7,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        false),
-  ];
-
   List<FavoriteCardItem> favorites = [
     FavoriteCardItem(
       000,
@@ -277,11 +220,7 @@ Widget sheet(ScrollController sc, BuildContext context) {
                   ),
                 ),
               ),
-              Column(
-                children: orders.map((orderCardItem) {
-                  return buildOrderCardItem(orderCardItem, context);
-                }).toList(),
-              ),
+              Column(),
             ],
           ),
         )

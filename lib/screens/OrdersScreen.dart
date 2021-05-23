@@ -3,11 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test_app/resources/ColorsLibrary.dart';
 import 'package:flutter_test_app/resources/StylesLibrary.dart';
+import 'package:flutter_test_app/utils/PlatformUtils.dart';
 import 'package:flutter_test_app/widgets/InteractiveLabelItem.dart';
-import 'package:flutter_test_app/widgets/OrderCardBookmarkItem.dart';
-import 'package:flutter_test_app/widgets/OrderCardItemTrimmed.dart';
-import 'package:flutter_test_app/widgets/OrderCardItem.dart';
 import 'package:flutter_test_app/resources/StringsLibrary.dart' as strings;
+import 'package:flutter_test_app/data/GlobalData.dart' as global;
+import 'package:flutter_test_app/widgets/OrderCardBookmarkItem.dart';
+import 'package:flutter_test_app/widgets/OrderCardItem.dart';
+import 'package:flutter_test_app/widgets/OrderCardItemTrimmed.dart';
 
 class OrdersScreen extends StatefulWidget {
   @override
@@ -27,58 +29,6 @@ class _OrdersScreenState extends State<OrdersScreen> {
     const InteractiveLabelItem(
       'Архив',
     ),
-  ];
-
-  List<OrderCardBookmarkItem> bookmarkOrderItems = [
-    OrderCardBookmarkItem(
-        000,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        "Шоколадные круассаны",
-        0,
-        strings.thingUnit,
-        0.6,
-        "Марта Мартовна Мартович",
-        4.7,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        true),
-  ];
-
-  List<OrderCardItem> bookingOrderItems = [
-    OrderCardItem(
-        000,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        "Шоколадные круассаны",
-        30,
-        strings.thingUnit,
-        0.6,
-        "Марта",
-        4.7,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        false),
-    OrderCardItem(
-        001,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        "Шоколадные круассаны",
-        30,
-        strings.thingUnit,
-        0.6,
-        "Марта",
-        4.7,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        false),
-  ];
-
-  List<OrderCardItemTrimmed> archiveOrderItems = [
-    OrderCardItemTrimmed(
-        000,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        "Шоколадные круассаны",
-        30,
-        strings.thingUnit,
-        "Марта",
-        4.7,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        false),
   ];
 
   @override
@@ -130,26 +80,128 @@ class _OrdersScreenState extends State<OrdersScreen> {
                   }).toList(),
                 ),
               )),
-          Container(
-            child: Expanded(
-              child: ListView(
-                shrinkWrap: true,
-                children: selectedInteractiveLabelIndex == 0
-                    ? bookmarkOrderItems.map((orderCardItem) {
-                        return buildOrderCardBookmarkItem(
-                            orderCardItem, context);
-                      }).toList()
-                    : selectedInteractiveLabelIndex == 1
-                        ? bookingOrderItems.map((orderCardItem) {
-                            return buildOrderCardItem(orderCardItem, context);
-                          }).toList()
-                        : archiveOrderItems.map((orderCardItem) {
-                            return buildOrderCardItemTrimmed(
-                                orderCardItem, context);
-                          }).toList(),
-              ),
-            ),
-          )
+          selectedInteractiveLabelIndex == 0
+              ? FutureBuilder(
+                  future: global.foodsProvider.loadBookmarkedOrders(),
+                  builder: (context, bookmarkedOrders) {
+                    if (bookmarkedOrders.hasData) {
+                      if ((bookmarkedOrders.data as List).isEmpty) {
+                        return Container(
+                            width: 260,
+                            padding: EdgeInsets.only(top: 12),
+                            child: Center(
+                                child: Text(
+                                  'Здесь пока ничего нет. Вы еще не добавили ни одну позицию в закладки..',
+                                  textAlign: TextAlign.justify,
+                                  style: selectByPlatform(
+                                      StylesLibrary.optionalBlackTextStyle,
+                                      StylesLibrary.optionalBlackTextStyle)
+                                      .merge(const TextStyle(
+                                    fontSize: 13,
+                                  )),
+                                )));
+                      }
+                      return Container(
+                        child: Expanded(
+                          child: ListView.builder(
+                              scrollDirection: Axis.vertical,
+                              itemCount: bookmarkedOrders.data.length,
+                              itemBuilder: (context, index) {
+                                return buildOrderCardBookmarkItem(
+                                    bookmarkedOrders.data[index], context);
+                              }),
+                        ),
+                      );
+                    }
+                    if (bookmarkedOrders.hasError) {
+                      print(bookmarkedOrders.error);
+                      return Text('${bookmarkedOrders.error}');
+                    } else {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                  })
+              : selectedInteractiveLabelIndex == 1
+                  ? FutureBuilder(
+                      future: global.foodsProvider.loadBookedOrders(),
+                      builder: (context, bookedOrders) {
+                        if (bookedOrders.hasData) {
+                          if ((bookedOrders.data as List).isEmpty) {
+                            return Container(
+                                width: 260,
+                                padding: EdgeInsets.only(top: 12),
+                                child: Center(
+                                    child: Text(
+                                      'Здесь пока ничего нет. Вы еще не забронировали ни одну позицию..',
+                                      textAlign: TextAlign.justify,
+                                      style: selectByPlatform(
+                                          StylesLibrary.optionalBlackTextStyle,
+                                          StylesLibrary.optionalBlackTextStyle)
+                                          .merge(const TextStyle(
+                                        fontSize: 13,
+                                      )),
+                                    )));
+                          }
+                          return Container(
+                            child: Expanded(
+                              child: ListView.builder(
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: bookedOrders.data.length,
+                                  itemBuilder: (context, index) {
+                                    return buildOrderCardItem(
+                                        bookedOrders.data[index], context);
+                                  }),
+                            ),
+                          );
+                        }
+                        if (bookedOrders.hasError) {
+                          print(bookedOrders.error);
+                          return Text('${bookedOrders.error}');
+                        } else {
+                          return Center(child: CircularProgressIndicator());
+                        }
+                      })
+                  : selectedInteractiveLabelIndex == 2
+                      ? FutureBuilder(
+                          future: global.foodsProvider.loadArchivedOrders(),
+                          builder: (context, archivedOrders) {
+                            if (archivedOrders.hasData) {
+                              if ((archivedOrders.data as List).isEmpty) {
+                                return Container(
+                                    width: 260,
+                                    padding: EdgeInsets.only(top: 12),
+                                    child: Center(
+                                        child: Text(
+                                          'Здесь пока ничего нет. У Вас еще нет завершенных заказов..',
+                                          textAlign: TextAlign.justify,
+                                          style: selectByPlatform(
+                                              StylesLibrary.optionalBlackTextStyle,
+                                              StylesLibrary.optionalBlackTextStyle)
+                                              .merge(const TextStyle(
+                                            fontSize: 13,
+                                          )),
+                                        )));
+                              }
+                              return Container(
+                                child: Expanded(
+                                  child: ListView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: archivedOrders.data.length,
+                                      itemBuilder: (context, index) {
+                                        return buildOrderCardItemTrimmed(
+                                            archivedOrders.data[index],
+                                            context);
+                                      }),
+                                ),
+                              );
+                            }
+                            if (archivedOrders.hasError) {
+                              print(archivedOrders.error);
+                              return Text('${archivedOrders.error}');
+                            } else {
+                              return Center(child: CircularProgressIndicator());
+                            }
+                          })
+                      : Container(),
         ]));
   }
 }

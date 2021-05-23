@@ -1,5 +1,5 @@
 import 'package:flutter_test_app/models/BadgeItem.dart';
-import 'package:flutter_test_app/widgets/OrderCardItem.dart';
+import 'package:flutter_test_app/models/OrderCardItem.dart';
 
 class UserItem{
   int id;

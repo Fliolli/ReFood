@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class FoodModel {
   String id;
   final String image;
@@ -12,6 +14,7 @@ class FoodModel {
   final String whenToPickUp;
   final DateTime expirationDate;
   final double mass;
+  final int mark;
 
   FoodModel(
       {this.id,
@@ -26,24 +29,27 @@ class FoodModel {
       this.whereToPickUp,
       this.whenToPickUp,
       this.expirationDate,
-      this.mass});
+      this.mass,
+      this.mark});
 
   FoodModel.fromJson(Map<String, Object> json)
       : this(
-          id: json['id'] as String,
-          image: json['image'] as String,
-          name: json['name'] as String,
-          price: json['price'] as double,
-          unit: json['unit'] as String,
-          ownerID: json['ownerID'] as String,
-          bookmarksCount: json['bookmarksCount'] as int,
-          addMoment: json['addMoment'] as DateTime,
-          description: json['description'] as String,
-          whereToPickUp: json['whereToPickUp'] as String,
-          whenToPickUp: json['whenToPickUp'] as String,
-          expirationDate: json['expirationDate'] as DateTime,
-          mass: json['mass'] as double,
-        );
+            id: json['id'] as String,
+            image: json['image'] as String,
+            name: json['name'] as String,
+            price: json['price'] as double,
+            unit: json['unit'] as String,
+            ownerID: json['ownerID'] as String,
+            bookmarksCount: json['bookmarksCount'] as int,
+            addMoment: DateTime.fromMicrosecondsSinceEpoch(
+                (json['addMoment'] as Timestamp).microsecondsSinceEpoch),
+            description: json['description'] as String,
+            whereToPickUp: json['whereToPickUp'] as String,
+            whenToPickUp: json['whenToPickUp'] as String,
+            expirationDate: DateTime.fromMicrosecondsSinceEpoch(
+                (json['expirationDate'] as Timestamp).microsecondsSinceEpoch),
+            mass: json['mass'] as double,
+            mark: json['mark'] as int);
 
   Map<String, Object> toJson() {
     return {
@@ -60,6 +66,7 @@ class FoodModel {
       'whenToPickUp': whenToPickUp,
       'expirationDate': expirationDate,
       'mass': mass,
+      'mark': mark
     };
   }
 }

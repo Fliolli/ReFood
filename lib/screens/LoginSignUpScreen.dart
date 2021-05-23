@@ -1,10 +1,14 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test_app/models/persistant/UserAnalyticModel.dart';
 import 'package:flutter_test_app/models/persistant/UserModel.dart';
+import 'package:flutter_test_app/providers/UserAnalyticProvider.dart';
 import 'package:flutter_test_app/providers/UserProvider.dart';
 import 'package:flutter_test_app/resources/ColorsLibrary.dart';
 import 'package:flutter_test_app/services/Authentication.dart';
+import 'package:flutter_test_app/data/GlobalData.dart' as global;
 
 class LoginSignUpScreen extends StatefulWidget {
   LoginSignUpScreen({this.auth, this.onSignedIn});
@@ -155,11 +159,11 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
           : new Text('Have an account? Sign in',
               style:
                   new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300)),
-      onPressed: _formMode == FormMode.LOGIN ? showSignupForm : showLoginForm,
+      onPressed: _formMode == FormMode.LOGIN ? showSignUpForm : showLoginForm,
     );
   }
 
-  void showSignupForm() {
+  void showSignUpForm() {
     _formKey.currentState.reset();
     _errorMessage = "";
     setState(() {
@@ -211,12 +215,30 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
       try {
         if (_formMode == FormMode.LOGIN) {
           userId = await widget.auth.signIn(_email, _password);
+          await global.userProvider.getCurrentUser();
         } else {
           userId = await widget.auth.signUp(_email, _password);
-          UserModel userItem = UserModel(id: userId, name: _name, profileImage: "", rating: 0, aboutMe: "", countOfInFavorites: 0, magazineItems: [], favoritesIDs: [], addressDescription: "", addressID: "", orderItems: []);
-          await UserProvider().addUserItem(userItem);
-          UserAnalyticModel userAnalyticModel = UserAnalyticModel(earnedBadgesIDs: [], lessCO2Value: 0, savedMassValue: 0, savedPositionsCount: 0);
-          await UserProvider().addUserAnalyticItem(userItem, userAnalyticModel);
+          UserModel userItem = UserModel(
+              id: userId,
+              name: _name,
+              profileImage: await global.userProvider.chooseUserDefaultImage(),
+              rating: 0,
+              aboutMe: "",
+              countOfInFavorites: 0,
+              magazineItems: [],
+              favoritesIDs: [],
+              addressDescription: "",
+              addressID: "",
+              orderItems: []);
+          await global.userProvider.addUserItem(userItem);
+          await global.userProvider.getCurrentUser();
+          UserAnalyticModel userAnalyticModel = UserAnalyticModel(
+              earnedBadgesIDs: [],
+              lessCO2Value: 0,
+              savedMassValue: 0,
+              savedPositionsCount: 0);
+          await UserAnalyticProvider()
+              .addUserAnalyticItem(userItem, userAnalyticModel);
         }
         setState(() {
           _isLoading = false;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test_app/screens/HomeScreen.dart';
 import 'package:flutter_test_app/screens/LoginSignUpScreen.dart';
 import 'package:flutter_test_app/services/Authentication.dart';
+import 'package:flutter_test_app/data/GlobalData.dart' as global;
 
 class RootScreen extends StatefulWidget {
   RootScreen({this.auth});
@@ -77,6 +78,7 @@ class _RootScreenState extends State<RootScreen> {
         break;
       case AuthenticationStatus.LOGGED_IN:
         if (_userId.length > 0 && _userId != null) {
+          global.userProvider.getCurrentUser();
           return new HomeScreen(
             userId: _userId,
             auth: widget.auth,

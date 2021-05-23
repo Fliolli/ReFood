@@ -1,11 +1,15 @@
+import 'dart:typed_data';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_test_app/models/OrderCardItem.dart';
 import '../resources/ColorsLibrary.dart';
 import '../utils/PlatformUtils.dart';
 import '../resources/StylesLibrary.dart';
 import 'package:flutter_test_app/screens/OrderItemInfoScreen.dart';
 import 'package:flutter_test_app/data/GlobalData.dart';
+import 'package:flutter_test_app/data/GlobalData.dart' as global;
 
 Widget buildOrderCardItem(OrderCardItem orderCardItem, BuildContext context) {
   return Card(
@@ -20,16 +24,14 @@ Widget buildOrderCardItem(OrderCardItem orderCardItem, BuildContext context) {
             context,
             MaterialPageRoute(
               builder: (context) => OrderItemInfoScreen(
-                orderType: OrderType.booked,
-                id: orderCardItem._id,
-                image: orderCardItem._image,
-                name: orderCardItem._name,
-                price: orderCardItem._price,
-                unit: orderCardItem._unit,
-                ownerName: orderCardItem._ownerName,
-                ownerProfileImage: orderCardItem._ownerProfileImage,
-                isFree: orderCardItem._isFree,
-                ownerRating: orderCardItem._ownerRating,
+                orderType: OrderStatus.booked,
+                id: orderCardItem.id,
+                image: orderCardItem.image,
+                name: orderCardItem.name,
+                price: orderCardItem.price,
+                unit: orderCardItem.unit,
+                owner: orderCardItem.owner,
+                isFree: orderCardItem.isFree,
               ),
             ));
       },
@@ -42,8 +44,24 @@ Widget buildOrderCardItem(OrderCardItem orderCardItem, BuildContext context) {
                 margin: const EdgeInsets.all(8),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(60),
-                  child: Image.network(orderCardItem._image.toString(),
-                      height: 90, width: 90, fit: BoxFit.cover),
+                  child: FutureBuilder(
+                      future: global.foodsProvider.downloadFoodImage(orderCardItem.image),
+                      builder: (context, image) {
+                        if (image.hasData) {
+                          return Image.memory(image.data as Uint8List,
+                              height: 90, width: 90, fit: BoxFit.cover);
+                        }
+                        if (image.hasError) {
+                          print(image.error);
+                          return Text('${image.error}');
+                        } else {
+                          return Container(
+                              height: 90,
+                              width: 90,
+                              child:
+                              Center(child: CircularProgressIndicator()));
+                        }
+                      }),
                 ),
               ),
               Padding(
@@ -54,7 +72,7 @@ Widget buildOrderCardItem(OrderCardItem orderCardItem, BuildContext context) {
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.59,
                       child: Text(
-                        orderCardItem._name,
+                        orderCardItem.name,
                         style: selectByPlatform(
                                 StylesLibrary.IOSPrimaryBlackTextStyle,
                                 StylesLibrary.AndroidPrimaryBlackTextStyle)
@@ -72,11 +90,24 @@ Widget buildOrderCardItem(OrderCardItem orderCardItem, BuildContext context) {
                             padding: const EdgeInsets.only(right: 3),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(60),
-                              child: Image.network(
-                                  orderCardItem._ownerProfileImage.toString(),
-                                  height: 25,
-                                  width: 25,
-                                  fit: BoxFit.cover),
+                              child: FutureBuilder(
+                                  future: global.userProvider.downloadUserImage(orderCardItem.owner.profileImage),
+                                  builder: (context, image) {
+                                    if (image.hasData) {
+                                      return Image.memory(image.data as Uint8List,
+                                          height: 30, width: 30, fit: BoxFit.cover);
+                                    }
+                                    if (image.hasError) {
+                                      print(image.error);
+                                      return Text('${image.error}');
+                                    } else {
+                                      return Container(
+                                          height: 30,
+                                          width: 30,
+                                          child:
+                                          Center(child: CircularProgressIndicator()));
+                                    }
+                                  }),
                             ),
                           ),
                           Container(
@@ -89,7 +120,7 @@ Widget buildOrderCardItem(OrderCardItem orderCardItem, BuildContext context) {
                                 child: SizedBox(
                                   width: 100,
                                   child: Text(
-                                    orderCardItem._ownerName,
+                                    orderCardItem.owner.name,
                                     style: selectByPlatform(
                                             StylesLibrary
                                                 .optionalBlackTextStyle,
@@ -109,7 +140,7 @@ Widget buildOrderCardItem(OrderCardItem orderCardItem, BuildContext context) {
                               SizedBox(
                                 width: 30,
                                 child: Text(
-                                  orderCardItem._ownerRating.toString(),
+                                  orderCardItem.owner.rating.toString(),
                                   style: selectByPlatform(
                                           StylesLibrary.optionalBlackTextStyle,
                                           StylesLibrary.optionalBlackTextStyle)
@@ -134,7 +165,7 @@ Widget buildOrderCardItem(OrderCardItem orderCardItem, BuildContext context) {
                               margin: const EdgeInsets.only(right: 12),
                               width: 55,
                               child: Text(
-                                '${orderCardItem._distance.toString()} км.',
+                                '${orderCardItem.distance.toString()} км.',
                                 style: selectByPlatform(
                                         StylesLibrary.optionalBlackTextStyle,
                                         StylesLibrary.optionalBlackTextStyle)
@@ -147,14 +178,14 @@ Widget buildOrderCardItem(OrderCardItem orderCardItem, BuildContext context) {
                             SizedBox(
                               width: 120,
                               child: Text(
-                                orderCardItem._isFree
+                                orderCardItem.isFree
                                     ? 'бесплатно'
-                                    : '${orderCardItem._price.toString()} р. ${orderCardItem._unit}',
+                                    : '${orderCardItem.price.toString()} р. ${orderCardItem.unit}',
                                 style: selectByPlatform(
                                         StylesLibrary.optionalBlackTextStyle,
                                         StylesLibrary.optionalBlackTextStyle)
                                     .merge(TextStyle(
-                                        color: orderCardItem._isFree
+                                        color: orderCardItem.isFree
                                             ? ColorsLibrary.greenColor
                                             : ColorsLibrary.middleBlack,
                                         fontSize: 12,
@@ -171,29 +202,4 @@ Widget buildOrderCardItem(OrderCardItem orderCardItem, BuildContext context) {
           )),
     ),
   );
-}
-
-class OrderCardItem {
-  int _id;
-  String _image;
-  String _name;
-  int _price;
-  String _unit;
-  double _distance;
-  String _ownerName;
-  double _ownerRating;
-  String _ownerProfileImage;
-  bool _isFree;
-
-  OrderCardItem(
-      this._id,
-      this._image,
-      this._name,
-      this._price,
-      this._unit,
-      this._distance,
-      this._ownerName,
-      this._ownerRating,
-      this._ownerProfileImage,
-      this._isFree);
 }

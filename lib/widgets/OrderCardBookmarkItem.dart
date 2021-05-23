@@ -1,11 +1,15 @@
+import 'dart:typed_data';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test_app/data/GlobalData.dart';
+import 'package:flutter_test_app/models/OrderCardBookmarkItem.dart';
 import '../resources/ColorsLibrary.dart';
 import '../utils/PlatformUtils.dart';
 import '../resources/StylesLibrary.dart';
 import 'package:flutter_test_app/screens/OrderItemInfoScreen.dart';
+import 'package:flutter_test_app/data/GlobalData.dart' as global;
 
 Widget buildOrderCardBookmarkItem(
     OrderCardBookmarkItem orderCardBookmarkItem, BuildContext context) {
@@ -21,16 +25,14 @@ Widget buildOrderCardBookmarkItem(
             context,
             MaterialPageRoute(
               builder: (context) => OrderItemInfoScreen(
-                orderType: OrderType.bookmarked,
-                id: orderCardBookmarkItem._id,
-                image: orderCardBookmarkItem._image,
-                name: orderCardBookmarkItem._name,
-                price: orderCardBookmarkItem._price,
-                unit: orderCardBookmarkItem._unit,
-                ownerName: orderCardBookmarkItem._ownerName,
-                ownerProfileImage: orderCardBookmarkItem._ownerProfileImage,
-                isFree: orderCardBookmarkItem._isFree,
-                ownerRating: orderCardBookmarkItem._ownerRating,
+                orderType: OrderStatus.bookmarked,
+                id: orderCardBookmarkItem.id,
+                image: orderCardBookmarkItem.image,
+                name: orderCardBookmarkItem.name,
+                price: orderCardBookmarkItem.price,
+                unit: orderCardBookmarkItem.unit,
+                owner: orderCardBookmarkItem.owner,
+                isFree: orderCardBookmarkItem.isFree,
               ),
             ));
       },
@@ -45,11 +47,25 @@ Widget buildOrderCardBookmarkItem(
                     margin: const EdgeInsets.all(8),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(60),
-                      child: Image.network(
-                          orderCardBookmarkItem._image.toString(),
-                          height: 90,
-                          width: 90,
-                          fit: BoxFit.cover),
+                      child: FutureBuilder(
+                          future: global.foodsProvider
+                              .downloadFoodImage(orderCardBookmarkItem.image),
+                          builder: (context, image) {
+                            if (image.hasData) {
+                              return Image.memory(image.data as Uint8List,
+                                  height: 90, width: 90, fit: BoxFit.cover);
+                            }
+                            if (image.hasError) {
+                              print(image.error);
+                              return Text('${image.error}');
+                            } else {
+                              return Container(
+                                  height: 90,
+                                  width: 90,
+                                  child: Center(
+                                      child: CircularProgressIndicator()));
+                            }
+                          }),
                     ),
                   ),
                   Container(
@@ -82,7 +98,7 @@ Widget buildOrderCardBookmarkItem(
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.59,
                       child: Text(
-                        orderCardBookmarkItem._name,
+                        orderCardBookmarkItem.name,
                         style: selectByPlatform(
                                 StylesLibrary.IOSPrimaryBlackTextStyle,
                                 StylesLibrary.AndroidPrimaryBlackTextStyle)
@@ -100,12 +116,29 @@ Widget buildOrderCardBookmarkItem(
                             padding: const EdgeInsets.only(right: 3),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(60),
-                              child: Image.network(
-                                  orderCardBookmarkItem._ownerProfileImage
-                                      .toString(),
-                                  height: 25,
-                                  width: 25,
-                                  fit: BoxFit.cover),
+                              child: FutureBuilder(
+                                  future: global.userProvider.downloadUserImage(
+                                      orderCardBookmarkItem.owner.profileImage),
+                                  builder: (context, image) {
+                                    if (image.hasData) {
+                                      return Image.memory(
+                                          image.data as Uint8List,
+                                          height: 30,
+                                          width: 30,
+                                          fit: BoxFit.cover);
+                                    }
+                                    if (image.hasError) {
+                                      print(image.error);
+                                      return Text('${image.error}');
+                                    } else {
+                                      return Container(
+                                          height: 30,
+                                          width: 30,
+                                          child: Center(
+                                              child:
+                                                  CircularProgressIndicator()));
+                                    }
+                                  }),
                             ),
                           ),
                           Container(
@@ -118,7 +151,7 @@ Widget buildOrderCardBookmarkItem(
                                 child: SizedBox(
                                   width: 100,
                                   child: Text(
-                                    orderCardBookmarkItem._ownerName,
+                                    orderCardBookmarkItem.owner.name,
                                     style: selectByPlatform(
                                             StylesLibrary
                                                 .optionalBlackTextStyle,
@@ -138,7 +171,7 @@ Widget buildOrderCardBookmarkItem(
                               SizedBox(
                                 width: 30,
                                 child: Text(
-                                  orderCardBookmarkItem._ownerRating.toString(),
+                                  orderCardBookmarkItem.owner.rating.toString(),
                                   style: selectByPlatform(
                                           StylesLibrary.optionalBlackTextStyle,
                                           StylesLibrary.optionalBlackTextStyle)
@@ -163,7 +196,7 @@ Widget buildOrderCardBookmarkItem(
                               margin: const EdgeInsets.only(right: 12),
                               width: 55,
                               child: Text(
-                                '${orderCardBookmarkItem._distance.toString()} км.',
+                                '${orderCardBookmarkItem.distance.toString()} км.',
                                 style: selectByPlatform(
                                         StylesLibrary.optionalBlackTextStyle,
                                         StylesLibrary.optionalBlackTextStyle)
@@ -176,14 +209,14 @@ Widget buildOrderCardBookmarkItem(
                             SizedBox(
                               width: 120,
                               child: Text(
-                                orderCardBookmarkItem._isFree
+                                orderCardBookmarkItem.isFree
                                     ? 'бесплатно'
-                                    : '${orderCardBookmarkItem._price.toString()} р. ${orderCardBookmarkItem._unit}',
+                                    : '${orderCardBookmarkItem.price.toString()} р. ${orderCardBookmarkItem.unit}',
                                 style: selectByPlatform(
                                         StylesLibrary.optionalBlackTextStyle,
                                         StylesLibrary.optionalBlackTextStyle)
                                     .merge(TextStyle(
-                                        color: orderCardBookmarkItem._isFree
+                                        color: orderCardBookmarkItem.isFree
                                             ? ColorsLibrary.greenColor
                                             : ColorsLibrary.middleBlack,
                                         fontSize: 12,
@@ -200,29 +233,4 @@ Widget buildOrderCardBookmarkItem(
           )),
     ),
   );
-}
-
-class OrderCardBookmarkItem {
-  int _id;
-  String _image;
-  String _name;
-  int _price;
-  String _unit;
-  double _distance;
-  String _ownerName;
-  double _ownerRating;
-  String _ownerProfileImage;
-  bool _isFree;
-
-  OrderCardBookmarkItem(
-      this._id,
-      this._image,
-      this._name,
-      this._price,
-      this._unit,
-      this._distance,
-      this._ownerName,
-      this._ownerRating,
-      this._ownerProfileImage,
-      this._isFree);
 }

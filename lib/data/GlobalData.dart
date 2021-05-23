@@ -1,7 +1,13 @@
 library flutter_test_app.global;
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_test_app/models/FoodItem.dart';
+import 'package:flutter_test_app/models/OrderCardItem.dart';
 import 'package:flutter_test_app/models/UserItem.dart';
+import 'package:flutter_test_app/providers/BadgesProvider.dart';
+import 'package:flutter_test_app/providers/FoodsProvider.dart';
+import 'package:flutter_test_app/providers/UserAnalyticProvider.dart';
+import 'package:flutter_test_app/providers/UserProvider.dart';
 import 'package:flutter_test_app/widgets/OrderCardItem.dart';
 import 'package:flutter_test_app/resources/StringsLibrary.dart' as strings;
 
@@ -26,31 +32,6 @@ FoodItem foodItem = FoodItem(
     4,
     0.3);
 
-List<OrderCardItem> magazineItems = [
-  OrderCardItem(
-      000,
-      'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-      "Шоколадные круассаны",
-      30,
-      strings.thingUnit,
-      0.6,
-      "Марта",
-      4.7,
-      'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-      false),
-  OrderCardItem(
-      001,
-      'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-      "Шоколадные круассаны",
-      30,
-      strings.thingUnit,
-      0.6,
-      "Марта",
-      4.7,
-      'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-      false),
-];
-
 UserItem userItem = UserItem(
   900,
   "Виктория",
@@ -60,7 +41,7 @@ UserItem userItem = UserItem(
   true,
   6,
   [],
-  magazineItems,
+  [],
   8,
   5,
   5,
@@ -86,10 +67,17 @@ Badge badge = Badge(
 
 enum GoodType { full, trimmed }
 
-enum OrderType { newOrder, bookmarked, booked, archive }
+enum GoodStatus { active, booked, archived }
+
+enum OrderStatus { newOrder, bookmarked, booked, archived }
 
 enum ScreenType { newGood, editGood }
 
 enum BackGroundType { light, dark }
 
 int selectedBottomNavItem = 1;
+
+UserProvider userProvider = UserProvider();
+FoodsProvider foodsProvider = FoodsProvider();
+BadgesProvider badgesProvider = BadgesProvider();
+UserAnalyticProvider userAnalyticProvider = UserAnalyticProvider();

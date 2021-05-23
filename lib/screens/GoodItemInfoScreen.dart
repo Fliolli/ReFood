@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test_app/data/GlobalData.dart';
@@ -24,7 +26,7 @@ class GoodItemInfoScreen extends StatefulWidget {
       this.isFree});
 
   final global.GoodType goodType;
-  final int id;
+  final String id;
   final String image;
   final String name;
   final double price;
@@ -72,6 +74,8 @@ class _GoodItemInfoScreenState extends State<GoodItemInfoScreen> {
       strings.mark,
       'Оценка покупателя: ${global.foodItem.mark.toString()}',
     );
+
+    File imageFile = File(widget.image);
 
     return Scaffold(
       appBar: AppBar(
@@ -127,7 +131,7 @@ class _GoodItemInfoScreenState extends State<GoodItemInfoScreen> {
                 margin: const EdgeInsets.only(top: 15),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(130),
-                  child: Image.network(widget.image.toString(),
+                  child: Image.file(imageFile,
                       height: 255, width: 255, fit: BoxFit.cover),
                 ),
               ),

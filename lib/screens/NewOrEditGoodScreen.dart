@@ -1,14 +1,6 @@
-import 'dart:developer';
 import 'dart:io';
-import 'dart:math';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_test_app/models/FoodItem.dart';
-import 'package:flutter_test_app/models/persistant/FoodModel.dart';
-import 'package:flutter_test_app/screens/GoodsScreen.dart';
-import 'package:geocoder/geocoder.dart';
 import 'package:flutter_test_app/resources/ColorsLibrary.dart';
 import 'package:flutter_test_app/resources/StylesLibrary.dart';
 import 'package:flutter_test_app/screens/AddressSearchScreen.dart';
@@ -24,10 +16,6 @@ import 'package:flutter_test_app/resources/StringsLibrary.dart';
 import 'package:flutter_test_app/resources/StringsLibrary.dart' as strings;
 import 'package:flutter_test_app/data/GlobalData.dart' as global;
 import 'package:flutter_progress_button/flutter_progress_button.dart';
-import "package:google_maps_webservice/geocoding.dart";
-import 'package:flutter_test_app/services/Authentication.dart';
-
-import 'dart:async';
 
 // ignore: must_be_immutable
 class NewOrEditGoodScreen extends StatefulWidget {
@@ -49,7 +37,7 @@ class NewOrEditGoodScreen extends StatefulWidget {
   NewOrEditGoodScreen.newGood({Key key, this.screenType});
 
   global.ScreenType screenType;
-  int id;
+  String id;
   String name;
   String description;
   String image;
@@ -104,24 +92,13 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
   UnitDropDownItem selectedUnit;
 
   TextEditingController queryController = TextEditingController();
-  static List<String> response = <String>[];
 
   File imageFile;
+  String imagePath;
 
   String addressID;
 
   DateTime selectedExpirationDate;
-
-  final geocoding = GoogleMapsGeocoding(
-      apiKey: Platform.isIOS
-          ? 'AIzaSyCRZguDFpDMVrlPy-tqJR6YSePT237eHyc'
-          : "AIzaSyDeWEmtAR98Oxm19lCOu1eEdwtDUKrHGjk");
-
-  CollectionReference foods = FirebaseFirestore.instance
-      .collection('foods')
-      .withConverter(
-          fromFirestore: (snapshot, _) => FoodModel.fromJson(snapshot.data()),
-          toFirestore: (food, _) => (food as FoodModel).toJson());
 
   @override
   Widget build(BuildContext context) {
@@ -549,10 +526,40 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                 height: 50,
                 borderRadius: 30,
                 onPressed: () async {
-                  FocusScope.of(context).requestFocus(new FocusNode());
-                  await createFoodItem();
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => GoodsScreen()));
+                  if (_expirationDateKey.currentState.validate() &&
+                      _priceKey.currentState.validate() &&
+                      _whereToPickUpKey.currentState.validate() &&
+                      _whenToPickUpKey.currentState.validate() &&
+                      _descriptionKey.currentState.validate() &&
+                      _nameKey.currentState.validate() &&
+                      _massKey.currentState.validate() &&
+                      ((selectedUnit == null &&
+                          double.parse(_priceTextController.text) == 0.0) || (selectedUnit != null)) &&
+                      imageFile != null) {
+                    FocusScope.of(context).requestFocus(new FocusNode());
+                    await global.foodsProvider.createFoodItem(
+                      await global.foodsProvider.uploadFile(imageFile),
+                      _nameTextController.text,
+                      double.parse(_priceTextController.text),
+                      selectedUnit == null ? '' : selectedUnit.title,
+                      DateTime.now(),
+                      _descriptionTextController.text,
+                      addressID,
+                      _whenToPickUpTextController.text,
+                      selectedExpirationDate,
+                      double.parse(_massTextController.text),
+                    );
+                    Navigator.pop(context);
+                  } else {
+                    final snackBar = SnackBar(
+                      content: Text(
+                        "Заполните все поля!",
+                        style: StylesLibrary.optionalWhiteTextStyle,
+                      ),
+                      backgroundColor: ColorsLibrary.lightYellow,
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  }
                 },
                 defaultWidget: Text(strings.create,
                     style: selectByPlatform(
@@ -589,36 +596,11 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
         maxHeight: 90,
       );
       if (pickedFile != null) {
-        setState(() {
-          imageFile = File(pickedFile.path);
-        });
+        imageFile = File(pickedFile.path);
       }
     } else {
       openAppSettings();
     }
-  }
-
-  Future<void> createFoodItem() async {
-    var foodItem = FoodModel(
-        image: imageFile.toString(),
-        name: _nameTextController.text,
-        price: double.parse(_priceTextController.text),
-        unit: selectedUnit.title,
-        ownerID: (await Authentication().getCurrentUser()).uid,
-        bookmarksCount: 0,
-        addMoment: DateTime.now(),
-        description: _descriptionTextController.text,
-        whereToPickUp: addressID,
-        whenToPickUp: _whenToPickUpTextController.text,
-        expirationDate: selectedExpirationDate,
-        mass: double.parse(_massTextController.text));
-    var id = foodItem.hashCode.toString();
-    foodItem.id = id;
-    return foods
-        .doc(id)
-        .set(foodItem)
-        .then((value) => print("User Added"))
-        .catchError((error) => print("Failed to add user: $error"));
   }
 }
 

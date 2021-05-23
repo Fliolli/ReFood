@@ -1,3 +1,5 @@
+import 'package:flutter_test_app/data/GlobalData.dart';
+
 class UserModel {
   String id;
   String name;
@@ -11,8 +13,8 @@ class UserModel {
   String addressID;
   List<OrderItem> orderItems;
 
-  UserModel({
-      this.id,
+  UserModel(
+      {this.id,
       this.name,
       this.profileImage,
       this.rating,
@@ -32,11 +34,17 @@ class UserModel {
           rating: json['rating'] as double,
           aboutMe: json['aboutMe'] as String,
           countOfInFavorites: json['countOfInFavorites'] as int,
-          magazineItems: json['magazineItems'] as List<MagazineItem>,
-          favoritesIDs: json['favoritesIDs'] as List<String>,
+          magazineItems: (json['magazineItems'] as List<Object>)
+              .map((e) => MagazineItem.fromJson(e))
+              .toList(),
+          favoritesIDs: (json['favoritesIDs'] as List<dynamic>)
+              .map((e) => e as String)
+              .toList(),
           addressDescription: json['addressDescription'] as String,
           addressID: json['addressID'] as String,
-          orderItems: json['orderItems'] as List<OrderItem>,
+          orderItems: (json['orderItems'] as List<Object>)
+              .map((e) => OrderItem.fromJson(e))
+              .toList(),
         );
 
   Map<String, Object> toJson() {
@@ -57,16 +65,43 @@ class UserModel {
 }
 
 class OrderItem {
-  String _id;
-  int _mark;
-  String _status;
+  String id;
+  OrderStatus status;
 
-  OrderItem(this._id, this._mark, this._status);
+  OrderItem({this.id, this.status});
+
+  OrderItem.fromJson(Map<String, Object> json)
+      : this(
+          id: json['id'] as String,
+          status: OrderStatus.values
+              .firstWhere((element) => element.toString() == json['status']),
+        );
+
+  Map<String, Object> toJson() {
+    return {
+      'id': id,
+      'status': status.toString(),
+    };
+  }
 }
 
 class MagazineItem {
-  String _id;
-  String _status;
+  String id;
+  GoodStatus status;
 
-  MagazineItem(this._id, this._status);
+  MagazineItem({this.id, this.status});
+
+  MagazineItem.fromJson(Map<String, Object> json)
+      : this(
+          id: json['id'] as String,
+          status: GoodStatus.values
+              .firstWhere((element) => element.toString() == json['status']),
+        );
+
+  Map<String, Object> toJson() {
+    return {
+      'id': id,
+      'status': status.toString(),
+    };
+  }
 }

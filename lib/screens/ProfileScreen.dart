@@ -2,18 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test_app/data/GlobalData.dart';
-import 'package:flutter_test_app/models/BadgeItem.dart';
-import 'package:flutter_test_app/models/persistant/BadgeModel.dart';
 import 'package:flutter_test_app/models/persistant/UserAnalyticModel.dart';
-import 'package:flutter_test_app/providers/UserProvider.dart';
 import 'package:flutter_test_app/resources/ColorsLibrary.dart';
 import 'package:flutter_test_app/resources/StylesLibrary.dart';
 import 'package:flutter_test_app/screens/GoodsScreen.dart';
 import 'package:flutter_test_app/screens/OrdersScreen.dart';
-import 'package:flutter_test_app/services/Authentication.dart';
 import 'package:flutter_test_app/widgets/AchievementItem.dart';
 import 'package:flutter_test_app/data/GlobalData.dart' as global;
-
 import '../utils/PlatformUtils.dart';
 import '../widgets/BadgeItem.dart';
 import '../widgets/MenuItem.dart';
@@ -24,14 +19,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  FirebaseFirestore _fireStore = FirebaseFirestore.instance;
-
-  CollectionReference badgesRef = FirebaseFirestore.instance
-      .collection('badges')
-      .withConverter(
-          fromFirestore: (snapshot, _) => BadgeModel.fromJson(snapshot.data()),
-          toFirestore: (badge, _) => (badge as BadgeModel).toJson());
-
   CollectionReference userAnalyticsRef = FirebaseFirestore.instance
       .collection("userAnalytic")
       .withConverter(
@@ -100,7 +87,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         appBar: AppBar(
           elevation: 0,
           title: FutureBuilder(
-              future: UserProvider().getUserName(),
+              future: global.userProvider.getUserName(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return Text(snapshot.data,
@@ -142,27 +129,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
         body: ListView(children: [
           Column(children: <Widget>[
             Container(
-                height: 335,
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                    gradient: const LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    ColorsLibrary.primaryColor,
-                    ColorsLibrary.lightOrange,
-                  ],
-                )),
-                child: Column(children: <Widget>[
-                  FutureBuilder(
-                      future: loadUserAnalytics(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return FutureBuilder(
-                              future: loadBadges(snapshot.data),
-                              builder: (context, snapshot) {
-                                if (snapshot.hasData) {
-                                  return Container(
+              height: 335,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                  gradient: const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  ColorsLibrary.primaryColor,
+                  ColorsLibrary.lightOrange,
+                ],
+              )),
+              child: FutureBuilder(
+                  future: global.userAnalyticProvider.loadUserAnalytics(),
+                  builder: (context, analytic) {
+                    if (analytic.hasData) {
+                      return FutureBuilder(
+                          future: global.badgesProvider.loadBadges(analytic.data),
+                          builder: (context, badges) {
+                            if (badges.hasData) {
+                              return Column(
+                                children: [
+                                  Container(
                                       margin: const EdgeInsets.symmetric(
                                           vertical: 32),
                                       child: SingleChildScrollView(
@@ -178,48 +166,56 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     scrollDirection:
                                                         Axis.horizontal,
                                                     itemCount:
-                                                        snapshot.data.length,
+                                                        badges.data.length,
                                                     itemBuilder:
                                                         (context, index) {
                                                       return buildBadgeItem(
-                                                          snapshot.data[index],
+                                                          badges.data[index],
                                                           context);
                                                     }),
                                               ),
                                             ],
-                                          )));
-                                }
-                                if (snapshot.hasError) {
-                                  print(snapshot.error);
-                                  return Text('${snapshot.error}');
-                                } else {
-                                  return Center(
-                                      child: Container());
-                                }
-                              });
-                        }
-                        if (snapshot.hasError) {
-                          print(snapshot.error);
-                          return Text('${snapshot.error}');
-                        } else {
-                          return Center(child: CircularProgressIndicator());
-                        }
-                      }),
-                  Container(
-                    margin: const EdgeInsets.symmetric(vertical: 10),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(children: <Widget>[
-                        buildAchievementItem(AchievementItem('${2} шт.',
-                            'Позиций \nспасено', BackGroundType.dark)),
-                        buildAchievementItem(AchievementItem('На ${5} куб.м',
-                            'Меньше \nвыброс CO2', BackGroundType.dark)),
-                        buildAchievementItem(AchievementItem(
-                            '${2} кг.', 'Еды \nспасено', BackGroundType.dark)),
-                      ]),
-                    ),
-                  )
-                ])),
+                                          ))),
+                                  Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        vertical: 10),
+                                    child: SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Row(children: <Widget>[
+                                        buildAchievementItem(AchievementItem(
+                                            '${global.userAnalyticProvider.getSavedPositionsCount(analytic.data)} шт.',
+                                            'Позиций \nспасено',
+                                            BackGroundType.dark)),
+                                        buildAchievementItem(AchievementItem(
+                                            'На ${global.userAnalyticProvider.getLessCO2Value(analytic.data)} куб.м',
+                                            'Меньше \nвыброс CO2',
+                                            BackGroundType.dark)),
+                                        buildAchievementItem(AchievementItem(
+                                            '${global.userAnalyticProvider.getSavedMassValue(analytic.data)} кг.',
+                                            'Еды \nспасено',
+                                            BackGroundType.dark)),
+                                      ]),
+                                    ),
+                                  )
+                                ],
+                              );
+                            }
+                            if (badges.hasError) {
+                              print(badges.error);
+                              return Text('${badges.error}');
+                            } else {
+                              return Center(child: CircularProgressIndicator());
+                            }
+                          });
+                    }
+                    if (analytic.hasError) {
+                      print(analytic.error);
+                      return Text('${analytic.error}');
+                    } else {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                  }),
+            ),
             Container(
                 width: double.infinity,
                 margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
@@ -230,22 +226,5 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ))
           ]),
         ]));
-  }
-
-  Future<List<BadgeItem>> loadBadges(
-      UserAnalyticModel userAnalyticModel) async {
-    List<BadgeModel> badges = await badgesRef.get().then(
-        (value) => value.docs.map((e) => e.data() as BadgeModel).toList());
-    return badges
-        .map((e) => BadgeItem(
-            e.image, e.title, e.description, false, global.BackGroundType.dark))
-        .toList();
-  }
-
-  Future<UserAnalyticModel> loadUserAnalytics() async {
-    return await userAnalyticsRef
-        .doc((await Authentication().getCurrentUser()).uid)
-        .get()
-        .then((value) => value.data());
   }
 }

@@ -9,16 +9,14 @@ import 'package:flutter_test_app/widgets/InteractiveLabelItem.dart';
 import '../utils/PlatformUtils.dart';
 import 'package:flutter_test_app/widgets/GoodCardItemTrimmed.dart';
 import 'package:flutter_test_app/resources/StringsLibrary.dart' as strings;
+import 'package:flutter_test_app/data/GlobalData.dart' as global;
 
 class GoodsScreen extends StatefulWidget {
-
   @override
   _GoodsScreenState createState() => _GoodsScreenState();
 }
 
-class _GoodsScreenState extends State<GoodsScreen>{
-
-
+class _GoodsScreenState extends State<GoodsScreen> {
   int selectedInteractiveLabelIndex = 0;
   static const String title = "Витрина";
 
@@ -32,105 +30,6 @@ class _GoodsScreenState extends State<GoodsScreen>{
     const InteractiveLabelItem(
       'Архив',
     ),
-  ];
-
-  List<GoodCardItem> activeGoodItems = [
-    GoodCardItem(
-        100,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        "Шоколадные круассаны",
-        30,
-        strings.thingUnit,
-        DateTime.now(),
-        6986,
-        false),
-    GoodCardItem(
-        101,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        "Шоколадные круассаны",
-        30,
-        strings.thingUnit,
-        DateTime.now(),
-        2,
-        false),
-  ];
-
-  List<GoodCardItem> bookingGoodItems = [
-    GoodCardItem(
-        200,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        "Домашнее мороже00000000000000000000000ное",
-        50,
-        strings.thingUnit,
-        DateTime.now(),
-        1,
-        false),
-    GoodCardItem(
-        201,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        "Домашнее мороже00000000000000000000000ное",
-        50,
-        strings.thingUnit,
-        DateTime.now(),
-        6,
-        false),
-    GoodCardItem(
-        202,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        "Домашнее мороже00000000000000000000000ное",
-        50,
-        strings.thingUnit,
-        DateTime.now(),
-        3,
-        false),
-    GoodCardItem(
-        203,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        "Домашнее мороже00000000000000000000000ное",
-        50,
-        strings.thingUnit,
-        DateTime.now(),
-        4,
-        false),
-    GoodCardItem(
-        204,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        "Домашнее мороже00000000000000000000000ное",
-        50,
-        strings.thingUnit,
-        DateTime.now(),
-        8,
-        false),
-    GoodCardItem(
-        205,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        "Домашнее мороже00000000000000000000000ное",
-        50,
-        strings.thingUnit,
-        DateTime.now(),
-        8,
-        false),
-    GoodCardItem(
-        206,
-        'https://medaboutme.ru/upload/medialibrary/07d/shutterstock_281680307.jpg',
-        "Домашнее мороже00000000000000000000000ное",
-        50,
-        strings.thingUnit,
-        DateTime.now(),
-        8,
-        false),
-  ];
-
-  List<GoodCardItemTrimmed> archiveGoodItems = [
-    GoodCardItemTrimmed(
-        300,
-        'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
-        "Шоколадные круассаны",
-        30,
-        strings.thingUnit,
-        0.7,
-        5,
-        false),
   ];
 
   @override
@@ -179,25 +78,130 @@ class _GoodsScreenState extends State<GoodsScreen>{
                     }).toList(),
                   ),
                 )),
-            Container(
-              child: Expanded(
-                child: ListView(
-                  shrinkWrap: true,
-                  children: selectedInteractiveLabelIndex == 0
-                      ? activeGoodItems.map((goodCardItem) {
-                          return buildGoodCardItem(goodCardItem, context);
-                        }).toList()
-                      : selectedInteractiveLabelIndex == 1
-                          ? bookingGoodItems.map((goodCardItem) {
-                              return buildGoodCardItem(goodCardItem, context);
-                            }).toList()
-                          : archiveGoodItems.map((goodCardItem) {
-                              return buildGoodCardItemTrimmed(
-                                  goodCardItem, context);
-                            }).toList(),
-                ),
-              ),
-            )
+            selectedInteractiveLabelIndex == 0
+                ? FutureBuilder(
+                    future: global.foodsProvider.loadActiveGoods(),
+                    builder: (context, activeGoods) {
+                      if (activeGoods.hasData) {
+                        if ((activeGoods.data as List).isEmpty) {
+                          return Container(
+                              width: 260,
+                              padding: EdgeInsets.only(top: 12),
+                              child: Center(
+                                  child: Text(
+                                'Здесь пока ничего нет. Вы можете выставить свои продукты на продажу или отдать бесплатно. Нажмите на кнопку "+".',
+                                textAlign: TextAlign.justify,
+                                style: selectByPlatform(
+                                        StylesLibrary.optionalBlackTextStyle,
+                                        StylesLibrary.optionalBlackTextStyle)
+                                    .merge(const TextStyle(
+                                  fontSize: 13,
+                                )),
+                              )));
+                        }
+                        return Container(
+                          child: Expanded(
+                            child: ListView.builder(
+                                scrollDirection: Axis.vertical,
+                                itemCount: activeGoods.data.length,
+                                itemBuilder: (context, index) {
+                                  return buildGoodCardItem(
+                                      activeGoods.data[index], context);
+                                }),
+                          ),
+                        );
+                      }
+                      if (activeGoods.hasError) {
+                        print(activeGoods.error);
+                        return Text('${activeGoods.error}');
+                      } else {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                    })
+                : selectedInteractiveLabelIndex == 1
+                    ? FutureBuilder(
+                        future: global.foodsProvider.loadBookedGoods(),
+                        builder: (context, bookedGoods) {
+                          if (bookedGoods.hasData) {
+                            if ((bookedGoods.data as List).isEmpty) {
+                              return Container(
+                                  width: 260,
+                                  padding: EdgeInsets.only(top: 12),
+                                  child: Center(
+                                      child: Text(
+                                    'Здесь пока ничего нет. Никто еще не бронировал ваши продукты..',
+                                    textAlign: TextAlign.justify,
+                                    style: selectByPlatform(
+                                            StylesLibrary
+                                                .optionalBlackTextStyle,
+                                            StylesLibrary
+                                                .optionalBlackTextStyle)
+                                        .merge(const TextStyle(fontSize: 13)),
+                                  )));
+                            }
+                            return Container(
+                              child: Expanded(
+                                child: ListView.builder(
+                                    scrollDirection: Axis.vertical,
+                                    itemCount: bookedGoods.data.length,
+                                    itemBuilder: (context, index) {
+                                      return buildGoodCardItem(
+                                          bookedGoods.data[index], context);
+                                    }),
+                              ),
+                            );
+                          }
+                          if (bookedGoods.hasError) {
+                            print(bookedGoods.error);
+                            return Text('${bookedGoods.error}');
+                          } else {
+                            return Center(child: CircularProgressIndicator());
+                          }
+                        })
+                    : selectedInteractiveLabelIndex == 2
+                        ? FutureBuilder(
+                            future: global.foodsProvider.loadArchivedGoods(),
+                            builder: (context, archivedGoods) {
+                              if (archivedGoods.hasData) {
+                                if ((archivedGoods.data as List).isEmpty) {
+                                  return Container(
+                                      width: 260,
+                                      padding: EdgeInsets.only(top: 12),
+                                      child: Center(
+                                          child: Text(
+                                        'Здесь пока ничего нет. У Вас еще нет завершенных продаж..',
+                                            textAlign: TextAlign.justify,
+                                        style: selectByPlatform(
+                                                StylesLibrary
+                                                    .optionalBlackTextStyle,
+                                                StylesLibrary
+                                                    .optionalBlackTextStyle)
+                                            .merge(
+                                                const TextStyle(fontSize: 13)),
+                                      )));
+                                }
+                                return Container(
+                                  child: Expanded(
+                                    child: ListView.builder(
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: archivedGoods.data.length,
+                                        itemBuilder: (context, index) {
+                                          return buildGoodCardItemTrimmed(
+                                              archivedGoods.data[index],
+                                              context);
+                                        }),
+                                  ),
+                                );
+                              }
+                              if (archivedGoods.hasError) {
+                                print(archivedGoods.error);
+                                return Text('${archivedGoods.error}');
+                              } else {
+                                return Center(
+                                    child: CircularProgressIndicator());
+                              }
+                            })
+                        : Container(),
           ]),
           selectedInteractiveLabelIndex == 0
               ? Container(

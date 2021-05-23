@@ -1,7 +1,11 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test_app/data/GlobalData.dart' as global;
+import 'package:flutter_test_app/models/GoodCardItem.dart';
 import 'package:intl/intl.dart';
 import '../resources/ColorsLibrary.dart';
 import '../utils/PlatformUtils.dart';
@@ -22,12 +26,12 @@ Widget buildGoodCardItem(GoodCardItem goodCardItem, BuildContext context) {
             MaterialPageRoute(
               builder: (context) => GoodItemInfoScreen(
                 goodType: global.GoodType.full,
-                id: goodCardItem._id,
-                image: goodCardItem._image,
-                name: goodCardItem._name,
-                price: goodCardItem._price,
-                unit: goodCardItem._unit,
-                isFree: goodCardItem._isFree,
+                id: goodCardItem.id,
+                image: goodCardItem.image,
+                name: goodCardItem.name,
+                price: goodCardItem.price,
+                unit: goodCardItem.unit,
+                isFree: goodCardItem.isFree,
               ),
             ));
       },
@@ -40,8 +44,25 @@ Widget buildGoodCardItem(GoodCardItem goodCardItem, BuildContext context) {
                 margin: const EdgeInsets.all(8),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(60),
-                  child: Image.network(goodCardItem._image.toString(),
-                      height: 90, width: 90, fit: BoxFit.cover),
+                  child: FutureBuilder(
+                      future: global.foodsProvider
+                          .downloadFoodImage(goodCardItem.image),
+                      builder: (context, image) {
+                        if (image.hasData) {
+                          return Image.memory(image.data as Uint8List,
+                              height: 90, width: 90, fit: BoxFit.cover);
+                        }
+                        if (image.hasError) {
+                          print(image.error);
+                          return Text('${image.error}');
+                        } else {
+                          return Container(
+                              height: 90,
+                              width: 90,
+                              child:
+                                  Center(child: CircularProgressIndicator()));
+                        }
+                      }),
                 ),
               ),
               Padding(
@@ -52,7 +73,7 @@ Widget buildGoodCardItem(GoodCardItem goodCardItem, BuildContext context) {
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.59,
                       child: Text(
-                        goodCardItem._name,
+                        goodCardItem.name,
                         style: selectByPlatform(
                                 StylesLibrary.IOSPrimaryBlackTextStyle,
                                 StylesLibrary.AndroidPrimaryBlackTextStyle)
@@ -71,7 +92,9 @@ Widget buildGoodCardItem(GoodCardItem goodCardItem, BuildContext context) {
                           style: selectByPlatform(
                                   StylesLibrary.optionalBlackTextStyle,
                                   StylesLibrary.optionalBlackTextStyle)
-                              .merge(const TextStyle(fontSize: 13,)),
+                              .merge(const TextStyle(
+                            fontSize: 13,
+                          )),
                           softWrap: true,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -88,9 +111,9 @@ Widget buildGoodCardItem(GoodCardItem goodCardItem, BuildContext context) {
                             child: SizedBox(
                               width: 140,
                               child: Text(
-                                goodCardItem._isFree
+                                goodCardItem.isFree
                                     ? 'бесплатно'
-                                    : '${goodCardItem._price.toString()} р. ${goodCardItem._unit}',
+                                    : '${goodCardItem.price.toString()} р. ${goodCardItem.unit}',
                                 style: selectByPlatform(
                                         StylesLibrary.optionalBlackTextStyle,
                                         StylesLibrary.optionalBlackTextStyle)
@@ -111,7 +134,7 @@ Widget buildGoodCardItem(GoodCardItem goodCardItem, BuildContext context) {
                           SizedBox(
                             width: 40,
                             child: Text(
-                              goodCardItem._bookmarksCount.toString(),
+                              goodCardItem.bookmarksCount.toString(),
                               style: selectByPlatform(
                                       StylesLibrary.optionalBlackTextStyle,
                                       StylesLibrary.optionalBlackTextStyle)
@@ -128,18 +151,4 @@ Widget buildGoodCardItem(GoodCardItem goodCardItem, BuildContext context) {
           )),
     ),
   );
-}
-
-class GoodCardItem {
-  final int _id;
-  String _image;
-  String _name;
-  double _price;
-  String _unit;
-  DateTime _expirationDate;
-  int _bookmarksCount;
-  bool _isFree;
-
-  GoodCardItem(this._id, this._image, this._name, this._price, this._unit,
-      this._expirationDate, this._bookmarksCount, this._isFree);
 }

@@ -94,7 +94,7 @@ Widget buildBadgeItem(BadgeItem badgeItem, BuildContext context) {
           style: StylesLibrary.optionalWhiteTextStyle.merge(TextStyle(
               color: badgeItem.backGroundType == BackGroundType.light
                   ? ColorsLibrary.middleBlack
-                  : ColorsLibrary.whiteTransparentColor,
+                  : badgeItem.achieved ? ColorsLibrary.whiteColor : ColorsLibrary.whiteTransparentColor,
               fontSize: 15.5)),
         ),
       )
