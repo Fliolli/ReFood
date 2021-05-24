@@ -41,13 +41,12 @@ class FoodModel {
             unit: json['unit'] as String,
             ownerID: json['ownerID'] as String,
             bookmarksCount: json['bookmarksCount'] as int,
-            addMoment: DateTime.fromMicrosecondsSinceEpoch(
-                (json['addMoment'] as Timestamp).microsecondsSinceEpoch),
+            addMoment: DateTime.fromMicrosecondsSinceEpoch((json['addMoment'] as Timestamp).microsecondsSinceEpoch),
             description: json['description'] as String,
             whereToPickUp: json['whereToPickUp'] as String,
             whenToPickUp: json['whenToPickUp'] as String,
-            expirationDate: DateTime.fromMicrosecondsSinceEpoch(
-                (json['expirationDate'] as Timestamp).microsecondsSinceEpoch),
+            expirationDate:
+                DateTime.fromMicrosecondsSinceEpoch((json['expirationDate'] as Timestamp).microsecondsSinceEpoch),
             mass: json['mass'] as double,
             mark: json['mark'] as int);
 

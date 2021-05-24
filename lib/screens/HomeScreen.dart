@@ -17,8 +17,7 @@ import 'package:flutter_test_app/data/GlobalData.dart' as global;
 import 'package:flutter_test_app/widgets/FavoriteCardItem.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key key, this.auth, this.userId, this.onSignedOut})
-      : super(key: key);
+  HomeScreen({Key key, this.auth, this.userId, this.onSignedOut}) : super(key: key);
 
   final BaseAuthentication auth;
   final VoidCallback onSignedOut;
@@ -40,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Completer<GoogleMapController> _controller = Completer();
 
-  final LatLng _center = const LatLng(45.521563, -122.677433);
+  final LatLng _center = const LatLng(55.7522200, 37.6155600);
 
   @override
   Widget build(BuildContext context) {
@@ -170,8 +169,7 @@ Widget sheet(ScrollController sc, BuildContext context) {
                     width: 40,
                     height: 5,
                     decoration: BoxDecoration(
-                        color: ColorsLibrary.neutralGray,
-                        borderRadius: BorderRadius.all(Radius.circular(12.0))),
+                        color: ColorsLibrary.neutralGray, borderRadius: BorderRadius.all(Radius.circular(12.0))),
                   ),
                 ],
               ),
@@ -179,14 +177,12 @@ Widget sheet(ScrollController sc, BuildContext context) {
                   padding: const EdgeInsets.only(top: 24, left: 24),
                   child: Text(
                     "Welcome to ReFood!",
-                    style: StylesLibrary.strongBlackTextStyle
-                        .merge(TextStyle(fontSize: 17)),
+                    style: StylesLibrary.strongBlackTextStyle.merge(TextStyle(fontSize: 17)),
                   )),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+                  padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
                   child: Row(
                     children: [
                       GroupButton(
@@ -194,8 +190,8 @@ Widget sheet(ScrollController sc, BuildContext context) {
                         spacing: 8,
                         isRadio: false,
                         direction: Axis.horizontal,
-                        onSelected: (index, isSelected) => print(
-                            '$index button is ${isSelected ? 'selected' : 'unselected'}'),
+                        onSelected: (index, isSelected) =>
+                            print('$index button is ${isSelected ? 'selected' : 'unselected'}'),
                         buttons: [
                           strings.meals,
                           strings.bread,
@@ -205,11 +201,9 @@ Widget sheet(ScrollController sc, BuildContext context) {
                           strings.drink,
                         ],
                         selectedTextStyle: selectByPlatform(
-                            StylesLibrary.IOSPrimaryWhiteTextStyle,
-                            StylesLibrary.AndroidPrimaryWhiteTextStyle),
+                            StylesLibrary.IOSPrimaryWhiteTextStyle, StylesLibrary.AndroidPrimaryWhiteTextStyle),
                         unselectedTextStyle: selectByPlatform(
-                                StylesLibrary.IOSPrimaryBlackTextStyle,
-                                StylesLibrary.AndroidPrimaryBlackTextStyle)
+                                StylesLibrary.IOSPrimaryBlackTextStyle, StylesLibrary.AndroidPrimaryBlackTextStyle)
                             .merge(TextStyle(color: ColorsLibrary.middleBlack)),
                         selectedColor: ColorsLibrary.primaryColor,
                         unselectedColor: ColorsLibrary.whiteTransparentColor,
@@ -235,8 +229,7 @@ Widget sheet(ScrollController sc, BuildContext context) {
                     width: 40,
                     height: 5,
                     decoration: BoxDecoration(
-                        color: ColorsLibrary.neutralGray,
-                        borderRadius: BorderRadius.all(Radius.circular(12.0))),
+                        color: ColorsLibrary.neutralGray, borderRadius: BorderRadius.all(Radius.circular(12.0))),
                   ),
                 ],
               ),
@@ -251,8 +244,7 @@ Widget sheet(ScrollController sc, BuildContext context) {
                     width: 40,
                     height: 5,
                     decoration: BoxDecoration(
-                        color: ColorsLibrary.neutralGray,
-                        borderRadius: BorderRadius.all(Radius.circular(12.0))),
+                        color: ColorsLibrary.neutralGray, borderRadius: BorderRadius.all(Radius.circular(12.0))),
                   ),
                 ],
               ),

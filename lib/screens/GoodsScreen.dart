@@ -38,9 +38,7 @@ class _GoodsScreenState extends State<GoodsScreen> {
         appBar: AppBar(
           backgroundColor: ColorsLibrary.whiteColor,
           elevation: 0,
-          title: Text(title,
-              style: StylesLibrary.strongBlackTextStyle
-                  .merge(const TextStyle(fontSize: 16))),
+          title: Text(title, style: StylesLibrary.strongBlackTextStyle.merge(const TextStyle(fontSize: 16))),
           leading: CloseButton(
             color: ColorsLibrary.primaryColor,
             onPressed: () {
@@ -54,26 +52,23 @@ class _GoodsScreenState extends State<GoodsScreen> {
                 margin: EdgeInsets.only(bottom: 12),
                 height: 60,
                 padding: const EdgeInsets.only(left: 18),
-                decoration:
-                    const BoxDecoration(color: Colors.white, boxShadow: [
-                  const BoxShadow(color: ColorsLibrary.lightGray, blurRadius: 6)
-                ]),
+                decoration: const BoxDecoration(
+                    color: Colors.white, boxShadow: [const BoxShadow(color: ColorsLibrary.lightGray, blurRadius: 6)]),
                 width: MediaQuery.of(context).size.width,
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: goodsTypeLabelItems.map((goodsTypeLabelItem) {
-                      var itemIndex =
-                          goodsTypeLabelItems.indexOf(goodsTypeLabelItem);
+                      var itemIndex = goodsTypeLabelItems.indexOf(goodsTypeLabelItem);
                       return InkWell(
                         onTap: () {
                           setState(() {
                             selectedInteractiveLabelIndex = itemIndex;
                           });
                         },
-                        child: buildInteractiveLabelItem(goodsTypeLabelItem,
-                            selectedInteractiveLabelIndex == itemIndex),
+                        child:
+                            buildInteractiveLabelItem(goodsTypeLabelItem, selectedInteractiveLabelIndex == itemIndex),
                       );
                     }).toList(),
                   ),
@@ -92,8 +87,7 @@ class _GoodsScreenState extends State<GoodsScreen> {
                                 'Здесь пока ничего нет. Вы можете выставить свои продукты на продажу или отдать бесплатно. Нажмите на кнопку "+".',
                                 textAlign: TextAlign.justify,
                                 style: selectByPlatform(
-                                        StylesLibrary.optionalBlackTextStyle,
-                                        StylesLibrary.optionalBlackTextStyle)
+                                        StylesLibrary.optionalBlackTextStyle, StylesLibrary.optionalBlackTextStyle)
                                     .merge(const TextStyle(
                                   fontSize: 13,
                                 )),
@@ -105,8 +99,7 @@ class _GoodsScreenState extends State<GoodsScreen> {
                                 scrollDirection: Axis.vertical,
                                 itemCount: activeGoods.data.length,
                                 itemBuilder: (context, index) {
-                                  return buildGoodCardItem(
-                                      activeGoods.data[index], context);
+                                  return buildGoodCardItem(activeGoods.data[index], context);
                                 }),
                           ),
                         );
@@ -132,10 +125,7 @@ class _GoodsScreenState extends State<GoodsScreen> {
                                     'Здесь пока ничего нет. Никто еще не бронировал ваши продукты..',
                                     textAlign: TextAlign.justify,
                                     style: selectByPlatform(
-                                            StylesLibrary
-                                                .optionalBlackTextStyle,
-                                            StylesLibrary
-                                                .optionalBlackTextStyle)
+                                            StylesLibrary.optionalBlackTextStyle, StylesLibrary.optionalBlackTextStyle)
                                         .merge(const TextStyle(fontSize: 13)),
                                   )));
                             }
@@ -145,8 +135,7 @@ class _GoodsScreenState extends State<GoodsScreen> {
                                     scrollDirection: Axis.vertical,
                                     itemCount: bookedGoods.data.length,
                                     itemBuilder: (context, index) {
-                                      return buildGoodCardItem(
-                                          bookedGoods.data[index], context);
+                                      return buildGoodCardItem(bookedGoods.data[index], context);
                                     }),
                               ),
                             );
@@ -170,14 +159,10 @@ class _GoodsScreenState extends State<GoodsScreen> {
                                       child: Center(
                                           child: Text(
                                         'Здесь пока ничего нет. У Вас еще нет завершенных продаж..',
-                                            textAlign: TextAlign.justify,
-                                        style: selectByPlatform(
-                                                StylesLibrary
-                                                    .optionalBlackTextStyle,
-                                                StylesLibrary
-                                                    .optionalBlackTextStyle)
-                                            .merge(
-                                                const TextStyle(fontSize: 13)),
+                                        textAlign: TextAlign.justify,
+                                        style: selectByPlatform(StylesLibrary.optionalBlackTextStyle,
+                                                StylesLibrary.optionalBlackTextStyle)
+                                            .merge(const TextStyle(fontSize: 13)),
                                       )));
                                 }
                                 return Container(
@@ -186,9 +171,7 @@ class _GoodsScreenState extends State<GoodsScreen> {
                                         scrollDirection: Axis.vertical,
                                         itemCount: archivedGoods.data.length,
                                         itemBuilder: (context, index) {
-                                          return buildGoodCardItemTrimmed(
-                                              archivedGoods.data[index],
-                                              context);
+                                          return buildGoodCardItemTrimmed(archivedGoods.data[index], context);
                                         }),
                                   ),
                                 );
@@ -197,8 +180,7 @@ class _GoodsScreenState extends State<GoodsScreen> {
                                 print(archivedGoods.error);
                                 return Text('${archivedGoods.error}');
                               } else {
-                                return Center(
-                                    child: CircularProgressIndicator());
+                                return Center(child: CircularProgressIndicator());
                               }
                             })
                         : Container(),
@@ -206,8 +188,7 @@ class _GoodsScreenState extends State<GoodsScreen> {
           selectedInteractiveLabelIndex == 0
               ? Container(
                   alignment: Alignment.bottomRight,
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                  margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                   child: FloatingActionButton(
                     onPressed: () {
                       Navigator.push(

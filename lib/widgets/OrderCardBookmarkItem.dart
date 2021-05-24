@@ -11,8 +11,7 @@ import '../resources/StylesLibrary.dart';
 import 'package:flutter_test_app/screens/OrderItemInfoScreen.dart';
 import 'package:flutter_test_app/data/GlobalData.dart' as global;
 
-Widget buildOrderCardBookmarkItem(
-    OrderCardBookmarkItem orderCardBookmarkItem, BuildContext context) {
+Widget buildOrderCardBookmarkItem(OrderCardBookmarkItem orderCardBookmarkItem, BuildContext context) {
   return Card(
     margin: const EdgeInsets.only(left: 12, right: 12, bottom: 12),
     shadowColor: ColorsLibrary.neutralGray,
@@ -27,12 +26,7 @@ Widget buildOrderCardBookmarkItem(
               builder: (context) => OrderItemInfoScreen(
                 orderType: OrderStatus.bookmarked,
                 id: orderCardBookmarkItem.id,
-                image: orderCardBookmarkItem.image,
-                name: orderCardBookmarkItem.name,
-                price: orderCardBookmarkItem.price,
-                unit: orderCardBookmarkItem.unit,
                 owner: orderCardBookmarkItem.owner,
-                isFree: orderCardBookmarkItem.isFree,
               ),
             ));
       },
@@ -48,22 +42,17 @@ Widget buildOrderCardBookmarkItem(
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(60),
                       child: FutureBuilder(
-                          future: global.foodsProvider
-                              .downloadFoodImage(orderCardBookmarkItem.image),
+                          future: global.foodsProvider.downloadFoodImage(orderCardBookmarkItem.image),
                           builder: (context, image) {
                             if (image.hasData) {
-                              return Image.memory(image.data as Uint8List,
-                                  height: 90, width: 90, fit: BoxFit.cover);
+                              return Image.memory(image.data as Uint8List, height: 90, width: 90, fit: BoxFit.cover);
                             }
                             if (image.hasError) {
                               print(image.error);
                               return Text('${image.error}');
                             } else {
                               return Container(
-                                  height: 90,
-                                  width: 90,
-                                  child: Center(
-                                      child: CircularProgressIndicator()));
+                                  height: 90, width: 90, child: Center(child: CircularProgressIndicator()));
                             }
                           }),
                     ),
@@ -100,8 +89,7 @@ Widget buildOrderCardBookmarkItem(
                       child: Text(
                         orderCardBookmarkItem.name,
                         style: selectByPlatform(
-                                StylesLibrary.IOSPrimaryBlackTextStyle,
-                                StylesLibrary.AndroidPrimaryBlackTextStyle)
+                                StylesLibrary.IOSPrimaryBlackTextStyle, StylesLibrary.AndroidPrimaryBlackTextStyle)
                             .merge(const TextStyle(fontSize: 17)),
                         softWrap: true,
                         maxLines: 2,
@@ -117,35 +105,26 @@ Widget buildOrderCardBookmarkItem(
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(60),
                               child: FutureBuilder(
-                                  future: global.userProvider.downloadUserImage(
-                                      orderCardBookmarkItem.owner.profileImage),
+                                  future:
+                                      global.userProvider.downloadUserImage(orderCardBookmarkItem.owner.profileImage),
                                   builder: (context, image) {
                                     if (image.hasData) {
-                                      return Image.memory(
-                                          image.data as Uint8List,
-                                          height: 30,
-                                          width: 30,
-                                          fit: BoxFit.cover);
+                                      return Image.memory(image.data as Uint8List,
+                                          height: 30, width: 30, fit: BoxFit.cover);
                                     }
                                     if (image.hasError) {
                                       print(image.error);
                                       return Text('${image.error}');
                                     } else {
                                       return Container(
-                                          height: 30,
-                                          width: 30,
-                                          child: Center(
-                                              child:
-                                                  CircularProgressIndicator()));
+                                          height: 30, width: 30, child: Center(child: CircularProgressIndicator()));
                                     }
                                   }),
                             ),
                           ),
                           Container(
                             margin: const EdgeInsets.symmetric(vertical: 4),
-                            child:
-                                Row(mainAxisSize: MainAxisSize.max, children: <
-                                    Widget>[
+                            child: Row(mainAxisSize: MainAxisSize.max, children: <Widget>[
                               Padding(
                                 padding: const EdgeInsets.only(right: 10),
                                 child: SizedBox(
@@ -153,10 +132,7 @@ Widget buildOrderCardBookmarkItem(
                                   child: Text(
                                     orderCardBookmarkItem.owner.name,
                                     style: selectByPlatform(
-                                            StylesLibrary
-                                                .optionalBlackTextStyle,
-                                            StylesLibrary
-                                                .optionalBlackTextStyle)
+                                            StylesLibrary.optionalBlackTextStyle, StylesLibrary.optionalBlackTextStyle)
                                         .merge(const TextStyle(fontSize: 13)),
                                     softWrap: true,
                                     maxLines: 1,
@@ -173,8 +149,7 @@ Widget buildOrderCardBookmarkItem(
                                 child: Text(
                                   orderCardBookmarkItem.owner.rating.toString(),
                                   style: selectByPlatform(
-                                          StylesLibrary.optionalBlackTextStyle,
-                                          StylesLibrary.optionalBlackTextStyle)
+                                          StylesLibrary.optionalBlackTextStyle, StylesLibrary.optionalBlackTextStyle)
                                       .merge(const TextStyle(fontSize: 14)),
                                 ),
                               ),
@@ -188,8 +163,7 @@ Widget buildOrderCardBookmarkItem(
                         child: Row(
                           children: <Widget>[
                             Icon(
-                              selectByPlatform(
-                                  CupertinoIcons.location, Icons.location_pin),
+                              selectByPlatform(CupertinoIcons.location, Icons.location_pin),
                               color: ColorsLibrary.neutralGray,
                             ),
                             Container(
@@ -198,12 +172,8 @@ Widget buildOrderCardBookmarkItem(
                               child: Text(
                                 '${orderCardBookmarkItem.distance.toString()} км.',
                                 style: selectByPlatform(
-                                        StylesLibrary.optionalBlackTextStyle,
-                                        StylesLibrary.optionalBlackTextStyle)
-                                    .merge(const TextStyle(
-                                        fontSize: 12,
-                                        wordSpacing: -2,
-                                        letterSpacing: -0.5)),
+                                        StylesLibrary.optionalBlackTextStyle, StylesLibrary.optionalBlackTextStyle)
+                                    .merge(const TextStyle(fontSize: 12, wordSpacing: -2, letterSpacing: -0.5)),
                               ),
                             ),
                             SizedBox(
@@ -213,8 +183,7 @@ Widget buildOrderCardBookmarkItem(
                                     ? 'бесплатно'
                                     : '${orderCardBookmarkItem.price.toString()} р. ${orderCardBookmarkItem.unit}',
                                 style: selectByPlatform(
-                                        StylesLibrary.optionalBlackTextStyle,
-                                        StylesLibrary.optionalBlackTextStyle)
+                                        StylesLibrary.optionalBlackTextStyle, StylesLibrary.optionalBlackTextStyle)
                                     .merge(TextStyle(
                                         color: orderCardBookmarkItem.isFree
                                             ? ColorsLibrary.greenColor

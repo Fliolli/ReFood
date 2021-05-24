@@ -43,13 +43,7 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
         backgroundColor: ColorsLibrary.primaryColor,
       ),
       body: Column(
-        children: <Widget>[
-          formWidget(),
-          loginButtonWidget(),
-          secondaryButton(),
-          errorWidget(),
-          progressWidget()
-        ],
+        children: <Widget>[formWidget(), loginButtonWidget(), secondaryButton(), errorWidget(), progressWidget()],
       ),
     );
   }
@@ -143,10 +137,8 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
           height: 42.0,
           color: Colors.blue,
           child: _formMode == FormMode.LOGIN
-              ? new Text('Login',
-                  style: new TextStyle(fontSize: 20.0, color: Colors.white))
-              : new Text('Create account',
-                  style: new TextStyle(fontSize: 20.0, color: Colors.white)),
+              ? new Text('Login', style: new TextStyle(fontSize: 20.0, color: Colors.white))
+              : new Text('Create account', style: new TextStyle(fontSize: 20.0, color: Colors.white)),
           onPressed: _validateAndSubmit,
         ));
   }
@@ -154,11 +146,8 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
   Widget secondaryButton() {
     return new FlatButton(
       child: _formMode == FormMode.LOGIN
-          ? new Text('Create an account',
-              style: new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300))
-          : new Text('Have an account? Sign in',
-              style:
-                  new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300)),
+          ? new Text('Create an account', style: new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300))
+          : new Text('Have an account? Sign in', style: new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300)),
       onPressed: _formMode == FormMode.LOGIN ? showSignUpForm : showLoginForm,
     );
   }
@@ -183,11 +172,7 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
     if (_errorMessage.length > 0 && _errorMessage != null) {
       return new Text(
         _errorMessage,
-        style: TextStyle(
-            fontSize: 13.0,
-            color: Colors.red,
-            height: 1.0,
-            fontWeight: FontWeight.w300),
+        style: TextStyle(fontSize: 13.0, color: Colors.red, height: 1.0, fontWeight: FontWeight.w300),
       );
     } else {
       return new Container(
@@ -232,13 +217,9 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
               orderItems: []);
           await global.userProvider.addUserItem(userItem);
           await global.userProvider.getCurrentUser();
-          UserAnalyticModel userAnalyticModel = UserAnalyticModel(
-              earnedBadgesIDs: [],
-              lessCO2Value: 0,
-              savedMassValue: 0,
-              savedPositionsCount: 0);
-          await UserAnalyticProvider()
-              .addUserAnalyticItem(userItem, userAnalyticModel);
+          UserAnalyticModel userAnalyticModel =
+              UserAnalyticModel(earnedBadgesIDs: [], lessCO2Value: 0, savedMassValue: 0, savedPositionsCount: 0);
+          await UserAnalyticProvider().addUserAnalyticItem(userItem, userAnalyticModel);
         }
         setState(() {
           _isLoading = false;

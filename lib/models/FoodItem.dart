@@ -19,7 +19,6 @@ class FoodItem {
   int mark;
   double mass;
 
-
   FoodItem(
       this.id,
       this.image,

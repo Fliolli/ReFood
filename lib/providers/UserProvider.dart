@@ -49,26 +49,19 @@ class UserProvider implements BaseUserProvider {
   DocumentReference currentUser;
   String userID;
 
-  CollectionReference usersRef = FirebaseFirestore.instance
-      .collection('users')
-      .withConverter(
-          fromFirestore: (snapshot, _) => UserModel.fromJson(snapshot.data()),
-          toFirestore: (user, _) => (user as UserModel).toJson());
+  CollectionReference usersRef = FirebaseFirestore.instance.collection('users').withConverter(
+      fromFirestore: (snapshot, _) => UserModel.fromJson(snapshot.data()),
+      toFirestore: (user, _) => (user as UserModel).toJson());
 
-  firebase_storage.FirebaseStorage storage =
-      firebase_storage.FirebaseStorage.instance;
+  firebase_storage.FirebaseStorage storage = firebase_storage.FirebaseStorage.instance;
 
-  firebase_storage.Reference userDefaultImagesRef = firebase_storage
-      .FirebaseStorage.instance
-      .ref()
-      .child('defaultImages')
-      .child('user');
+  firebase_storage.Reference userDefaultImagesRef =
+      firebase_storage.FirebaseStorage.instance.ref().child('defaultImages').child('user');
 
   @override
   Future<void> getCurrentUser() async {
     String id = (await Authentication().getCurrentUser()).uid;
-    DocumentReference user =
-        FirebaseFirestore.instance.collection('users').doc(id);
+    DocumentReference user = FirebaseFirestore.instance.collection('users').doc(id);
     currentUser = user;
     userID = user.id;
   }
@@ -163,10 +156,7 @@ class UserProvider implements BaseUserProvider {
 
   @override
   Future<UserModelTrimmed> getUserTrimmed(String id) async {
-    return await usersRef
-        .doc(id)
-        .get()
-        .then((value) => (UserModelTrimmed.fromUser(value.data())));
+    return await usersRef.doc(id).get().then((value) => (UserModelTrimmed.fromUser(value.data())));
   }
 
   @override
@@ -181,8 +171,7 @@ class UserProvider implements BaseUserProvider {
 
   @override
   Future<String> chooseUserDefaultImage() async {
-    var defaultImages =
-        await downloadUserDefaultImages().then((value) => value.items);
+    var defaultImages = await downloadUserDefaultImages().then((value) => value.items);
     return defaultImages[Random().nextInt(defaultImages.length)].fullPath;
   }
 

@@ -4,8 +4,7 @@ import 'package:flutter_test_app/resources/ColorsLibrary.dart';
 import 'package:flutter_test_app/resources/StylesLibrary.dart';
 import '../utils/PlatformUtils.dart';
 
-Widget buildCustomTextField(
-    CustomTextField customTextField, BuildContext context) {
+Widget buildCustomTextField(CustomTextField customTextField, BuildContext context) {
   return Container(
       margin: EdgeInsets.only(top: 6, right: 16, left: 16),
       height: customTextField._height,
@@ -17,14 +16,11 @@ Widget buildCustomTextField(
           border: Border.all(
               color: ColorsLibrary.neutralGray, // set border color
               width: 1.0), // set border width
-          borderRadius: BorderRadius.all(Radius.circular(
-              customTextField._borderRadius)), // set rounded corner radius
+          borderRadius: BorderRadius.all(Radius.circular(customTextField._borderRadius)), // set rounded corner radius
         ),
         child: TextFormField(
-          style: selectByPlatform(StylesLibrary.IOSPrimaryBlackTextStyle,
-                  StylesLibrary.AndroidPrimaryBlackTextStyle)
-              .merge(const TextStyle(
-                  fontSize: 15, color: ColorsLibrary.middleBlack)),
+          style: selectByPlatform(StylesLibrary.IOSPrimaryBlackTextStyle, StylesLibrary.AndroidPrimaryBlackTextStyle)
+              .merge(const TextStyle(fontSize: 15, color: ColorsLibrary.middleBlack)),
           cursorColor: ColorsLibrary.primaryColor,
           controller: customTextField._textEditingController,
           cursorHeight: 24,
@@ -36,10 +32,9 @@ Widget buildCustomTextField(
           minLines: customTextField._minLines,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           decoration: InputDecoration(
-            errorStyle: selectByPlatform(StylesLibrary.IOSPrimaryBlackTextStyle,
-                    StylesLibrary.AndroidPrimaryBlackTextStyle)
-                .merge(const TextStyle(
-                    fontSize: 12, color: ColorsLibrary.primaryColor)),
+            errorStyle:
+                selectByPlatform(StylesLibrary.IOSPrimaryBlackTextStyle, StylesLibrary.AndroidPrimaryBlackTextStyle)
+                    .merge(const TextStyle(fontSize: 12, color: ColorsLibrary.primaryColor)),
             border: InputBorder.none,
             contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
             hintText: customTextField._hintText,
@@ -64,15 +59,6 @@ class CustomTextField {
   final Function _validator;
   final TextEditingController _textEditingController;
 
-  const CustomTextField(
-      this._height,
-      this._width,
-      this._borderRadius,
-      this._textInputType,
-      this._textInputAction,
-      this._maxLines,
-      this._minLines,
-      this._hintText,
-      this._validator,
-      this._textEditingController);
+  const CustomTextField(this._height, this._width, this._borderRadius, this._textInputType, this._textInputAction,
+      this._maxLines, this._minLines, this._hintText, this._validator, this._textEditingController);
 }

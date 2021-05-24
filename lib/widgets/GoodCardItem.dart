@@ -27,11 +27,6 @@ Widget buildGoodCardItem(GoodCardItem goodCardItem, BuildContext context) {
               builder: (context) => GoodItemInfoScreen(
                 goodType: global.GoodType.full,
                 id: goodCardItem.id,
-                image: goodCardItem.image,
-                name: goodCardItem.name,
-                price: goodCardItem.price,
-                unit: goodCardItem.unit,
-                isFree: goodCardItem.isFree,
               ),
             ));
       },
@@ -45,22 +40,16 @@ Widget buildGoodCardItem(GoodCardItem goodCardItem, BuildContext context) {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(60),
                   child: FutureBuilder(
-                      future: global.foodsProvider
-                          .downloadFoodImage(goodCardItem.image),
+                      future: global.foodsProvider.downloadFoodImage(goodCardItem.image),
                       builder: (context, image) {
                         if (image.hasData) {
-                          return Image.memory(image.data as Uint8List,
-                              height: 90, width: 90, fit: BoxFit.cover);
+                          return Image.memory(image.data as Uint8List, height: 90, width: 90, fit: BoxFit.cover);
                         }
                         if (image.hasError) {
                           print(image.error);
                           return Text('${image.error}');
                         } else {
-                          return Container(
-                              height: 90,
-                              width: 90,
-                              child:
-                                  Center(child: CircularProgressIndicator()));
+                          return Container(height: 90, width: 90, child: Center(child: CircularProgressIndicator()));
                         }
                       }),
                 ),
@@ -75,8 +64,7 @@ Widget buildGoodCardItem(GoodCardItem goodCardItem, BuildContext context) {
                       child: Text(
                         goodCardItem.name,
                         style: selectByPlatform(
-                                StylesLibrary.IOSPrimaryBlackTextStyle,
-                                StylesLibrary.AndroidPrimaryBlackTextStyle)
+                                StylesLibrary.IOSPrimaryBlackTextStyle, StylesLibrary.AndroidPrimaryBlackTextStyle)
                             .merge(const TextStyle(fontSize: 17)),
                         softWrap: true,
                         maxLines: 2,
@@ -90,8 +78,7 @@ Widget buildGoodCardItem(GoodCardItem goodCardItem, BuildContext context) {
                         child: Text(
                           "Срок годности: ${DateFormat("dd-MM-yyyy").format(global.foodItem.expirationDate).toString()}",
                           style: selectByPlatform(
-                                  StylesLibrary.optionalBlackTextStyle,
-                                  StylesLibrary.optionalBlackTextStyle)
+                                  StylesLibrary.optionalBlackTextStyle, StylesLibrary.optionalBlackTextStyle)
                               .merge(const TextStyle(
                             fontSize: 13,
                           )),
@@ -115,12 +102,8 @@ Widget buildGoodCardItem(GoodCardItem goodCardItem, BuildContext context) {
                                     ? 'бесплатно'
                                     : '${goodCardItem.price.toString()} р. ${goodCardItem.unit}',
                                 style: selectByPlatform(
-                                        StylesLibrary.optionalBlackTextStyle,
-                                        StylesLibrary.optionalBlackTextStyle)
-                                    .merge(const TextStyle(
-                                        fontSize: 12,
-                                        wordSpacing: -4,
-                                        letterSpacing: -0.5)),
+                                        StylesLibrary.optionalBlackTextStyle, StylesLibrary.optionalBlackTextStyle)
+                                    .merge(const TextStyle(fontSize: 12, wordSpacing: -4, letterSpacing: -0.5)),
                               ),
                             ),
                           ),
@@ -136,8 +119,7 @@ Widget buildGoodCardItem(GoodCardItem goodCardItem, BuildContext context) {
                             child: Text(
                               goodCardItem.bookmarksCount.toString(),
                               style: selectByPlatform(
-                                      StylesLibrary.optionalBlackTextStyle,
-                                      StylesLibrary.optionalBlackTextStyle)
+                                      StylesLibrary.optionalBlackTextStyle, StylesLibrary.optionalBlackTextStyle)
                                   .merge(const TextStyle(fontSize: 15)),
                             ),
                           ),

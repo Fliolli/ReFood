@@ -12,13 +12,5 @@ class OrderCardItem {
   String ownerID;
 
   OrderCardItem(
-      this.id,
-      this.image,
-      this.name,
-      this.price,
-      this.unit,
-      this.distance,
-      this.owner,
-      this.isFree,
-      this.ownerID);
+      this.id, this.image, this.name, this.price, this.unit, this.distance, this.owner, this.isFree, this.ownerID);
 }

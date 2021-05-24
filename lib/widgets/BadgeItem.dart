@@ -41,9 +41,8 @@ Widget buildBadgeItem(BadgeItem badgeItem, BuildContext context) {
                         child: Text(
                           '${badgeItem.title}',
                           textAlign: TextAlign.center,
-                          style: StylesLibrary.optionalWhiteTextStyle.merge(TextStyle(
-                              color: ColorsLibrary.middleBlack,
-                              fontSize: 15.5)),
+                          style: StylesLibrary.optionalWhiteTextStyle
+                              .merge(TextStyle(color: ColorsLibrary.middleBlack, fontSize: 15.5)),
                         ),
                       ),
                       Padding(
@@ -53,7 +52,8 @@ Widget buildBadgeItem(BadgeItem badgeItem, BuildContext context) {
                           textAlign: TextAlign.justify,
                           style: StylesLibrary.optionalWhiteTextStyle.merge(TextStyle(
                             color: ColorsLibrary.middleBlack,
-                            fontSize: 15.5,)),
+                            fontSize: 15.5,
+                          )),
                         ),
                       ),
                     ],
@@ -66,13 +66,13 @@ Widget buildBadgeItem(BadgeItem badgeItem, BuildContext context) {
         child: Stack(
           children: <Widget>[
             ClipRRect(
-                  borderRadius: BorderRadius.circular(60),
-                  child: Image.network(
-                    badgeItem.image,
-                    fit: BoxFit.cover,
-                    height: 140,
-                    width: 140,
-                  )),
+                borderRadius: BorderRadius.circular(60),
+                child: Image.network(
+                  badgeItem.image,
+                  fit: BoxFit.cover,
+                  height: 140,
+                  width: 140,
+                )),
             badgeItem.achieved == true
                 ? Container()
                 : ClipRRect(
@@ -94,7 +94,9 @@ Widget buildBadgeItem(BadgeItem badgeItem, BuildContext context) {
           style: StylesLibrary.optionalWhiteTextStyle.merge(TextStyle(
               color: badgeItem.backGroundType == BackGroundType.light
                   ? ColorsLibrary.middleBlack
-                  : badgeItem.achieved ? ColorsLibrary.whiteColor : ColorsLibrary.whiteTransparentColor,
+                  : badgeItem.achieved
+                      ? ColorsLibrary.whiteColor
+                      : ColorsLibrary.whiteTransparentColor,
               fontSize: 15.5)),
         ),
       )

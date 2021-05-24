@@ -44,13 +44,12 @@ Widget buildMenuItem(MenuItem menuItem, BuildContext context) {
           Expanded(
             child: Text(
               '${menuItem._title}',
-              style: selectByPlatform(StylesLibrary.IOSPrimaryBlackTextStyle,
-                  StylesLibrary.AndroidPrimaryBlackTextStyle),
+              style:
+                  selectByPlatform(StylesLibrary.IOSPrimaryBlackTextStyle, StylesLibrary.AndroidPrimaryBlackTextStyle),
             ),
           ),
           Container(
-            child: Icon(CupertinoIcons.chevron_right,
-                color: ColorsLibrary.primaryColor),
+            child: Icon(CupertinoIcons.chevron_right, color: ColorsLibrary.primaryColor),
             alignment: Alignment.centerRight,
             padding: const EdgeInsets.all(0),
           )

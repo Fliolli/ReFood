@@ -34,17 +34,11 @@ class UserModel {
           rating: json['rating'] as double,
           aboutMe: json['aboutMe'] as String,
           countOfInFavorites: json['countOfInFavorites'] as int,
-          magazineItems: (json['magazineItems'] as List<Object>)
-              .map((e) => MagazineItem.fromJson(e))
-              .toList(),
-          favoritesIDs: (json['favoritesIDs'] as List<dynamic>)
-              .map((e) => e as String)
-              .toList(),
+          magazineItems: (json['magazineItems'] as List<Object>).map((e) => MagazineItem.fromJson(e)).toList(),
+          favoritesIDs: (json['favoritesIDs'] as List<dynamic>).map((e) => e as String).toList(),
           addressDescription: json['addressDescription'] as String,
           addressID: json['addressID'] as String,
-          orderItems: (json['orderItems'] as List<Object>)
-              .map((e) => OrderItem.fromJson(e))
-              .toList(),
+          orderItems: (json['orderItems'] as List<Object>).map((e) => OrderItem.fromJson(e)).toList(),
         );
 
   Map<String, Object> toJson() {
@@ -73,8 +67,7 @@ class OrderItem {
   OrderItem.fromJson(Map<String, Object> json)
       : this(
           id: json['id'] as String,
-          status: OrderStatus.values
-              .firstWhere((element) => element.toString() == json['status']),
+          status: OrderStatus.values.firstWhere((element) => element.toString() == json['status']),
         );
 
   Map<String, Object> toJson() {
@@ -94,8 +87,7 @@ class MagazineItem {
   MagazineItem.fromJson(Map<String, Object> json)
       : this(
           id: json['id'] as String,
-          status: GoodStatus.values
-              .firstWhere((element) => element.toString() == json['status']),
+          status: GoodStatus.values.firstWhere((element) => element.toString() == json['status']),
         );
 
   Map<String, Object> toJson() {

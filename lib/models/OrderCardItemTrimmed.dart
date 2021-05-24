@@ -10,13 +10,5 @@ class OrderCardItemTrimmed {
   bool isFree;
   String ownerID;
 
-  OrderCardItemTrimmed(
-      this.id,
-      this.image,
-      this.name,
-      this.price,
-      this.unit,
-      this.owner,
-      this.isFree,
-      this.ownerID);
+  OrderCardItemTrimmed(this.id, this.image, this.name, this.price, this.unit, this.owner, this.isFree, this.ownerID);
 }

@@ -1,7 +1,7 @@
 import 'package:flutter_test_app/models/BadgeItem.dart';
 import 'package:flutter_test_app/models/OrderCardItem.dart';
 
-class UserItem{
+class UserItem {
   int id;
   String ownerName;
   String ownerProfileImage;
@@ -15,17 +15,6 @@ class UserItem{
   int savedMass;
   int lessCO2;
 
-  UserItem(
-      this.id,
-      this.ownerName,
-      this.ownerProfileImage,
-      this.ownerRating,
-      this.aboutMe,
-      this.isInFavorites,
-      this.countOfInFavorites,
-      this.badges,
-      this.magazineItems,
-      this.savedPositions,
-      this.savedMass,
-      this.lessCO2);
+  UserItem(this.id, this.ownerName, this.ownerProfileImage, this.ownerRating, this.aboutMe, this.isInFavorites,
+      this.countOfInFavorites, this.badges, this.magazineItems, this.savedPositions, this.savedMass, this.lessCO2);
 }

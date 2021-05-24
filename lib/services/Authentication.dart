@@ -15,15 +15,11 @@ abstract class BaseAuthentication {
 class Authentication implements BaseAuthentication {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  CollectionReference users = FirebaseFirestore.instance
-      .collection('users')
-      .withConverter(
+  CollectionReference users = FirebaseFirestore.instance.collection('users').withConverter(
       fromFirestore: (snapshot, _) => UserModel.fromJson(snapshot.data()),
       toFirestore: (user, _) => (user as UserModel).toJson());
 
-  CollectionReference userAnalytic = FirebaseFirestore.instance
-      .collection('userAnalytic')
-      .withConverter(
+  CollectionReference userAnalytic = FirebaseFirestore.instance.collection('userAnalytic').withConverter(
       fromFirestore: (snapshot, _) => UserAnalyticModel.fromJson(snapshot.data()),
       toFirestore: (userAnalyticModel, _) => (userAnalyticModel as UserAnalyticModel).toJson());
 

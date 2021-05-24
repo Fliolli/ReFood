@@ -42,9 +42,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         appBar: AppBar(
           backgroundColor: ColorsLibrary.whiteColor,
           elevation: 0,
-          title: Text(strings.orders,
-              style: StylesLibrary.strongBlackTextStyle
-                  .merge(const TextStyle(fontSize: 16))),
+          title: Text(strings.orders, style: StylesLibrary.strongBlackTextStyle.merge(const TextStyle(fontSize: 16))),
           leading: CloseButton(
             color: ColorsLibrary.primaryColor,
             onPressed: () {
@@ -57,25 +55,22 @@ class _OrdersScreenState extends State<OrdersScreen> {
               margin: EdgeInsets.only(bottom: 12),
               height: 60,
               padding: const EdgeInsets.only(left: 18),
-              decoration: const BoxDecoration(color: Colors.white, boxShadow: [
-                const BoxShadow(color: ColorsLibrary.lightGray, blurRadius: 6)
-              ]),
+              decoration: const BoxDecoration(
+                  color: Colors.white, boxShadow: [const BoxShadow(color: ColorsLibrary.lightGray, blurRadius: 6)]),
               width: MediaQuery.of(context).size.width,
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: orderTypeLabelItems.map((orderTypeLabelItem) {
-                    var itemIndex =
-                        orderTypeLabelItems.indexOf(orderTypeLabelItem);
+                    var itemIndex = orderTypeLabelItems.indexOf(orderTypeLabelItem);
                     return InkWell(
                       onTap: () {
                         setState(() {
                           selectedInteractiveLabelIndex = itemIndex;
                         });
                       },
-                      child: buildInteractiveLabelItem(orderTypeLabelItem,
-                          selectedInteractiveLabelIndex == itemIndex),
+                      child: buildInteractiveLabelItem(orderTypeLabelItem, selectedInteractiveLabelIndex == itemIndex),
                     );
                   }).toList(),
                 ),
@@ -91,15 +86,14 @@ class _OrdersScreenState extends State<OrdersScreen> {
                             padding: EdgeInsets.only(top: 12),
                             child: Center(
                                 child: Text(
-                                  'Здесь пока ничего нет. Вы еще не добавили ни одну позицию в закладки..',
-                                  textAlign: TextAlign.justify,
-                                  style: selectByPlatform(
-                                      StylesLibrary.optionalBlackTextStyle,
-                                      StylesLibrary.optionalBlackTextStyle)
-                                      .merge(const TextStyle(
-                                    fontSize: 13,
-                                  )),
-                                )));
+                              'Здесь пока ничего нет. Вы еще не добавили ни одну позицию в закладки..',
+                              textAlign: TextAlign.justify,
+                              style: selectByPlatform(
+                                      StylesLibrary.optionalBlackTextStyle, StylesLibrary.optionalBlackTextStyle)
+                                  .merge(const TextStyle(
+                                fontSize: 13,
+                              )),
+                            )));
                       }
                       return Container(
                         child: Expanded(
@@ -107,8 +101,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                               scrollDirection: Axis.vertical,
                               itemCount: bookmarkedOrders.data.length,
                               itemBuilder: (context, index) {
-                                return buildOrderCardBookmarkItem(
-                                    bookmarkedOrders.data[index], context);
+                                return buildOrderCardBookmarkItem(bookmarkedOrders.data[index], context);
                               }),
                         ),
                       );
@@ -131,15 +124,14 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                 padding: EdgeInsets.only(top: 12),
                                 child: Center(
                                     child: Text(
-                                      'Здесь пока ничего нет. Вы еще не забронировали ни одну позицию..',
-                                      textAlign: TextAlign.justify,
-                                      style: selectByPlatform(
-                                          StylesLibrary.optionalBlackTextStyle,
-                                          StylesLibrary.optionalBlackTextStyle)
-                                          .merge(const TextStyle(
-                                        fontSize: 13,
-                                      )),
-                                    )));
+                                  'Здесь пока ничего нет. Вы еще не забронировали ни одну позицию..',
+                                  textAlign: TextAlign.justify,
+                                  style: selectByPlatform(
+                                          StylesLibrary.optionalBlackTextStyle, StylesLibrary.optionalBlackTextStyle)
+                                      .merge(const TextStyle(
+                                    fontSize: 13,
+                                  )),
+                                )));
                           }
                           return Container(
                             child: Expanded(
@@ -147,8 +139,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                   scrollDirection: Axis.vertical,
                                   itemCount: bookedOrders.data.length,
                                   itemBuilder: (context, index) {
-                                    return buildOrderCardItem(
-                                        bookedOrders.data[index], context);
+                                    return buildOrderCardItem(bookedOrders.data[index], context);
                                   }),
                             ),
                           );
@@ -171,15 +162,14 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                     padding: EdgeInsets.only(top: 12),
                                     child: Center(
                                         child: Text(
-                                          'Здесь пока ничего нет. У Вас еще нет завершенных заказов..',
-                                          textAlign: TextAlign.justify,
-                                          style: selectByPlatform(
-                                              StylesLibrary.optionalBlackTextStyle,
+                                      'Здесь пока ничего нет. У Вас еще нет завершенных заказов..',
+                                      textAlign: TextAlign.justify,
+                                      style: selectByPlatform(StylesLibrary.optionalBlackTextStyle,
                                               StylesLibrary.optionalBlackTextStyle)
-                                              .merge(const TextStyle(
-                                            fontSize: 13,
-                                          )),
-                                        )));
+                                          .merge(const TextStyle(
+                                        fontSize: 13,
+                                      )),
+                                    )));
                               }
                               return Container(
                                 child: Expanded(
@@ -187,9 +177,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                       scrollDirection: Axis.vertical,
                                       itemCount: archivedOrders.data.length,
                                       itemBuilder: (context, index) {
-                                        return buildOrderCardItemTrimmed(
-                                            archivedOrders.data[index],
-                                            context);
+                                        return buildOrderCardItemTrimmed(archivedOrders.data[index], context);
                                       }),
                                 ),
                               );

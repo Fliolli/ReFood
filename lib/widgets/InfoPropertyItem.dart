@@ -20,12 +20,8 @@ Widget buildInfoPropertyItem(InfoPropertyItem item, BuildContext context) {
           width: MediaQuery.of(context).size.width,
           child: Text(
             item._propertyTitle,
-            style: selectByPlatform(StylesLibrary.strongBlackTextStyle,
-                    StylesLibrary.strongBlackTextStyle)
-                .merge(const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.normal,
-                    color: ColorsLibrary.blackColor)),
+            style: selectByPlatform(StylesLibrary.strongBlackTextStyle, StylesLibrary.strongBlackTextStyle)
+                .merge(const TextStyle(fontSize: 15, fontWeight: FontWeight.normal, color: ColorsLibrary.blackColor)),
           ),
         ),
       ),
@@ -35,8 +31,7 @@ Widget buildInfoPropertyItem(InfoPropertyItem item, BuildContext context) {
           width: MediaQuery.of(context).size.width,
           child: Text(
             item._propertyValue,
-            style: selectByPlatform(StylesLibrary.optionalBlackTextStyle,
-                    StylesLibrary.optionalBlackTextStyle)
+            style: selectByPlatform(StylesLibrary.optionalBlackTextStyle, StylesLibrary.optionalBlackTextStyle)
                 .merge(const TextStyle(
               fontSize: 15,
             )),

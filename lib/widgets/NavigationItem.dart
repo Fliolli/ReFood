@@ -22,11 +22,8 @@ Widget buildNavigationItem(NavigationItem item, bool isSelected) {
     height: 60,
     width: isSelected ? 140 : 60,
     padding: const EdgeInsets.only(left: 12, right: 12),
-    decoration: isSelected
-        ? BoxDecoration(
-            color: item._color,
-            borderRadius: BorderRadius.all(Radius.circular(50)))
-        : null,
+    decoration:
+        isSelected ? BoxDecoration(color: item._color, borderRadius: BorderRadius.all(Radius.circular(50))) : null,
     child: ListView(
       scrollDirection: Axis.horizontal,
       children: <Widget>[
@@ -36,9 +33,7 @@ Widget buildNavigationItem(NavigationItem item, bool isSelected) {
             IconTheme(
               data: IconThemeData(
                 size: 28,
-                color: isSelected
-                    ? ColorsLibrary.whiteColor
-                    : ColorsLibrary.neutralGray,
+                color: isSelected ? ColorsLibrary.whiteColor : ColorsLibrary.neutralGray,
               ),
               child: Icon(
                 item._icon,
@@ -49,8 +44,7 @@ Widget buildNavigationItem(NavigationItem item, bool isSelected) {
               child: isSelected
                   ? DefaultTextStyle.merge(
                       style: selectByPlatform(
-                          StylesLibrary.IOSPrimaryWhiteTextStyle,
-                          StylesLibrary.AndroidPrimaryWhiteTextStyle),
+                          StylesLibrary.IOSPrimaryWhiteTextStyle, StylesLibrary.AndroidPrimaryWhiteTextStyle),
                       child: Text('${item._title}'))
                   : Container(),
             )

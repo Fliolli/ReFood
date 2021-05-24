@@ -19,12 +19,9 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  CollectionReference userAnalyticsRef = FirebaseFirestore.instance
-      .collection("userAnalytic")
-      .withConverter(
-          fromFirestore: (snapshot, _) =>
-              UserAnalyticModel.fromJson(snapshot.data()),
-          toFirestore: (badge, _) => (badge as UserAnalyticModel).toJson());
+  CollectionReference userAnalyticsRef = FirebaseFirestore.instance.collection("userAnalytic").withConverter(
+      fromFirestore: (snapshot, _) => UserAnalyticModel.fromJson(snapshot.data()),
+      toFirestore: (badge, _) => (badge as UserAnalyticModel).toJson());
 
   final List<MenuItem> menuItems = [
     MenuItem(
@@ -34,10 +31,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         ColorsLibrary.greenColor,
         "Заказы",
-        (BuildContext context) => {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => OrdersScreen()))
-            }),
+        (BuildContext context) => {Navigator.push(context, MaterialPageRoute(builder: (context) => OrdersScreen()))}),
     MenuItem(
         selectByPlatform(
           CupertinoIcons.square_grid_2x2,
@@ -45,10 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         ColorsLibrary.yellowColor,
         "Витрина",
-        (BuildContext context) => {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => GoodsScreen()))
-            }),
+        (BuildContext context) => {Navigator.push(context, MaterialPageRoute(builder: (context) => GoodsScreen()))}),
     MenuItem(
         selectByPlatform(
           CupertinoIcons.briefcase,
@@ -56,10 +47,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         ColorsLibrary.purpleColor,
         "Подключить свой бизнес",
-        (BuildContext context) => {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ProfileScreen()))
-            }),
+        (BuildContext context) => {Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()))}),
     MenuItem(
         selectByPlatform(
           CupertinoIcons.person_2,
@@ -67,18 +55,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         ColorsLibrary.cyanColor,
         "Пригласить друзей",
-        (BuildContext context) => {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ProfileScreen()))
-            }),
-    MenuItem(
-        CupertinoIcons.question,
-        ColorsLibrary.primaryColor,
-        "Как использовать ReFood",
-        (BuildContext context) => {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ProfileScreen()))
-            }),
+        (BuildContext context) => {Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()))}),
+    MenuItem(CupertinoIcons.question, ColorsLibrary.primaryColor, "Как использовать ReFood",
+        (BuildContext context) => {Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()))}),
   ];
 
   @override
@@ -90,9 +69,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               future: global.userProvider.getUserName(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  return Text(snapshot.data,
-                      style: StylesLibrary.strongWhiteTextStyle
-                          .merge(TextStyle(fontSize: 17)));
+                  return Text(snapshot.data, style: StylesLibrary.strongWhiteTextStyle.merge(TextStyle(fontSize: 17)));
                 }
                 if (snapshot.hasError) {
                   print(snapshot.error);
@@ -151,34 +128,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               return Column(
                                 children: [
                                   Container(
-                                      margin: const EdgeInsets.symmetric(
-                                          vertical: 32),
+                                      margin: const EdgeInsets.symmetric(vertical: 32),
                                       child: SingleChildScrollView(
                                           scrollDirection: Axis.horizontal,
                                           child: Row(
                                             children: [
                                               SizedBox(
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
+                                                width: MediaQuery.of(context).size.width,
                                                 height: 176,
                                                 child: ListView.builder(
-                                                    scrollDirection:
-                                                        Axis.horizontal,
-                                                    itemCount:
-                                                        badges.data.length,
-                                                    itemBuilder:
-                                                        (context, index) {
-                                                      return buildBadgeItem(
-                                                          badges.data[index],
-                                                          context);
+                                                    scrollDirection: Axis.horizontal,
+                                                    itemCount: badges.data.length,
+                                                    itemBuilder: (context, index) {
+                                                      return buildBadgeItem(badges.data[index], context);
                                                     }),
                                               ),
                                             ],
                                           ))),
                                   Container(
-                                    margin: const EdgeInsets.symmetric(
-                                        vertical: 10),
+                                    margin: const EdgeInsets.symmetric(vertical: 10),
                                     child: SingleChildScrollView(
                                       scrollDirection: Axis.horizontal,
                                       child: Row(children: <Widget>[

@@ -8,6 +8,6 @@ class GoodCardItem {
   int bookmarksCount;
   bool isFree;
 
-  GoodCardItem(this.id, this.image, this.name, this.price, this.unit,
-      this.expirationDate, this.bookmarksCount, this.isFree);
+  GoodCardItem(
+      this.id, this.image, this.name, this.price, this.unit, this.expirationDate, this.bookmarksCount, this.isFree);
 }

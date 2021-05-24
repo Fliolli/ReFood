@@ -12,12 +12,8 @@ Widget buildPropertyTitleItem(String title, BuildContext context) {
       child: Text(
         title,
         textAlign: TextAlign.justify,
-        style: selectByPlatform(StylesLibrary.strongBlackTextStyle,
-                StylesLibrary.strongBlackTextStyle)
-            .merge(const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.normal,
-                color: ColorsLibrary.middleBlack)),
+        style: selectByPlatform(StylesLibrary.strongBlackTextStyle, StylesLibrary.strongBlackTextStyle)
+            .merge(const TextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: ColorsLibrary.middleBlack)),
       ),
     ),
   );

@@ -8,6 +8,5 @@ class GoodCardItemTrimmed {
   int mark;
   bool isFree;
 
-  GoodCardItemTrimmed(this.id, this.image, this.name, this.price, this.unit,
-      this.mass, this.mark, this.isFree);
+  GoodCardItemTrimmed(this.id, this.image, this.name, this.price, this.unit, this.mass, this.mark, this.isFree);
 }

@@ -47,6 +47,7 @@ dependencies:
   group_button: ^2.1.2
   uuid: ^3.0.4
   firebase_storage: ^8.1.0
+  google_maps_webservice: ^0.0.20-nullsafety.5
 
 dev_dependencies:
   flutter_test:

@@ -19,12 +19,7 @@ class UserInfoScreen extends StatefulWidget {
   final String ownerProfileImage;
   final double ownerRating;
 
-  UserInfoScreen(
-      {Key key,
-      this.id,
-      this.ownerName,
-      this.ownerProfileImage,
-      this.ownerRating});
+  UserInfoScreen({Key key, this.id, this.ownerName, this.ownerProfileImage, this.ownerRating});
 
   @override
   _UserInfoScreenState createState() => _UserInfoScreenState();
@@ -41,9 +36,7 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
       appBar: AppBar(
           backgroundColor: ColorsLibrary.whiteColor,
           elevation: 0,
-          title: Text(seller,
-              style: StylesLibrary.strongBlackTextStyle
-                  .merge(const TextStyle(fontSize: 16))),
+          title: Text(seller, style: StylesLibrary.strongBlackTextStyle.merge(const TextStyle(fontSize: 16))),
           leading: CloseButton(
             color: ColorsLibrary.primaryColor,
             onPressed: () {
@@ -100,8 +93,7 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                     onTap: () {
                       try {
                         setState(() {
-                          global.userItem.isInFavorites =
-                              !global.userItem.isInFavorites;
+                          global.userItem.isInFavorites = !global.userItem.isInFavorites;
                           final snackBar = SnackBar(
                             content: Text(
                               global.userItem.isInFavorites
@@ -109,9 +101,8 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                                   : strings.userDeletedFromFavorites,
                               style: StylesLibrary.optionalWhiteTextStyle,
                             ),
-                            backgroundColor: global.userItem.isInFavorites
-                                ? ColorsLibrary.lightGreen
-                                : ColorsLibrary.lightYellow,
+                            backgroundColor:
+                                global.userItem.isInFavorites ? ColorsLibrary.lightGreen : ColorsLibrary.lightYellow,
                           );
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         });
@@ -135,9 +126,7 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                         ],
                       ),
                       child: Icon(
-                        global.userItem.isInFavorites
-                            ? CupertinoIcons.heart_solid
-                            : CupertinoIcons.heart,
+                        global.userItem.isInFavorites ? CupertinoIcons.heart_solid : CupertinoIcons.heart,
                         size: 32,
                         color: ColorsLibrary.lightOrange,
                       ),
@@ -157,8 +146,7 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                       widget.ownerName,
                       textAlign: TextAlign.center,
                       style: selectByPlatform(
-                              StylesLibrary.IOSPrimaryBlackTextStyle,
-                              StylesLibrary.AndroidPrimaryBlackTextStyle)
+                              StylesLibrary.IOSPrimaryBlackTextStyle, StylesLibrary.AndroidPrimaryBlackTextStyle)
                           .merge(const TextStyle(fontSize: 24)),
                       softWrap: true,
                       maxLines: 3,
@@ -174,47 +162,40 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
               elevation: 0,
               child: Container(
                 alignment: Alignment.center,
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                 child: Column(
                   children: [
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          RatingBar.readOnly(
-                            maxRating: 5,
-                            initialRating: 4,
-                            isHalfAllowed: true,
-                            halfFilledIcon: Icons.star_half_rounded,
-                            filledIcon: Icons.star_rate_rounded,
-                            emptyIcon: Icons.star_border_rounded,
-                            filledColor: ColorsLibrary.lightOrange,
-                            emptyColor: ColorsLibrary.neutralGray,
-                            halfFilledColor: ColorsLibrary.lightOrange,
-                            size: 26,
-                          ),
-                          SizedBox(
-                            width: 30,
-                            child: Text(
-                              widget.ownerRating.toString(),
-                              style: selectByPlatform(
-                                      StylesLibrary.strongBlackTextStyle,
-                                      StylesLibrary.strongBlackTextStyle)
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+                      RatingBar.readOnly(
+                        maxRating: 5,
+                        initialRating: 4,
+                        isHalfAllowed: true,
+                        halfFilledIcon: Icons.star_half_rounded,
+                        filledIcon: Icons.star_rate_rounded,
+                        emptyIcon: Icons.star_border_rounded,
+                        filledColor: ColorsLibrary.lightOrange,
+                        emptyColor: ColorsLibrary.neutralGray,
+                        halfFilledColor: ColorsLibrary.lightOrange,
+                        size: 26,
+                      ),
+                      SizedBox(
+                        width: 30,
+                        child: Text(
+                          widget.ownerRating.toString(),
+                          style:
+                              selectByPlatform(StylesLibrary.strongBlackTextStyle, StylesLibrary.strongBlackTextStyle)
                                   .merge(const TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.normal,
-                                      color: ColorsLibrary.blackColor)),
-                            ),
-                          ),
-                        ]),
+                                      fontSize: 15, fontWeight: FontWeight.normal, color: ColorsLibrary.blackColor)),
+                        ),
+                      ),
+                    ]),
                     Container(
                       padding: const EdgeInsets.only(top: 8, left: 10),
                       child: Text(
                         'Пользователь в фаворитах у ${global.userItem.countOfInFavorites} человек(а)',
-                        style: selectByPlatform(
-                                StylesLibrary.optionalBlackTextStyle,
-                                StylesLibrary.optionalBlackTextStyle)
-                            .merge(const TextStyle(
+                        style:
+                            selectByPlatform(StylesLibrary.optionalBlackTextStyle, StylesLibrary.optionalBlackTextStyle)
+                                .merge(const TextStyle(
                           fontSize: 12,
                         )),
                       ),
@@ -231,8 +212,7 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
           child: Text(
             global.userItem.aboutMe,
             textAlign: TextAlign.justify,
-            style: selectByPlatform(StylesLibrary.optionalBlackTextStyle,
-                    StylesLibrary.optionalBlackTextStyle)
+            style: selectByPlatform(StylesLibrary.optionalBlackTextStyle, StylesLibrary.optionalBlackTextStyle)
                 .merge(const TextStyle(fontSize: 16, wordSpacing: -6)),
           ),
         ),
@@ -263,17 +243,11 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                     scrollDirection: Axis.horizontal,
                     child: Row(children: <Widget>[
                       buildAchievementItem(AchievementItem(
-                          '${global.userItem.savedPositions} шт.',
-                          'Позиций \nспасено',
-                          BackGroundType.light)),
+                          '${global.userItem.savedPositions} шт.', 'Позиций \nспасено', BackGroundType.light)),
                       buildAchievementItem(AchievementItem(
-                          'На ${global.userItem.lessCO2} куб.м',
-                          'Меньше \nвыброс CO2',
-                          BackGroundType.light)),
-                      buildAchievementItem(AchievementItem(
-                          '${global.userItem.savedMass} кг.',
-                          'Еды \nспасено',
-                          BackGroundType.light)),
+                          'На ${global.userItem.lessCO2} куб.м', 'Меньше \nвыброс CO2', BackGroundType.light)),
+                      buildAchievementItem(
+                          AchievementItem('${global.userItem.savedMass} кг.', 'Еды \nспасено', BackGroundType.light)),
                     ]),
                   ),
                 )

@@ -46,9 +46,8 @@ class _BottomNavCustomState extends State<BottomNavCustom> {
     return Container(
       height: 58,
       padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-      decoration: const BoxDecoration(color: Colors.white, boxShadow: [
-        const BoxShadow(color: ColorsLibrary.lightGray, blurRadius: 6)
-      ]),
+      decoration: const BoxDecoration(
+          color: Colors.white, boxShadow: [const BoxShadow(color: ColorsLibrary.lightGray, blurRadius: 6)]),
       width: MediaQuery.of(context).size.width,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -61,8 +60,7 @@ class _BottomNavCustomState extends State<BottomNavCustom> {
                 global.selectedBottomNavItem = itemIndex;
               });
             },
-            child: buildNavigationItem(
-                item, selectedNavigationItemIndex == itemIndex),
+            child: buildNavigationItem(item, selectedNavigationItemIndex == itemIndex),
           );
         }).toList(),
       ),

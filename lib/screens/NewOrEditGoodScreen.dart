@@ -106,8 +106,7 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
       selectedUnit = UnitDropDownItem(widget.unit);
       _nameTextController.text = widget.name;
       _descriptionTextController.text = widget.description;
-      _expirationDateTextController.text =
-          DateFormat("dd-MM-yyyy").format(widget.expirationDate);
+      _expirationDateTextController.text = DateFormat("dd-MM-yyyy").format(widget.expirationDate);
       _priceTextController.text = widget.price.toString();
       _whenToPickUpTextController.text = widget.whenToPickUp;
       _whereToPickUpTextController.text = widget.whereToPickUp;
@@ -118,10 +117,8 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
       appBar: AppBar(
         backgroundColor: ColorsLibrary.whiteColor,
         elevation: 0,
-        title: Text(
-            widget.screenType == global.ScreenType.newGood ? createGood : edit,
-            style: StylesLibrary.strongBlackTextStyle
-                .merge(const TextStyle(fontSize: 16))),
+        title: Text(widget.screenType == global.ScreenType.newGood ? createGood : edit,
+            style: StylesLibrary.strongBlackTextStyle.merge(const TextStyle(fontSize: 16))),
         leading: CloseButton(
           color: ColorsLibrary.primaryColor,
           onPressed: () {
@@ -136,15 +133,8 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
           Form(
             key: _nameKey,
             child: buildCustomTextField(
-                CustomTextField(
-                    50,
-                    MediaQuery.of(context).size.width,
-                    30,
-                    TextInputType.name,
-                    TextInputAction.next,
-                    1,
-                    1,
-                    'Что выставить на витрину?', (String value) {
+                CustomTextField(50, MediaQuery.of(context).size.width, 30, TextInputType.name, TextInputAction.next, 1,
+                    1, 'Что выставить на витрину?', (String value) {
                   if (value == null || value.isEmpty) {
                     return 'Введите название товара';
                   }
@@ -164,8 +154,7 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                     TextInputAction.newline,
                     6,
                     1,
-                    'Опишите товар, обозначьте его доступное количество..',
-                    (String value) {
+                    'Опишите товар, обозначьте его доступное количество..', (String value) {
                   if (value == null || value.isEmpty) {
                     return 'Введите описание товара';
                   }
@@ -177,15 +166,8 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
           Form(
             key: _massKey,
             child: buildCustomTextField(
-                CustomTextField(
-                    50,
-                    MediaQuery.of(context).size.width,
-                    30,
-                    TextInputType.number,
-                    TextInputAction.done,
-                    1,
-                    1,
-                    'Обозначьте массу товара в килограммах..', (String value) {
+                CustomTextField(50, MediaQuery.of(context).size.width, 30, TextInputType.number, TextInputAction.done,
+                    1, 1, 'Обозначьте массу товара в килограммах..', (String value) {
                   if (value == null || value.isEmpty) {
                     return 'Введите массу товара';
                   }
@@ -212,19 +194,19 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                           height: 90,
                           width: 90,
                         )
-                      : Image.memory(imageFile.readAsBytesSync(),
-                          gaplessPlayback: true),
+                      : Image.memory(
+                          imageFile.readAsBytesSync(),
+                          gaplessPlayback: true,
+                          width: 90,
+                          height: 90,
+                        ),
                   onTap: () {
                     FocusScope.of(context).requestFocus(new FocusNode());
                     showModalBottomSheet(
                         context: context,
                         builder: (BuildContext builder) {
                           return Container(
-                              height: MediaQuery.of(context)
-                                      .copyWith()
-                                      .size
-                                      .height /
-                                  5,
+                              height: MediaQuery.of(context).copyWith().size.height / 5,
                               child: Container(
                                 alignment: Alignment.center,
                                 child: Column(
@@ -236,15 +218,9 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                                       },
                                       child: Text(
                                         "Галерея",
-                                        style: selectByPlatform(
-                                                StylesLibrary
-                                                    .IOSPrimaryBlackTextStyle,
-                                                StylesLibrary
-                                                    .AndroidPrimaryBlackTextStyle)
-                                            .merge(const TextStyle(
-                                                fontSize: 18,
-                                                color:
-                                                    ColorsLibrary.middleBlack)),
+                                        style: selectByPlatform(StylesLibrary.IOSPrimaryBlackTextStyle,
+                                                StylesLibrary.AndroidPrimaryBlackTextStyle)
+                                            .merge(const TextStyle(fontSize: 18, color: ColorsLibrary.middleBlack)),
                                       ),
                                     ),
                                     Divider(),
@@ -254,15 +230,9 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                                       },
                                       child: Text(
                                         "Камера",
-                                        style: selectByPlatform(
-                                                StylesLibrary
-                                                    .IOSPrimaryBlackTextStyle,
-                                                StylesLibrary
-                                                    .AndroidPrimaryBlackTextStyle)
-                                            .merge(const TextStyle(
-                                                fontSize: 18,
-                                                color:
-                                                    ColorsLibrary.middleBlack)),
+                                        style: selectByPlatform(StylesLibrary.IOSPrimaryBlackTextStyle,
+                                                StylesLibrary.AndroidPrimaryBlackTextStyle)
+                                            .merge(const TextStyle(fontSize: 18, color: ColorsLibrary.middleBlack)),
                                       ),
                                     )
                                   ],
@@ -283,8 +253,7 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                     border: Border.all(
                         color: ColorsLibrary.neutralGray, // set border color
                         width: 1.0), // set border width
-                    borderRadius: BorderRadius.all(
-                        Radius.circular(30)), // set rounded corner radius
+                    borderRadius: BorderRadius.all(Radius.circular(30)), // set rounded corner radius
                   ),
                   child: TextFormField(
                     readOnly: true,
@@ -293,17 +262,12 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                           context: context,
                           builder: (BuildContext builder) {
                             return Container(
-                                height: MediaQuery.of(context)
-                                        .copyWith()
-                                        .size
-                                        .height /
-                                    3,
+                                height: MediaQuery.of(context).copyWith().size.height / 3,
                                 child: CupertinoDatePicker(
                                   initialDateTime: DateTime.now(),
                                   onDateTimeChanged: (DateTime date) {
                                     setState(() {
-                                      _expirationDateTextController.text =
-                                          DateFormat("dd-MM-yyyy").format(date);
+                                      _expirationDateTextController.text = DateFormat("dd-MM-yyyy").format(date);
                                       selectedExpirationDate = date;
                                     });
                                   },
@@ -316,10 +280,8 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                           });
                     },
                     style: selectByPlatform(
-                            StylesLibrary.IOSPrimaryBlackTextStyle,
-                            StylesLibrary.AndroidPrimaryBlackTextStyle)
-                        .merge(const TextStyle(
-                            fontSize: 15, color: ColorsLibrary.middleBlack)),
+                            StylesLibrary.IOSPrimaryBlackTextStyle, StylesLibrary.AndroidPrimaryBlackTextStyle)
+                        .merge(const TextStyle(fontSize: 15, color: ColorsLibrary.middleBlack)),
                     cursorColor: ColorsLibrary.primaryColor,
                     controller: _expirationDateTextController,
                     cursorHeight: 24,
@@ -329,13 +291,10 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                     autovalidateMode: AutovalidateMode.disabled,
                     decoration: InputDecoration(
                       errorStyle: selectByPlatform(
-                              StylesLibrary.IOSPrimaryBlackTextStyle,
-                              StylesLibrary.AndroidPrimaryBlackTextStyle)
-                          .merge(const TextStyle(
-                              fontSize: 12, color: ColorsLibrary.primaryColor)),
+                              StylesLibrary.IOSPrimaryBlackTextStyle, StylesLibrary.AndroidPrimaryBlackTextStyle)
+                          .merge(const TextStyle(fontSize: 12, color: ColorsLibrary.primaryColor)),
                       border: InputBorder.none,
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 6, horizontal: 16),
+                      contentPadding: EdgeInsets.symmetric(vertical: 6, horizontal: 16),
                       hintText: 'дд-мм-гггг',
                       hintStyle: TextStyle(
                         fontSize: 12,
@@ -353,14 +312,8 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                   children: [
                     buildCustomTextField(
                         CustomTextField(
-                            50,
-                            160,
-                            30,
-                            TextInputType.number,
-                            TextInputAction.done,
-                            1,
-                            1,
-                            'Обозначьте цену..', (String value) {
+                            50, 160, 30, TextInputType.number, TextInputAction.done, 1, 1, 'Обозначьте цену..',
+                            (String value) {
                           if (value == null || value.isEmpty) {
                             return 'Введите цену товара';
                           }
@@ -380,11 +333,9 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                         height: 50,
                         decoration: BoxDecoration(
                           border: Border.all(
-                              color:
-                                  ColorsLibrary.neutralGray, // set border color
+                              color: ColorsLibrary.neutralGray, // set border color
                               width: 1.0), // set border width
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(30)), // set rounded corner radius
+                          borderRadius: BorderRadius.all(Radius.circular(30)), // set rounded corner radius
                         ),
                         child: DropdownButtonFormField<UnitDropDownItem>(
                           icon: Icon(
@@ -398,17 +349,11 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                           hint: Text(
                             "Измерение",
                             style: selectByPlatform(
-                                    StylesLibrary.IOSPrimaryBlackTextStyle,
-                                    StylesLibrary.AndroidPrimaryBlackTextStyle)
-                                .merge(const TextStyle(
-                                    fontSize: 15,
-                                    color: ColorsLibrary.middleBlack)),
+                                    StylesLibrary.IOSPrimaryBlackTextStyle, StylesLibrary.AndroidPrimaryBlackTextStyle)
+                                .merge(const TextStyle(fontSize: 15, color: ColorsLibrary.middleBlack)),
                           ),
                           value: widget.unit != null
-                              ? units
-                                  .where(
-                                      (element) => element.title == widget.unit)
-                                  .first
+                              ? units.where((element) => element.title == widget.unit).first
                               : selectedUnit,
                           onChanged: (UnitDropDownItem value) {
                             setState(() {
@@ -420,13 +365,9 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                               value: unit,
                               child: Text(
                                 unit.title,
-                                style: selectByPlatform(
-                                        StylesLibrary.IOSPrimaryBlackTextStyle,
-                                        StylesLibrary
-                                            .AndroidPrimaryBlackTextStyle)
-                                    .merge(const TextStyle(
-                                        fontSize: 15,
-                                        color: ColorsLibrary.middleBlack)),
+                                style: selectByPlatform(StylesLibrary.IOSPrimaryBlackTextStyle,
+                                        StylesLibrary.AndroidPrimaryBlackTextStyle)
+                                    .merge(const TextStyle(fontSize: 15, color: ColorsLibrary.middleBlack)),
                               ),
                             );
                           }).toList(),
@@ -448,8 +389,7 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                     TextInputAction.newline,
                     3,
                     1,
-                    'Обозначьте время, когда вам удобно передать товар..',
-                    (String value) {
+                    'Обозначьте время, когда вам удобно передать товар..', (String value) {
                   if (value == null || value.isEmpty) {
                     return 'Введите удобное время';
                   }
@@ -468,8 +408,7 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                     border: Border.all(
                         color: ColorsLibrary.neutralGray, // set border color
                         width: 1.0), // set border width
-                    borderRadius: BorderRadius.all(
-                        Radius.circular(30)), // set rounded corner radius
+                    borderRadius: BorderRadius.all(Radius.circular(30)), // set rounded corner radius
                   ),
                   child: TextFormField(
                     readOnly: true,
@@ -482,16 +421,13 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                       if (result != null) {
                         addressID = result.placeId;
                         setState(() {
-                          _whereToPickUpTextController.text =
-                              result.description;
+                          _whereToPickUpTextController.text = result.description;
                         });
                       }
                     },
                     style: selectByPlatform(
-                            StylesLibrary.IOSPrimaryBlackTextStyle,
-                            StylesLibrary.AndroidPrimaryBlackTextStyle)
-                        .merge(const TextStyle(
-                            fontSize: 15, color: ColorsLibrary.middleBlack)),
+                            StylesLibrary.IOSPrimaryBlackTextStyle, StylesLibrary.AndroidPrimaryBlackTextStyle)
+                        .merge(const TextStyle(fontSize: 15, color: ColorsLibrary.middleBlack)),
                     cursorColor: ColorsLibrary.primaryColor,
                     controller: _whereToPickUpTextController,
                     cursorHeight: 24,
@@ -501,13 +437,10 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                     autovalidateMode: AutovalidateMode.disabled,
                     decoration: InputDecoration(
                       errorStyle: selectByPlatform(
-                              StylesLibrary.IOSPrimaryBlackTextStyle,
-                              StylesLibrary.AndroidPrimaryBlackTextStyle)
-                          .merge(const TextStyle(
-                              fontSize: 12, color: ColorsLibrary.primaryColor)),
+                              StylesLibrary.IOSPrimaryBlackTextStyle, StylesLibrary.AndroidPrimaryBlackTextStyle)
+                          .merge(const TextStyle(fontSize: 12, color: ColorsLibrary.primaryColor)),
                       border: InputBorder.none,
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 6, horizontal: 16),
+                      contentPadding: EdgeInsets.symmetric(vertical: 6, horizontal: 16),
                       hintText: 'Обозначьте адрес, где можно получить товар..',
                       hintStyle: TextStyle(
                         fontSize: 12,
@@ -519,8 +452,7 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
           Padding(
               padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
               child: ProgressButton(
-                progressWidget: CircularProgressIndicator(
-                    backgroundColor: ColorsLibrary.whiteColor),
+                progressWidget: CircularProgressIndicator(backgroundColor: ColorsLibrary.whiteColor),
                 color: ColorsLibrary.primaryColor,
                 width: MediaQuery.of(context).size.width,
                 height: 50,
@@ -533,12 +465,12 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                       _descriptionKey.currentState.validate() &&
                       _nameKey.currentState.validate() &&
                       _massKey.currentState.validate() &&
-                      ((selectedUnit == null &&
-                          double.parse(_priceTextController.text) == 0.0) || (selectedUnit != null)) &&
+                      ((selectedUnit == null && double.parse(_priceTextController.text) == 0.0) ||
+                          (selectedUnit != null)) &&
                       imageFile != null) {
                     FocusScope.of(context).requestFocus(new FocusNode());
                     await global.foodsProvider.createFoodItem(
-                      await global.foodsProvider.uploadFile(imageFile),
+                      await global.foodsProvider.uploadImageFile(imageFile),
                       _nameTextController.text,
                       double.parse(_priceTextController.text),
                       selectedUnit == null ? '' : selectedUnit.title,
@@ -563,10 +495,8 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
                 },
                 defaultWidget: Text(strings.create,
                     style: selectByPlatform(
-                            StylesLibrary.IOSPrimaryWhiteTextStyle,
-                            StylesLibrary.AndroidPrimaryWhiteTextStyle)
-                        .merge(const TextStyle(
-                            color: ColorsLibrary.whiteColor, fontSize: 17))),
+                            StylesLibrary.IOSPrimaryWhiteTextStyle, StylesLibrary.AndroidPrimaryWhiteTextStyle)
+                        .merge(const TextStyle(color: ColorsLibrary.whiteColor, fontSize: 17))),
               )),
         ])
       ]),
@@ -577,8 +507,7 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
     if (await Permission.mediaLibrary.isGranted) {
       PickedFile pickedFile = await ImagePicker().getImage(
         source: ImageSource.gallery,
-        maxWidth: 90,
-        maxHeight: 90,
+        imageQuality: 90,
       );
       if (pickedFile != null) {
         imageFile = File(pickedFile.path);
@@ -592,8 +521,7 @@ class _NewOrEditGoodScreenState extends State<NewOrEditGoodScreen> {
     if (await Permission.mediaLibrary.isGranted) {
       PickedFile pickedFile = await ImagePicker().getImage(
         source: ImageSource.camera,
-        maxWidth: 90,
-        maxHeight: 90,
+        imageQuality: 90,
       );
       if (pickedFile != null) {
         imageFile = File(pickedFile.path);
@@ -617,18 +545,8 @@ class NewGood {
   DateTime expirationDate;
   bool isFree;
 
-  NewGood(
-      this.image,
-      this.name,
-      this.price,
-      this.unit,
-      this.ownerName,
-      this.ownerProfileImage,
-      this.description,
-      this.location,
-      this.pickUpTimes,
-      this.expirationDate,
-      this.isFree);
+  NewGood(this.image, this.name, this.price, this.unit, this.ownerName, this.ownerProfileImage, this.description,
+      this.location, this.pickUpTimes, this.expirationDate, this.isFree);
 }
 
 class UnitDropDownItem {

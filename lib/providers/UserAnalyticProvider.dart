@@ -13,9 +13,7 @@ abstract class BaseUserAnalyticProvider {
 }
 
 class UserAnalyticProvider implements BaseUserAnalyticProvider {
-  CollectionReference userAnalyticRef = FirebaseFirestore.instance
-      .collection('userAnalytic')
-      .withConverter(
+  CollectionReference userAnalyticRef = FirebaseFirestore.instance.collection('userAnalytic').withConverter(
       fromFirestore: (snapshot, _) => UserAnalyticModel.fromJson(snapshot.data()),
       toFirestore: (userAnalyticModel, _) => (userAnalyticModel as UserAnalyticModel).toJson());
 
@@ -30,10 +28,7 @@ class UserAnalyticProvider implements BaseUserAnalyticProvider {
 
   @override
   Future<UserAnalyticModel> loadUserAnalytics() async {
-    return await userAnalyticRef
-        .doc((await Authentication().getCurrentUser()).uid)
-        .get()
-        .then((value) => value.data());
+    return await userAnalyticRef.doc((await Authentication().getCurrentUser()).uid).get().then((value) => value.data());
   }
 
   @override

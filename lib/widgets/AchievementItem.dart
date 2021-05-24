@@ -8,8 +8,7 @@ class AchievementItem {
   final String _achievementDescription;
   final BackGroundType _backGroundType;
 
-  const AchievementItem(this._achievementText, this._achievementDescription,
-      this._backGroundType);
+  const AchievementItem(this._achievementText, this._achievementDescription, this._backGroundType);
 }
 
 Widget buildAchievementItem(AchievementItem achievementItem) {

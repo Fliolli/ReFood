@@ -17,17 +17,11 @@ Widget buildInteractiveLabelItem(InteractiveLabelItem item, bool isSelected) {
     height: 38,
     padding: const EdgeInsets.all(8),
     decoration: BoxDecoration(
-        color: isSelected
-            ? ColorsLibrary.primaryColor
-            : ColorsLibrary.whiteTransparentColor,
+        color: isSelected ? ColorsLibrary.primaryColor : ColorsLibrary.whiteTransparentColor,
         borderRadius: const BorderRadius.all(Radius.circular(35)),
         border: Border.symmetric(
-          horizontal: isSelected
-              ? BorderSide.none
-              : const BorderSide(width: 1.0, color: ColorsLibrary.neutralGray),
-          vertical: isSelected
-              ? BorderSide.none
-              : const BorderSide(width: 1.0, color: ColorsLibrary.neutralGray),
+          horizontal: isSelected ? BorderSide.none : const BorderSide(width: 1.0, color: ColorsLibrary.neutralGray),
+          vertical: isSelected ? BorderSide.none : const BorderSide(width: 1.0, color: ColorsLibrary.neutralGray),
         )),
     child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -35,10 +29,8 @@ Widget buildInteractiveLabelItem(InteractiveLabelItem item, bool isSelected) {
           child: Text(
             '${item._title}',
             style: isSelected
-                ? selectByPlatform(StylesLibrary.IOSPrimaryWhiteTextStyle,
-                    StylesLibrary.AndroidPrimaryWhiteTextStyle)
-                : selectByPlatform(StylesLibrary.IOSPrimaryBlackTextStyle,
-                        StylesLibrary.AndroidPrimaryBlackTextStyle)
+                ? selectByPlatform(StylesLibrary.IOSPrimaryWhiteTextStyle, StylesLibrary.AndroidPrimaryWhiteTextStyle)
+                : selectByPlatform(StylesLibrary.IOSPrimaryBlackTextStyle, StylesLibrary.AndroidPrimaryBlackTextStyle)
                     .merge(TextStyle(color: ColorsLibrary.middleBlack)),
           ),
         )),

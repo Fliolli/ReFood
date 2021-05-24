@@ -54,15 +54,10 @@ class Badge {
   bool achieved;
   String description;
 
-  Badge(this.image, this.title, this.backGroundType, this.achieved,
-      this.description);
+  Badge(this.image, this.title, this.backGroundType, this.achieved, this.description);
 }
 
-Badge badge = Badge(
-    ("assets/images/1.jpg"),
-    "Климат кадет",
-    BackGroundType.light,
-    true,
+Badge badge = Badge(("assets/images/1.jpg"), "Климат кадет", BackGroundType.light, true,
     "Чтобы получить этот значок, нужно много много стараться и ваще быть пусечкой.");
 
 enum GoodType { full, trimmed }

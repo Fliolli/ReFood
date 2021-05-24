@@ -5,8 +5,7 @@ import '../resources/ColorsLibrary.dart';
 import '../utils/PlatformUtils.dart';
 import '../resources/StylesLibrary.dart';
 
-Widget buildFavoriteCardItem(
-    FavoriteCardItem favoriteCardItem, BuildContext context) {
+Widget buildFavoriteCardItem(FavoriteCardItem favoriteCardItem, BuildContext context) {
   return Card(
       margin: const EdgeInsets.only(left: 12, right: 12, bottom: 12),
       shadowColor: ColorsLibrary.neutralGray,
@@ -24,11 +23,8 @@ Widget buildFavoriteCardItem(
                   margin: const EdgeInsets.all(8),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(60),
-                    child: Image.network(
-                        favoriteCardItem._ownerProfileImage.toString(),
-                        height: 90,
-                        width: 90,
-                        fit: BoxFit.cover),
+                    child: Image.network(favoriteCardItem._ownerProfileImage.toString(),
+                        height: 90, width: 90, fit: BoxFit.cover),
                   ),
                 ),
                 Padding(
@@ -42,8 +38,7 @@ Widget buildFavoriteCardItem(
                         child: Text(
                           favoriteCardItem._ownerName,
                           style: selectByPlatform(
-                                  StylesLibrary.IOSPrimaryBlackTextStyle,
-                                  StylesLibrary.AndroidPrimaryBlackTextStyle)
+                                  StylesLibrary.IOSPrimaryBlackTextStyle, StylesLibrary.AndroidPrimaryBlackTextStyle)
                               .merge(const TextStyle(fontSize: 17)),
                           softWrap: true,
                           maxLines: 2,
@@ -58,8 +53,7 @@ Widget buildFavoriteCardItem(
                             child: Text(
                               "Рейтинг продавца: ",
                               style: selectByPlatform(
-                                      StylesLibrary.optionalBlackTextStyle,
-                                      StylesLibrary.optionalBlackTextStyle)
+                                      StylesLibrary.optionalBlackTextStyle, StylesLibrary.optionalBlackTextStyle)
                                   .merge(const TextStyle(fontSize: 14)),
                             ),
                           ),
@@ -72,8 +66,7 @@ Widget buildFavoriteCardItem(
                             child: Text(
                               favoriteCardItem._ownerRating.toString(),
                               style: selectByPlatform(
-                                      StylesLibrary.optionalBlackTextStyle,
-                                      StylesLibrary.optionalBlackTextStyle)
+                                      StylesLibrary.optionalBlackTextStyle, StylesLibrary.optionalBlackTextStyle)
                                   .merge(const TextStyle(fontSize: 14)),
                             ),
                           ),

@@ -19,7 +19,9 @@ class AddressSearch extends SearchDelegate<PlaceSuggestion> {
   PlaceSuggestion _placeSuggestion;
 
   @override
-  List<Widget> buildActions(BuildContext context, ) {
+  List<Widget> buildActions(
+    BuildContext context,
+  ) {
     return [
       IconButton(
         tooltip: 'Clear',
@@ -78,11 +80,9 @@ class AddressSearch extends SearchDelegate<PlaceSuggestion> {
           : snapshot.hasData
               ? ListView.builder(
                   itemBuilder: (context, index) => ListTile(
-                    title: Text(
-                        (snapshot.data[index] as PlaceSuggestion).description),
+                    title: Text((snapshot.data[index] as PlaceSuggestion).description),
                     onTap: () {
-                      query =
-                          (snapshot.data[index] as PlaceSuggestion).description;
+                      query = (snapshot.data[index] as PlaceSuggestion).description;
                       _placeSuggestion = snapshot.data[index] as PlaceSuggestion;
                     },
                   ),
