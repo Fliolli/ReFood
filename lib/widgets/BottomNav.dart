@@ -15,7 +15,7 @@ class BottomNavCustom extends StatefulWidget {
 }
 
 class _BottomNavCustomState extends State<BottomNavCustom> {
-  int selectedNavigationItemIndex = 0;
+  int selectedNavigationItemIndex = 1;
 
   final List<NavigationItem> items = [
     NavigationItem(

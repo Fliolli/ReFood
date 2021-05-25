@@ -48,7 +48,7 @@ Widget buildBadgeItem(BadgeItem badgeItem, BuildContext context) {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         child: Text(
-                          global.badge.description,
+                          badgeItem.description,
                           textAlign: TextAlign.justify,
                           style: StylesLibrary.optionalWhiteTextStyle.merge(TextStyle(
                             color: ColorsLibrary.middleBlack,
@@ -73,7 +73,7 @@ Widget buildBadgeItem(BadgeItem badgeItem, BuildContext context) {
                   height: 140,
                   width: 140,
                 )),
-            badgeItem.achieved == true
+            badgeItem.achieved
                 ? Container()
                 : ClipRRect(
                     borderRadius: BorderRadius.circular(60),
@@ -87,7 +87,7 @@ Widget buildBadgeItem(BadgeItem badgeItem, BuildContext context) {
       ),
       Container(
         margin: const EdgeInsets.symmetric(vertical: 8),
-        width: 120,
+        width: 140,
         child: Text(
           '${badgeItem.title}',
           textAlign: TextAlign.center,

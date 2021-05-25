@@ -1,6 +1,7 @@
 library flutter_test_app.global;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test_app/models/FoodItem.dart';
 import 'package:flutter_test_app/models/OrderCardItem.dart';
 import 'package:flutter_test_app/models/UserItem.dart';
@@ -71,6 +72,8 @@ enum ScreenType { newGood, editGood }
 enum BackGroundType { light, dark }
 
 int selectedBottomNavItem = 1;
+
+ScrollController sc;
 
 UserProvider userProvider = UserProvider();
 FoodsProvider foodsProvider = FoodsProvider();

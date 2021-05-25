@@ -2,13 +2,17 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_progress_button/flutter_progress_button.dart';
 import 'package:flutter_test_app/models/persistant/UserAnalyticModel.dart';
 import 'package:flutter_test_app/models/persistant/UserModel.dart';
 import 'package:flutter_test_app/providers/UserAnalyticProvider.dart';
 import 'package:flutter_test_app/providers/UserProvider.dart';
 import 'package:flutter_test_app/resources/ColorsLibrary.dart';
+import 'package:flutter_test_app/resources/StylesLibrary.dart';
 import 'package:flutter_test_app/services/Authentication.dart';
 import 'package:flutter_test_app/data/GlobalData.dart' as global;
+import 'package:flutter_test_app/utils/PlatformUtils.dart';
+import 'package:flutter_test_app/widgets/CustomTextField.dart';
 
 class LoginSignUpScreen extends StatefulWidget {
   LoginSignUpScreen({this.auth, this.onSignedIn});
@@ -23,11 +27,20 @@ class LoginSignUpScreen extends StatefulWidget {
 enum FormMode { LOGIN, SIGNUP }
 
 class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
+  final _emailTextController = TextEditingController();
+  final _passwordTextController = TextEditingController();
+  final _nameTextController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailTextController.dispose();
+    _passwordTextController.dispose();
+    _nameTextController.dispose();
+    super.dispose();
+  }
+
   final _formKey = GlobalKey<FormState>();
 
-  String _email;
-  String _password;
-  String _name;
   String _errorMessage = "";
 
   // this will be used to identify the form to show
@@ -39,11 +52,15 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: selectByPlatform(true, false),
+        title: Text('ReFood'),
         elevation: 0,
         backgroundColor: ColorsLibrary.primaryColor,
       ),
-      body: Column(
-        children: <Widget>[formWidget(), loginButtonWidget(), secondaryButton(), errorWidget(), progressWidget()],
+      body: ListView(
+        children: [Column(
+          children: <Widget>[formWidget(_formMode), loginButtonWidget(), secondaryButton(), errorWidget(), progressWidget()],
+        ),]
       ),
     );
   }
@@ -58,96 +75,90 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
     );
   }
 
-  Widget formWidget() {
+  Widget formWidget(FormMode formMode) {
     return Form(
       key: _formKey,
       child: Column(
         children: <Widget>[
           _formMode == FormMode.SIGNUP ? _nameWidget() : Container(),
-          _emailWidget(),
+          _emailWidget(formMode),
           _passwordWidget(),
         ],
       ),
     );
   }
 
-  Widget _emailWidget() {
+  Widget _emailWidget(FormMode formMode) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0.0, 100.0, 0.0, 0.0),
-      child: TextFormField(
-        maxLines: 1,
-        keyboardType: TextInputType.emailAddress,
-        autofocus: false,
-        decoration: new InputDecoration(
-            hintText: 'Enter Email',
-            icon: new Icon(
-              Icons.mail,
-              color: Colors.grey,
-            )),
-        validator: (value) => value.isEmpty ? 'Email cannot be empty' : null,
-        onSaved: (value) => _email = value.trim(),
-      ),
+        padding: formMode == FormMode.LOGIN ? const EdgeInsets.only(top: 24) : const EdgeInsets.only(top: 8),
+      child: buildCustomTextField(
+          CustomTextField(50, MediaQuery.of(context).size.width, 30, TextInputType.emailAddress, TextInputAction.next, 1,
+              1, 'Электронный адрес', (String value) {
+                if (value == null || value.isEmpty) {
+                  return 'Введите почту';
+                }
+                return null;
+              }, _emailTextController),
+          context)
     );
   }
 
   Widget _passwordWidget() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
-      child: new TextFormField(
-        maxLines: 1,
-        obscureText: true,
-        autofocus: false,
-        decoration: new InputDecoration(
-            hintText: 'Password',
-            icon: new Icon(
-              Icons.lock,
-              color: Colors.grey,
-            )),
-        validator: (value) => value.isEmpty ? 'Password cannot be empty' : null,
-        onSaved: (value) => _password = value.trim(),
-      ),
+      padding: const EdgeInsets.only(top: 8),
+      child: buildCustomTextField(
+          CustomTextField(50, MediaQuery.of(context).size.width, 30, TextInputType.visiblePassword, TextInputAction.next, 1,
+              1, 'Пароль', (String value) {
+                if (value == null || value.isEmpty) {
+                  return 'Введите пароль';
+                }
+                return null;
+              }, _passwordTextController),
+          context),
     );
   }
 
   Widget _nameWidget() {
     return Padding(
-      padding: const EdgeInsets.all(4),
-      child: new TextFormField(
-        maxLines: 1,
-        obscureText: true,
-        autofocus: false,
-        decoration: new InputDecoration(
-            hintText: 'Name',
-            icon: new Icon(
-              Icons.lock,
-              color: Colors.grey,
-            )),
-        validator: (value) => value.isEmpty ? 'Name cannot be empty' : null,
-        onSaved: (value) => _name = value.trim(),
-      ),
+      padding: const EdgeInsets.only(top: 24),
+      child: buildCustomTextField(
+          CustomTextField(50, MediaQuery.of(context).size.width, 30, TextInputType.visiblePassword, TextInputAction.next, 1,
+              1, 'Имя', (String value) {
+                if (value == null || value.isEmpty) {
+                  return 'Введите имя';
+                }
+                return null;
+              }, _nameTextController),
+          context),
     );
   }
 
   Widget loginButtonWidget() {
-    return new Padding(
-        padding: EdgeInsets.fromLTRB(0.0, 45.0, 0.0, 0.0),
-        child: new MaterialButton(
-          elevation: 5.0,
-          minWidth: 200.0,
-          height: 42.0,
-          color: Colors.blue,
-          child: _formMode == FormMode.LOGIN
-              ? new Text('Login', style: new TextStyle(fontSize: 20.0, color: Colors.white))
-              : new Text('Create account', style: new TextStyle(fontSize: 20.0, color: Colors.white)),
-          onPressed: _validateAndSubmit,
+    return Padding(
+        padding: const EdgeInsets.only(right:  16, left: 16, top: 24,),
+        child: ProgressButton(
+          progressWidget: CircularProgressIndicator(backgroundColor: ColorsLibrary.whiteColor),
+          color: ColorsLibrary.primaryColor,
+          width: MediaQuery.of(context).size.width,
+          height: 50,
+          borderRadius: 30,
+          onPressed: () {
+            _validateAndSubmit();
+          },
+          defaultWidget: Text(_formMode == FormMode.LOGIN ? 'Войти' : 'Зарегистрироваться',
+              style: selectByPlatform(
+                  StylesLibrary.IOSPrimaryWhiteTextStyle, StylesLibrary.AndroidPrimaryWhiteTextStyle)
+                  .merge(const TextStyle(color: ColorsLibrary.whiteColor, fontSize: 17))),
         ));
   }
 
   Widget secondaryButton() {
     return new FlatButton(
       child: _formMode == FormMode.LOGIN
-          ? new Text('Create an account', style: new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300))
-          : new Text('Have an account? Sign in', style: new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300)),
+          ? new Text('Создать аккаунт', style: selectByPlatform(
+          StylesLibrary.IOSPrimaryBlackTextStyle, StylesLibrary.AndroidPrimaryBlackTextStyle).merge(TextStyle(color: ColorsLibrary.middleBlack)))
+          : new Text('Уже есть аккаунт? Авторизуйтесь', style: selectByPlatform(
+    StylesLibrary.IOSPrimaryBlackTextStyle, StylesLibrary.AndroidPrimaryBlackTextStyle).merge(TextStyle(color: ColorsLibrary.middleBlack))),
       onPressed: _formMode == FormMode.LOGIN ? showSignUpForm : showLoginForm,
     );
   }
@@ -199,13 +210,13 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
       String userId = "";
       try {
         if (_formMode == FormMode.LOGIN) {
-          userId = await widget.auth.signIn(_email, _password);
+          userId = await widget.auth.signIn(_emailTextController.text, _passwordTextController.text);
           await global.userProvider.getCurrentUser();
         } else {
-          userId = await widget.auth.signUp(_email, _password);
+          userId = await widget.auth.signUp(_emailTextController.text, _passwordTextController.text);
           UserModel userItem = UserModel(
               id: userId,
-              name: _name,
+              name: _nameTextController.text,
               profileImage: await global.userProvider.chooseUserDefaultImage(),
               rating: 0,
               aboutMe: "",

@@ -1,7 +1,7 @@
 class UserAnalyticModel {
   List<dynamic> earnedBadgesIDs;
-  int lessCO2Value;
-  int savedMassValue;
+  double lessCO2Value;
+  double savedMassValue;
   int savedPositionsCount;
 
   UserAnalyticModel({this.earnedBadgesIDs, this.lessCO2Value, this.savedMassValue, this.savedPositionsCount});
@@ -9,8 +9,8 @@ class UserAnalyticModel {
   UserAnalyticModel.fromJson(Map<String, Object> json)
       : this(
           earnedBadgesIDs: json['earnedBadgesIDs'] as List<dynamic>,
-          lessCO2Value: json['lessCO2Value'] as int,
-          savedMassValue: json['savedMassValue'] as int,
+          lessCO2Value: double.parse(json['lessCO2Value'].toString()),
+          savedMassValue: double.parse(json['savedMassValue'].toString()),
           savedPositionsCount: json['savedPositionsCount'] as int,
         );
 

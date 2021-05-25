@@ -206,4 +206,18 @@ class FoodsProvider implements BaseFoodsProvider {
       },*/
     );
   }
+
+  @override
+  Future<Marker> createFoodItemMarkerLOX(GoogleMapsGeocoding geocoding, String placeID) async {
+    var cords =
+    await geocoding.searchByPlaceId(placeID).then((value) => value.results[0].geometry.location);
+    return Marker(
+      markerId: MarkerId(placeID),
+      position: LatLng(cords.lat, cords.lng),
+      //infoWindow: InfoWindow(title: markerIdVal, snippet: '*'),
+      /*onTap: () {
+        _onMarkerTapped(markerId);
+      },*/
+    );
+  }
 }

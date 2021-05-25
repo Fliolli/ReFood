@@ -8,8 +8,8 @@ abstract class BaseUserAnalyticProvider {
   Future<void> addUserAnalyticItem(UserModel userItem, UserAnalyticModel userAnalyticModel);
   Future<UserAnalyticModel> loadUserAnalytics();
   int getSavedPositionsCount(UserAnalyticModel userAnalyticModel);
-  int getSavedMassValue(UserAnalyticModel userAnalyticModel);
-  int getLessCO2Value(UserAnalyticModel userAnalyticModel);
+  double getSavedMassValue(UserAnalyticModel userAnalyticModel);
+  double getLessCO2Value(UserAnalyticModel userAnalyticModel);
 }
 
 class UserAnalyticProvider implements BaseUserAnalyticProvider {
@@ -37,12 +37,12 @@ class UserAnalyticProvider implements BaseUserAnalyticProvider {
   }
 
   @override
-  int getSavedMassValue(UserAnalyticModel userAnalyticModel) {
+  double getSavedMassValue(UserAnalyticModel userAnalyticModel) {
     return userAnalyticModel.savedMassValue;
   }
 
   @override
-  int getLessCO2Value(UserAnalyticModel userAnalyticModel) {
+  double getLessCO2Value(UserAnalyticModel userAnalyticModel) {
     return userAnalyticModel.lessCO2Value;
   }
 }

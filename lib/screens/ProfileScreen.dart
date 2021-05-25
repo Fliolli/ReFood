@@ -7,6 +7,7 @@ import 'package:flutter_test_app/resources/ColorsLibrary.dart';
 import 'package:flutter_test_app/resources/StylesLibrary.dart';
 import 'package:flutter_test_app/screens/GoodsScreen.dart';
 import 'package:flutter_test_app/screens/OrdersScreen.dart';
+import 'package:flutter_test_app/services/Authentication.dart';
 import 'package:flutter_test_app/widgets/AchievementItem.dart';
 import 'package:flutter_test_app/data/GlobalData.dart' as global;
 import '../utils/PlatformUtils.dart';
@@ -14,6 +15,12 @@ import '../widgets/BadgeItem.dart';
 import '../widgets/MenuItem.dart';
 
 class ProfileScreen extends StatefulWidget {
+  ProfileScreen({Key key, this.auth, this.userId, this.onSignedOut}) : super(key: key);
+
+  final BaseAuthentication auth;
+  final VoidCallback onSignedOut;
+  final String userId;
+
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
@@ -22,6 +29,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
   CollectionReference userAnalyticsRef = FirebaseFirestore.instance.collection("userAnalytic").withConverter(
       fromFirestore: (snapshot, _) => UserAnalyticModel.fromJson(snapshot.data()),
       toFirestore: (badge, _) => (badge as UserAnalyticModel).toJson());
+
+  _signOut() async {
+    try {
+      await widget.auth.signOut();
+      widget.onSignedOut();
+    } catch (e) {
+      print(e);
+    }
+  }
 
   final List<MenuItem> menuItems = [
     MenuItem(
@@ -94,12 +110,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Icons.settings,
                   )),
               tooltip: 'Настройки',
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => OrdersScreen()),
-                );
-              },
+              onPressed: () {_signOut();
+              Navigator.pop(context);},
             )
           ],
         ),

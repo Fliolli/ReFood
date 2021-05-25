@@ -1,12 +1,17 @@
 import 'dart:async';
+import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test_app/models/OrderCardItem.dart';
+import 'package:flutter_test_app/models/persistant/UserModelTrimmed.dart';
 import 'package:flutter_test_app/resources/StylesLibrary.dart';
 import 'package:flutter_test_app/services/Authentication.dart';
 import 'package:flutter_test_app/widgets/OrderCardItem.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_webservice/geocoding.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'ProfileScreen.dart';
 import 'package:flutter_test_app/resources/ColorsLibrary.dart';
 import '../widgets/BottomNav.dart';
@@ -28,18 +33,25 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  _signOut() async {
-    try {
-      await widget.auth.signOut();
-      widget.onSignedOut();
-    } catch (e) {
-      print(e);
-    }
-  }
+  final geocoding = GoogleMapsGeocoding(
+      apiKey:
+          Platform.isAndroid ? 'AIzaSyDeWEmtAR98Oxm19lCOu1eEdwtDUKrHGjk' : 'AIzaSyDYds6AfFKxRSrpc1q608pIhRQI2pZfCC8');
 
   Completer<GoogleMapController> _controller = Completer();
 
   final LatLng _center = const LatLng(55.7522200, 37.6155600);
+
+  List<Marker> markers = List.generate(
+      5,
+      (index) => Marker(
+            markerId: MarkerId(index.toString()),
+            position: LatLng(55.7522200 - Random().nextDouble()/2 , 37.6155600 - Random().nextDouble()/5),
+            //infoWindow: InfoWindow(title: markerIdVal, snippet: '*'),
+            /*onTap: () {
+        _onMarkerTapped(markerId);
+      },*/
+          ),
+      growable: false);
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +60,8 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Stack(children: <Widget>[
         SizedBox.expand(
           child: GoogleMap(
+            zoomControlsEnabled: false,
+            myLocationEnabled: true,
             onMapCreated: (GoogleMapController controller) {
               _controller.complete(controller);
             },
@@ -55,6 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
               target: _center,
               zoom: 11.0,
             ),
+            markers: Set<Marker>.of(markers),
           ),
         ),
         Container(
@@ -62,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
           margin: const EdgeInsets.symmetric(vertical: 35, horizontal: 10),
           child: FloatingActionButton(
             onPressed: () {
-              _signOut();
+              _checkLocationPermission();
             },
             child: selectByPlatform(
                 const Icon(
@@ -108,7 +123,12 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ProfileScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => ProfileScreen(
+                            auth: widget.auth,
+                            userId: widget.userId,
+                            onSignedOut: widget.onSignedOut,
+                          )),
                 );
               },
               child: selectByPlatform(
@@ -129,27 +149,73 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: const BottomNavCustom(),
     );
   }
+
+  _checkLocationPermission() async {
+    if (await Permission.location.isGranted ||
+        await Permission.locationAlways.isGranted ||
+        await Permission.locationWhenInUse.isGranted) {
+      return Container();
+    } else {
+      openAppSettings();
+    }
+  }
 }
 
 Widget sheet(ScrollController sc, BuildContext context) {
+  List<OrderCardItem> orders = [
+    OrderCardItem(
+        "000",
+        'foodImages/kruassani-shokoladnoi-nachinkoi.jpg',
+        "Шоколадные круассаны",
+        20,
+        strings.thingUnit,
+        0.7,
+        UserModelTrimmed(
+            name: 'Марина', profileImage: 'defaultImages/user/e59e552d628037070489aca02f9a2698.png', rating: 4.7),
+        false,
+        'id'),
+    OrderCardItem(
+        "000",
+        'foodImages/92075cdf250236caacde72d49557d65d.jpg',
+        "Свежая зелень",
+        0,
+        strings.thingUnit,
+        2.6,
+        UserModelTrimmed(
+            name: 'Димон', profileImage: 'defaultImages/user/f0d6ffe23f6b71c95d72db400675e52b.webp', rating: 4.0),
+        false,
+        'id'),
+    OrderCardItem(
+        "000",
+        'foodImages/HTB1eFPBe_Zmx1VjSZFGq6yx2XXaa.jpg',
+        "Ланч с рисом",
+        100,
+        strings.thingUnit,
+        0.7,
+        UserModelTrimmed(
+            name: 'Марина', profileImage: 'defaultImages/user/e59e552d628037070489aca02f9a2698.png', rating: 4.7),
+        false,
+        'id'),
+  ];
+
   List<FavoriteCardItem> favorites = [
     FavoriteCardItem(
       000,
-      "Марта",
+      "Марина",
       4.7,
-      'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
+      'https://cdn.dribbble.com/users/1044993/screenshots/14109938/media/e59e552d628037070489aca02f9a2698.png',
     ),
     FavoriteCardItem(
       000,
-      "Марта",
-      4.7,
-      'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
+      "Владислав",
+      4.1,
+      'https://sun9-66.userapi.com/impg/c854024/v854024796/17f675/yf6NffQwiAA.jpg?size=1185x772&quality=96&sign=11108a2ccd849b4b150ea906875aaafb&type=album',
     ),
     FavoriteCardItem(
       000,
-      "Марта",
-      4.7,
-      'https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_60672ce16d990144ce8ba4ab_60673783b207860379f6c9dd/scale_1200',
+      "Димон",
+      4.0,
+      'https://firebasestorage.googleapis.com/v0/b/refoodapp-f852f.appspot.com/o/defaultImages%2Fuser%2Ff0d6ffe23f6b71c95d72db400675e52b.webp?alt=media&token=3859a862-63b5-4061-9aa8-715c0be930ef',
     ),
   ];
 
@@ -176,9 +242,10 @@ Widget sheet(ScrollController sc, BuildContext context) {
               Padding(
                   padding: const EdgeInsets.only(top: 24, left: 24),
                   child: Text(
-                    "Welcome to ReFood!",
+                    "Поиск позиций",
                     style: StylesLibrary.strongBlackTextStyle.merge(TextStyle(fontSize: 17)),
                   )),
+              Divider(),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Padding(
@@ -214,26 +281,57 @@ Widget sheet(ScrollController sc, BuildContext context) {
                   ),
                 ),
               ),
-              Column(),
+              Column(
+                children: orders.map((orderCardItem) {
+                  return buildOrderCardItem(orderCardItem, context);
+                }).toList(),
+              ),
             ],
           ),
         )
       : global.selectedBottomNavItem == 0
-          ? ListView(controller: sc, children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+          ? Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: ListView(
+                controller: sc,
                 children: <Widget>[
-                  Container(
-                    alignment: Alignment.center,
-                    margin: EdgeInsets.only(top: 12),
-                    width: 40,
-                    height: 5,
-                    decoration: BoxDecoration(
-                        color: ColorsLibrary.neutralGray, borderRadius: BorderRadius.all(Radius.circular(12.0))),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        alignment: Alignment.center,
+                        margin: EdgeInsets.only(top: 0),
+                        padding: EdgeInsets.only(top: 0),
+                        width: 40,
+                        height: 5,
+                        decoration: BoxDecoration(
+                            color: ColorsLibrary.neutralGray, borderRadius: BorderRadius.all(Radius.circular(12.0))),
+                      ),
+                    ],
                   ),
+                  Padding(
+                      padding: const EdgeInsets.only(top: 24, left: 24),
+                      child: Text(
+                        "Добро пожаловать в ReFood!",
+                        style: StylesLibrary.strongBlackTextStyle.merge(TextStyle(fontSize: 17)),
+                      )),
+                  Divider(),
+                  Container(
+                      width: 260,
+                      height: 200,
+                      padding: EdgeInsets.only(top: 12),
+                      margin: EdgeInsets.symmetric(horizontal: 55),
+                      child: Center(
+                          child: Text(
+                        'Нажмите на маркер подходящей позиции на карте и здесь появится подробная информация о выбранном товаре..',
+                        textAlign: TextAlign.justify,
+                        style:
+                            selectByPlatform(StylesLibrary.optionalBlackTextStyle, StylesLibrary.optionalBlackTextStyle)
+                                .merge(const TextStyle(fontSize: 13)),
+                      )))
                 ],
               ),
-            ])
+            )
           : ListView(controller: sc, children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -248,6 +346,13 @@ Widget sheet(ScrollController sc, BuildContext context) {
                   ),
                 ],
               ),
+              Padding(
+                  padding: const EdgeInsets.only(top: 24, left: 24),
+                  child: Text(
+                    "Фавориты",
+                    style: StylesLibrary.strongBlackTextStyle.merge(TextStyle(fontSize: 17)),
+                  )),
+              Divider(),
               Padding(
                 padding: const EdgeInsets.only(top: 24),
                 child: Column(

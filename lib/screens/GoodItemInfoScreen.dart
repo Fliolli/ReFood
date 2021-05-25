@@ -10,6 +10,7 @@ import 'package:flutter_test_app/data/GlobalData.dart';
 import 'package:flutter_test_app/models/persistant/FoodModel.dart';
 import 'package:flutter_test_app/resources/ColorsLibrary.dart';
 import 'package:flutter_test_app/resources/StylesLibrary.dart';
+import 'package:flutter_test_app/screens/ChatScreen.dart';
 import 'package:flutter_test_app/screens/NewOrEditGoodScreen.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/geocoding.dart';
@@ -396,6 +397,13 @@ class _GoodItemInfoScreenState extends State<GoodItemInfoScreen> {
               isFree: good.price == 0.0,
             ),
           ));
-    } else if (choice == "Удалить") {}
+    } else if (choice == "Удалить") {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ChatScreen(
+            ),
+          ));
+    }
   }
 }
